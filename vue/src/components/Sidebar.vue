@@ -1,21 +1,21 @@
 <template>
   <div class="wrapper">
-      <div class="sidebar">
+      <div class="sidebar shadow">
         <div class="logo-container" align="center">
-          <img class="img-logo" src="../assets/logos/logo.png" alt="logo">
-          <p class="text-white mt-1">CLSU <br> DOCUMENT PORTAL </p>
+          <img class="img-logo" src="../assets/logos/sidebar_logo.png" alt="logo">
+          <p class="text-black mt-1">Event Management <br> System </p>
         </div>
         <div class="underline px-1">
           <hr />
         </div>
           <ul>
-            <li class="nav-bar">
-              
-              
-              <router-link to="/department/dashboard" ><i class="bi bi-file-earmark-text"></i> <span class="px-4">Dashboard</span></router-link>
-            
+            <li class="nav-bar">             
+              <router-link to="/department/dashboard" ><i class="bi bi-house"></i> <span class="px-4">Dashboard</span></router-link>
             </li>
-            <li class="nav-bar"><a href="#"><i class="bi bi-archive"></i> <span class="px-4">Archive</span></a></li>
+            <router-link to="/department/event" ><li class="nav-bar"><a href="#"><i class="bi bi-calendar-week"></i> <span class="px-4">Event</span></a></li></router-link>
+            <li class="nav-bar"><a href="#"><i class="bi bi-person"></i> <span class="px-4">Account</span></a></li>
+            <li class="nav-bar"><a href="#"><i class="bi bi-building"></i> <span class="px-4">Faculty</span></a></li>
+            <li class="nav-bar"><a href="#"><i class="bi bi-people"></i> <span class="px-4">Student</span></a></li>
           </ul>
       </div>
   </div>
@@ -46,7 +46,7 @@ width: auto;
 }
 .underline{
 margin-top: 10px;
-color: #fff;
+color: #3c3c3c;
 }
 .wrapper{
 display: flex;
@@ -56,7 +56,7 @@ position: relative;
 .wrapper .sidebar{
 width: 200px;
 height: 100%;
-background: #16796F;
+background: #ffffff;
 padding: 30px 0px;
 position: relative;
 
@@ -73,12 +73,12 @@ transition: all .5s ease;
 }    
 
 .wrapper .sidebar ul .nav-bar a{
-color: #ffffff;
+color: #303030;
 display: block;
 
 }
 .wrapper .sidebar ul .nav-bar:hover{
-background-color: #10564F;
+background-color: #16796F;
 
 }
 a{

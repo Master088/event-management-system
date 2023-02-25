@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-light">
+  <header class="bg-light shadow">
     <div class="fluid-container p-1">
       <div class="btn-group logout py-3 justify-content-end" role="group">
         <button id="btnGroupDrop1" type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"

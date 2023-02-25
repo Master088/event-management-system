@@ -2,7 +2,7 @@
     <footer class="fluid-container">
        <div class="text-center p-3 bg-light ">
           © 2023 Copyright:
-          <a class="text-reset fw-bold" href="">dot.com</a>
+          
         </div>
     </footer>
 </template>

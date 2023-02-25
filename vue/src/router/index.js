@@ -7,6 +7,8 @@ import AuthenticatedLayout from "../components/AuthenticatedLayout.vue";
 import Dashboard from "../views/Dashboard.vue";
 import DepartmentFolder from "../views/DepartmentFolder.vue";
 import DepartmentFolderContent from "../views/DepartmentFolderContent.vue";
+import Event from "../views/Event.vue";
+import ViewEvent from "../views/ViewEvent.vue";
 
 import NotFound from "../views/NotFound.vue";
 
@@ -33,6 +35,16 @@ const routes = [
         path: "/department/folder/:left",
         name: "DepartmentFolderContent",
         component: DepartmentFolderContent,
+      },
+      {
+        path: "/department/event",
+        name: "Event",
+        component: Event,
+      },
+      {
+        path: "/department/viewEvent",
+        name: "ViewEvent",
+        component: ViewEvent,
       },
     ],
   },
