@@ -10,9 +10,9 @@
         </div>
           <ul>
             <li class="nav-bar">             
-              <router-link to="/department/dashboard" ><i class="bi bi-house"></i> <span class="px-4">Dashboard</span></router-link>
+              <router-link to="/dashboard" ><i class="bi bi-house"></i> <span class="px-4">Dashboard</span></router-link>
             </li>
-            <router-link to="/department/event" ><li class="nav-bar"><a href="#"><i class="bi bi-calendar-week"></i> <span class="px-4">Event</span></a></li></router-link>
+            <router-link to="/event" ><li class="nav-bar"><a href="#"><i class="bi bi-calendar-week"></i> <span class="px-4">Event</span></a></li></router-link>
             <li class="nav-bar"><a href="#"><i class="bi bi-person"></i> <span class="px-4">Account</span></a></li>
             <li class="nav-bar"><a href="#"><i class="bi bi-building"></i> <span class="px-4">Faculty</span></a></li>
             <li class="nav-bar"><a href="#"><i class="bi bi-people"></i> <span class="px-4">Student</span></a></li>

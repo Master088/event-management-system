@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
 
 import auth from "./modules/auth";
-import documents from "./modules/documents";
+import events from "./modules/event";
 
 
 const store = createStore({
@@ -9,7 +9,7 @@ const store = createStore({
   getters: {},
   actions: {},
   mutations: {},
-  modules: { auth,documents },
+  modules: { auth,events },
 });
 
 export default store;

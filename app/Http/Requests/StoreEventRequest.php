@@ -26,7 +26,7 @@ class StoreEventRequest extends FormRequest
         return [
             'title' => ['required', 'min:2', 'max:200'],
             // 'status' => ['required', 'min:4', 'max:50'],
-            'description' => ['required', 'min:10', 'max:2000']
+            'description' => ['required', 'min:10', 'max:5000']
         ];
     }
 }

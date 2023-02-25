@@ -17,32 +17,22 @@ import store from "../store";
 const routes = [
   {
     path: "/department",
-    redirect: "/department/dashboard",
+    redirect: "/dashboard",
     component: AuthenticatedLayout,
     meta: { requiresAuth: true },
     children: [
       {
-        path: "/department/dashboard",
+        path: "/dashboard",
         name: "DashBoard",
         component: Dashboard,
       },
       {
-        path: "/department/folder",
-        name: "DepartmentFolder",
-        component: DepartmentFolder,
-      },
-      {
-        path: "/department/folder/:left",
-        name: "DepartmentFolderContent",
-        component: DepartmentFolderContent,
-      },
-      {
-        path: "/department/event",
+        path: "/event",
         name: "Event",
         component: Event,
       },
       {
-        path: "/department/viewEvent",
+        path: "/event/:id",
         name: "ViewEvent",
         component: ViewEvent,
       },

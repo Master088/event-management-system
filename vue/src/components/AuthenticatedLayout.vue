@@ -4,7 +4,7 @@
       <Sidebar></Sidebar>
       <div class="header">
         <Header></Header>
-        <router-view :key="$route.path" ></router-view>
+        <router-view :key="$route.path"  ></router-view>
         <div class="footer">
           <Footer></Footer>
         </div>

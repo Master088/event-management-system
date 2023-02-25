@@ -141,56 +141,26 @@
 // import store from "../store";
 import { useRouter } from "vue-router";
 import { ref, computed, watchEffect } from "vue";
-import { GET_DOCUMENTS , CREATE_FOLDER_ACTION} from "../store/store-constants";
+import { GET_DOCUMENTS , CREATE_FOLDER_ACTION, FETCH_DASHBOARD_EVENTS} from "../store/store-constants";
 import store from '../store';
 
 const router = useRouter();
 
-const folders = ref(computed(() => store.state.documents.folders))|| [];
-const files = ref(computed(() => store.state.documents.files))|| [];
-
-
-
-const user = {
-  email: "",
-  password: "",
-};
+const upcoming = ref(computed(() => store.state.events.upcoming))|| [];
+const event_today = ref(computed(() => store.state.events.events_today))|| [];
+const joined_event = ref(computed(() => store.state.events.joined))|| [];
+ 
 let loading = ref(false);
 let errorMsg = ref("");
 
 
 
-const getFolders=()=>{
-  console.log("helo")
+const  getDashboardEvents=()=>{
   store
-    .dispatch(`documents/${GET_DOCUMENTS}`, {
-      left:1,
-      type:"folder",
-      limit:3
-    })
-    .then(() => {
+    .dispatch(`events/${FETCH_DASHBOARD_EVENTS}`, {})
+    .then((data) => {
       // loading.value = false;
-      //   console.log("data here ", data.data);
-    })
-    .catch((err) => {
-      console.log("error", err);
-      // loading.value = false;
-      //   errorMsg.value = err.response.data.error;
-    });
-   
-    
-}
-
-const getFiles=()=>{
-  store
-    .dispatch(`documents/${GET_DOCUMENTS}`, {
-      left:1,
-      type:"file",
-      // limit:3
-    })
-    .then(() => {
-      // loading.value = false;
-      //   console.log("data here ", data.data);
+        console.log("data here ", data);
     })
     .catch((err) => {
       console.log("error", err);
@@ -201,13 +171,9 @@ const getFiles=()=>{
     
 }
  
-    watchEffect(() => getFolders())
-    watchEffect(() => getFiles())
+    watchEffect(() => getDashboardEvents())
 
-    const redirect=(id)=>{
-  console.log("hello123")
-  router.push(`/department/folder/${id}`)
-}
+    
 </script>
 
 <script>

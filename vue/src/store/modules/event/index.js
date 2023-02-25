@@ -9,10 +9,11 @@ export default {
   namespaced: true,
   state() {
     return {
-      documents:[],
-      folders:[],
-      files:[],
-      parent:{}
+      events:[],
+      upcoming:[],
+      events_today:[],
+      joined:[],
+      event:{}
     };
   },
   mutations,

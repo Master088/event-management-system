@@ -21,13 +21,64 @@ class EventController extends Controller
      */
     public function index()
     {
-        /**Check if event exist */
-        $event = DB::table('events')
-        ->get();
-
-        return $this->success(["event_registrations" =>  $events], "", 200);
+       //
 
     }
+
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllEvent()
+    {
+        /**Check if event exist */
+        $events = DB::table('events')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return $this->success(["events" =>  $events], "", 200);
+
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getDashboardEvent()
+    {
+        
+         /** Get user*/    
+         $user = auth()->user();
+
+        /**Get user joined event */
+        $user_events = DB::table('events as e')
+        ->select('e.*')
+        ->join('event_registrations as er', 'er.event_id', '=', 'e.id')
+        ->where('er.user_id',$user->id)
+        ->where('date', 'like', date("Y-m-d")."%")
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+
+         /**Get event today */
+         $events_today = DB::table('events')
+         ->where('date', 'like', date("Y-m-d")."%")
+         ->orderBy('created_at', 'desc')
+         ->get();
+
+           /**Get upcomming event  */
+           $upcoming_events = DB::table('events')
+           ->where('date', '>', date('Y-m-d'))
+           ->orderBy('created_at', 'desc')
+           ->get();
+
+        return $this->success(["user_events" =>  $user_events,"events_today" =>  $events_today,"upcoming_events" =>  $upcoming_events], "", 200);
+
+    }
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -61,6 +112,8 @@ class EventController extends Controller
         $id =  DB::table('events')->insertGetId([
             'title' =>  $request->title,
             'description'=>$request->description,
+            'date'=>$request->date,
+            'time'=>$request->time,
             'posted_by'=>$user->id,
             'date_modified'=>now(),
             'created_at'=>now(),
@@ -71,7 +124,7 @@ class EventController extends Controller
         if($id!=0){
             $event = DB::table('events')->where('id', '=',$id)->get();
             
-            return $this->success(["event" =>  $event], "", 200);
+            return $this->success(["event" =>  $event[0]], "", 200);
         }
 
         return $this->error('', 'Record not found', 404);
@@ -89,7 +142,7 @@ class EventController extends Controller
         if($id!=0){
             $event = DB::table('events')->where('id', '=',$id)->get();
             
-            return $this->success(["event" =>  $event], "", 200);
+            return $this->success(["event" =>  $event[0]], "", 200);
         }
 
         return $this->error('', 'Record not found', 404);
