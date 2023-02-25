@@ -69,7 +69,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !store.state.auth.token) {
     next({ name: "Login" });
   } else if (store.state.auth.token && to.meta.isGuest) {
-    next({ name: "DepartmentDashBoard" });
+    next({ name: "DashBoard" });
   } else {
     next();
   }

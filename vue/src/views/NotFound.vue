@@ -15,7 +15,7 @@
 export default {
   methods:{
     dashbord(){
-      this.$router.push({ name: 'DepartmentDashBoard' })
+      this.$router.push({ name: 'DashBoard' })
     }
   }
 }
