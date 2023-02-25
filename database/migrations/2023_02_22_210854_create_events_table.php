@@ -17,8 +17,9 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->string('title');
             $table->foreignIdFor(\App\Models\User::class, 'posted_by');
-            $table->string('status');
+            $table->tinyInteger('is_canceled')->default(0);
             $table->longText('description');
+            $table->timestamp('date_modified')->nullable();
             $table->timestamps();
         });
     }

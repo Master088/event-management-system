@@ -4,7 +4,7 @@ import Login from "../views/Login.vue";
 import DefaultLayout from "../components/DefaultLayout.vue";
 import AuthenticatedLayout from "../components/AuthenticatedLayout.vue";
 
-import DepartmentDashboard from "../views/DepartmentDashboard.vue";
+import Dashboard from "../views/Dashboard.vue";
 import DepartmentFolder from "../views/DepartmentFolder.vue";
 import DepartmentFolderContent from "../views/DepartmentFolderContent.vue";
 
@@ -21,8 +21,8 @@ const routes = [
     children: [
       {
         path: "/department/dashboard",
-        name: "DepartmentDashBoard",
-        component: DepartmentDashboard,
+        name: "DashBoard",
+        component: Dashboard,
       },
       {
         path: "/department/folder",

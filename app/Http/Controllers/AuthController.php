@@ -18,7 +18,10 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string',
+            'fullname' => 'required|string',
+            'cellphone_number' => 'required|string',
+            'gender' => 'required|string',
+            'role' => 'required|string',
             'email' => 'required|email|string|unique:users,email',
             'password' => [
                 'required',
@@ -27,9 +30,14 @@ class AuthController extends Controller
             ]
         ]);
 
+       
+
         /** @var \App\Models\User $user */
         $user = User::create([
-            'name' => $data['name'],
+            'fullname' => $data['fullname'],
+            'cellphone_number' => $data['cellphone_number'],
+            'gender' => $data['gender'],
+            'role' => $data['role'],
             'email' => $data['email'],
             'password' => bcrypt($data['password'])
         ]);

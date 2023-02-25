@@ -15,7 +15,7 @@ class CreateEventRegistrationsTable extends Migration
     {
         Schema::create('event_registrations', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
+            $table->string('status')->default("pending");
             $table->foreignIdFor(\App\Models\Event::class, 'event_id');
             $table->foreignIdFor(\App\Models\User::class, 'user_id');
             $table->timestamps();
