@@ -93,7 +93,7 @@ function login(ev) {
 
       //   console.log("data here ", data.data);
       router.push({
-        name: "DepartmentDashBoard",
+        name: "DashBoard",
       });
     })
     .catch((err) => {
