@@ -1,119 +1,138 @@
 <template>
-  <div class="px-lg-5">
-    <div class="container-fluid p-3">
-      <h4>Department Office</h4>
-      <div class="right-menu"  @click="toggleSidebar">
-        <i class="bi bi-list icon"></i>
-      </div>
-    </div>
-    <div v-if="collapsed" class="fluid-container sidebar shadow-lg">
-      <span class="collapsed-icon" @click="toggleSidebar">
-        <i class="bi bi-x-lg " style="font-size: larger;"></i>
-      </span>
-      <div class="p-3 mt-5">
-        <div class="justify-content-center d-flex mb-3">
-          <h5>Activity Log</h5>
+  <div class="container  pt-3"> 
+      <div class="card ">
+        <div class="card-body banner">
+          <div class="row">
+            <div class=" col-2  text-center">
+              <img src="../assets/logos/clsu-logo.png" alt="" class="hello-img text-center">
+            </div>
+            <div class="col-10">
+                <dir class="row">
+                  <div class="col">
+                    <h4 class="hi"> Hi, John Doe E.</h4>
+                  </div>
+                <div class="col">
+                  <p class="d-flex justify-content-end hi-txt">10:10:00</p>
+                </div>
+                </dir>
+                <h6 class="py-2 ps-4 hi-txt">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ducimus repellendus quis consequatur qui deserunt expedita ut, labore dignissimos fuga!</h6>
+            </div>
+          </div>
         </div>
-        <p>Lorem ipsum dolor sit amet consectetur asasasadipisicing elit. Eum natus commodi enim nostrum repellat repellendus earum aspernatur odit distinctio ducimus obcaecati mollitia consequatur, ea explicabo ipsa ipsam cum, vel doloremque?</p>
       </div>
-    </div>
-    <div class="container-fluid p-3 d-flex justify-content-center">
-      <div class="input-group mb-3 search">
-        <input
-          type="text"
-          class="form-control shadow"
-          placeholder="Search..."
-          aria-label="Search..."
-          aria-describedby="basic-addon2"
-        /><span class="input-group-text search-icon"
-          ><i class="bi bi-search"></i
-        ></span>
-      </div>
-    </div>
-    <div class="container-fluid">
-      <div class="row row-cols-1 row-cols-md-4 text-center ">
-       
-        <div  v-for="folder in folders" :key="folder.id" class="col mb-4">
-            <div class="card border-0 card-box "  v-on:click="redirect(folder.doc_left)">
-              <img src="../assets/img/folder.svg" class="card-img-top" alt="...">
-              <div class="card-img-overlay">
-                <h2 class="card-title fw-normal"><u class="underline">{{ folder.name }}</u> </h2>
+  </div>
+
+  <div class="container pt-4  ">
+    <div class="row d-flex justify-content-center">
+      <div class="col-3 me-3">
+        <div class="card box1">
+          <div class="card-body boxx">
+            <div class="row">
+              <div class="col">
+                <h5 class="text-white">JOINT EVENT</h5>
+                <h5 class="pt-2 text-white">25</h5>
+              </div>
+              <div class="col d-flex justify-content-end">
+                <img src="../assets/img/icon.png" alt="" class="icon">
               </div>
             </div>
+          </div>
         </div>
-
-        <div class="col mb-4">
-          <router-link to="/department/folder">
-            <div class="card border-0 card-box ">
-              <img src="../assets/img/folder.svg" class="card-img-top" alt="...">
-              <div class="card-img-overlay">
-                <h5 class="card-title fw-normal"><u class="underline">View More</u> </h5>
+      </div>
+       <div class="col-4 ">
+        <div class="card boxmain">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h5 class="text-white">EVENT TODAY</h5>
+                <h5 class="pt-2 text-white">25</h5>
+              </div>
+              <div class="col d-flex justify-content-end">
+                <img src="../assets/img/calendar.png" alt="" class="icon1">
               </div>
             </div>
-          </router-link>
+          </div>
         </div>
       </div>
-
-    </div>
-    <div class="container-fluid mt-2">
-      <h5>New Files</h5>
-      <div class="table-container mt-4 mb-4">
-        <table class="table table-responsive">
-          <thead >
-            <tr>
-              <th scope="col">Icon</th>
-              <th scope="col">Name</th>
-              <th scope="col">Last Modified</th>
-              <th scope="col">Date modified</th>
-              <th scope="col">Type</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr  v-for="file in files" :key="file.id">
-              <td scope="row">
-                <a type="button" class="btn f-icon"
-                  ><i class="bi bi-file-earmark-text"></i
-                ></a>
-              </td>
-              <td class="fw-bold">{{ file.name }}</td>
-              <td>{{ file.last_modified_id }}</td>
-              <td>{{ file.date_modified }}</td>
-              <td>{{ file.type }}</td>
-              <td class="action">
-                <a type="button" class="btn m-1"
-                  ><i class="bi bi-eye-fill"></i
-                ></a>
-                <a type="button" class="btn m-1"
-                  ><i class="bi bi-pencil-square"></i
-                ></a>
-                <a type="button" class="btn m-1"
-                  ><i class="bi bi-trash"></i
-                ></a>
-              </td>
-            </tr>
-            
-            
-          </tbody>
-        </table>
+      <div class="col-3 ms-3">
+        <div class="card box2">
+          <div class="card-body boxx1">
+            <div class="row">
+              <div class="col">
+                <h5 class="text-white up">UPCOMING EVENT</h5>
+                <h5 class="pt-2 text-white number">25</h5>
+              </div>
+              <div class="col d-flex justify-content-end">
+                <img src="../assets/img/update.png" alt="" class="update-icn">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="container-fluid mb-5">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-end">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
-              >Previous</a
-            >
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </nav>
+  </div>
+  
+  <div class="container  pt-3">
+    <div class="row d-flex justify-content-center">
+      <div class="col-3 me-3">
+        <div class="card">
+          <div class="card-body">
+            <!-- <p><b>Git Webinar</b></p> -->
+            <div class="row">
+              <div class="col ">
+                 <p class="text-center title"><b>Git Webinar</b></p>
+                 <p class="student text-center">Student</p>
+                
+              </div>
+              <div class="col text-center time-date">
+                 <p><b>Date/Time:</b></p>
+                 <p>21-02-2023</p>
+                 <!-- <p>8:00AM-11:00 AM</p> -->
+              </div>
+                <p class="pt-4 place"><b>Place:</b> Learning Center</p>
+                <p class="teacher"><b>Teacher:</b> Mr. Max Dela Cruz</p>
+              <div class="button d-flex justify-content-end pt-2">
+                <button class="btn btn-outline-success"> <i class="bi bi-eye"></i> View</button>
+              </div>
+              <div class="profile">
+                <img src="../assets/img/kuku.jpg" alt="" class="profile-icn">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col ">
+                 <p class="text-center title"><b>Git Webinar</b></p>
+                 <p class="student ps-5">Student</p>
+              </div>
+              <div class="col time-date ps-5">
+                 <p><b>Date/Time:</b></p>
+                 <p>21-02-23</p>
+                 <p>8:00AM-11:00 AM</p>
+              </div>
+            </div>
+            <p class="pt-4 place"><b>Place:</b> Learning Center</p>
+                <p class="teacher"><b>Teacher:</b> Mr. Max Dela Cruz</p>
+             <div class="button d-flex justify-content-end pt-2">
+                <button class="btn btn-outline-success"> <i class="bi bi-eye"></i> View</button>
+              </div>
+            <div class="profile">
+                <img src="../assets/img/kuku.jpg" alt="" class="main-pic">
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-3 ms-3">
+        <div class="card">
+          <div class="card-body">
+            This is some text within a card body.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -218,94 +237,89 @@ export default {
 a {
   color: inherit;
 }
-.search {
-  width: 90%;
+.banner{
+  background-color: #F1EDED;
 }
-.right-menu {
-  width: 40px;
-  float: right;
-  margin-top: -50px;
+.hello-img{
+  height: 5rem;
+}
+.hi {
+  color: #FB9847;
+}
+.hi-txt{
+  color: #025498;
+}
+.title{
+  font-size: 18px;
+}
+.box1{
+  background: #2B468A;
   position: relative;
+  border-radius: 10px;
 }
-.icon {
-  font-size: 2.5rem;
+.box2{
+   background: #2B468A;
+  position: relative;
+  border-radius: 10px;
+  height: 90px;
 }
-.card-box {
-  transition: 0.4s;
-}
-.card-box:hover {
-  color: aliceblue;
-  transition: all 0.4s ease;
+.icon{
+ height: 90px;
+  width: 8rem;
+  position: absolute;
+  margin-top: -18px;
   
 }
-.card-box .underline:hover{
-  color: rgb(255, 255, 255);
-  text-decoration: underline;
-}
-.action {
-  padding: 0;
-  margin: 0;
-  width: 17%;
-}
-.action a:hover {
-  border: solid grey 1px;
-  transition: all .4s ease;
-}
-.f-icon {
-  /* background: #21a99b; */
-  color: #4aaba1;
-}
-.f-icon:hover {
-  color: #4aaba1;
-}
-.search-icon {
-  width: 60px;
-  justify-content: center;
-}
-.card-title{
-  /* font-size: 1.7em; */
-  margin: 0;
-  padding: 0;
-  text-align: center;
+.icon1{
+  height: 90px;
+  width: 8rem;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%) translateY(-50%);
-}
-.fw{
-  font-weight: 500;
-}
-.sidebar {
-  color: rgb(0, 0, 0);
-  background-color: #ffffff;
-  float: right;
-  position: fixed;
-  z-index: 1;
-  top: 10px;
-  right: 10px;
-  bottom: 0;
-  padding: 0;
-  transition: all 0.5s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  width: 15%;
-  border-radius: 10px;
-  height: 97%;
-  box-sizing: content-box;
-  overflow: hidden;
-}
+  margin-top: -18px;
+  opacity: 0.7;
+  }
 
-.collapsed-icon {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: 10px;
-  padding: 10px;
-  transition: 0.2s linear;
-  transition-duration: 400ms;
-  /* border: solid 1px red; */
+.boxmain{
+  background: #FB9847;
+  position: relative;
+  border-radius: 10px;
 }
-.collapsed-icon:hover{
-  transform: rotate(90deg);
+.update-icn{
+  height: 88px;
+  width: 9rem;
+  position: absolute;
+  margin-top: -15px;
+}
+.up{
+  position: absolute;
+  z-index: 1;
+  
+}
+.time-date{
+  font-size: 14px;
+}
+.student, .place, .teacher{
+   font-size: 14px;
+}
+.profile{
+  position: absolute;
+ 
+}
+.profile-icn{
+  width: 4rem;
+  height: 4rem;
+  margin-left: -55px;
+  margin-top: 15px;
+  border-radius: 50%;
+}
+.main-pic{
+  width: 4rem;
+  height: 4rem;
+  margin-left: -50px;
+  margin-top: -290px;
+  border-radius: 50%;
+}
+.number{
+  margin-top: 25px;
+  position:absolute;
 }
 </style>
