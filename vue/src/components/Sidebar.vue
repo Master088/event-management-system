@@ -13,8 +13,8 @@
               <router-link to="/dashboard" ><i class="bi bi-house"></i> <span class="px-4">Dashboard</span></router-link>
             </li>
             <router-link to="/event" ><li class="nav-bar"><a href="#"><i class="bi bi-calendar-week"></i> <span class="px-4">Event</span></a></li></router-link>
-            <li class="nav-bar"><a href="#"><i class="bi bi-person"></i> <span class="px-4">Account</span></a></li>
-            <li class="nav-bar"><a href="#"><i class="bi bi-building"></i> <span class="px-4">Faculty</span></a></li>
+            <router-link to="/admin" ><li class="nav-bar"><a href="#"><i class="bi bi-person"></i> <span class="px-4">Admin</span></a></li></router-link>
+            <router-link to="/faculty" ><li class="nav-bar"><a href="#"><i class="bi bi-building"></i> <span class="px-4">Faculty</span></a></li></router-link>
             <li class="nav-bar"><a href="#"><i class="bi bi-people"></i> <span class="px-4">Student</span></a></li>
           </ul>
       </div>

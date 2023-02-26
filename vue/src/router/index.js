@@ -10,6 +10,9 @@ import DepartmentFolderContent from "../views/DepartmentFolderContent.vue";
 import Event from "../views/Event.vue";
 import ViewEvent from "../views/ViewEvent.vue";
 
+import Admin from "../views/Admin.vue"
+import Faculty from "../views/Faculty.vue";
+
 import NotFound from "../views/NotFound.vue";
 
 import store from "../store";
@@ -35,6 +38,17 @@ const routes = [
         path: "/event/:id",
         name: "ViewEvent",
         component: ViewEvent,
+      },
+
+      {
+        path: "/admin",
+        name: "Admin",
+        component: Admin,
+      },
+      {
+        path: "/faculty",
+        name: "Faculty",
+        component: Faculty,
       },
     ],
   },
