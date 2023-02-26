@@ -1,28 +1,28 @@
 <template>
-  <div class="container  pt-3"> 
-      <div class="card ">
-        <div class="card-body banner">
-          <div class="row">
-            <div class=" col-2  text-center">
-              <img src="../assets/logos/clsu-logo.png" alt="" class="hello-img text-center">
-            </div>
-            <div class="col-10">
-                <dir class="row">
+  <div class="container d-flex justify-content-center pt-4 ">
+        <div class="card mx-5">
+          <div class="card-body">
+            <div class="row">
+              <div class=" col-2  text-center">
+                <img src="../assets/logos/clsu-logo.png" alt="" class="hello-img text-center">
+              </div>
+              <div class="col-10">
+                  <div class="row">
+                    <div class="col">
+                      <h2 class="hi"> Hi, John Doe E.</h2>
+                    </div>
                   <div class="col">
-                    <h4 class="hi"> Hi, John Doe E.</h4>
+                    <p class="d-flex justify-content-end hi-txt">10:10:00</p>
                   </div>
-                <div class="col">
-                  <p class="d-flex justify-content-end hi-txt">10:10:00</p>
-                </div>
-                </dir>
-                <h6 class="py-2 ps-4 hi-txt">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ducimus repellendus quis consequatur qui deserunt expedita ut, labore dignissimos fuga!</h6>
+                  </div>
+                  <h6 class="py-2 ps-4 hi-txt">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ducimus repellendus quis consequatur qui deserunt expedita ut, labore dignissimos fuga!</h6>
+              </div>
             </div>
           </div>
         </div>
-      </div>
   </div>
 
-  <div class="container pt-4  ">
+  <div class="container-fluid pt-4 ">
     <div class="row d-flex justify-content-center">
       <div class="col-3 me-3">
         <div class="card box1">
@@ -30,7 +30,7 @@
             <div class="row">
               <div class="col">
                 <h5 class="text-white">JOINT EVENT</h5>
-                <h5 class="pt-2 text-white">25</h5>
+                <h5 class="pt-2 text-white">{{ joined_event.length }}</h5>
               </div>
               <div class="col d-flex justify-content-end">
                 <img src="../assets/img/icon.png" alt="" class="icon">
@@ -45,7 +45,7 @@
             <div class="row">
               <div class="col">
                 <h5 class="text-white">EVENT TODAY</h5>
-                <h5 class="pt-2 text-white">25</h5>
+                <h5 class="pt-2 text-white">{{ event_today.length }}</h5>
               </div>
               <div class="col d-flex justify-content-end">
                 <img src="../assets/img/calendar.png" alt="" class="icon1">
@@ -60,7 +60,7 @@
             <div class="row">
               <div class="col">
                 <h5 class="text-white up">UPCOMING EVENT</h5>
-                <h5 class="pt-2 text-white number">25</h5>
+                <h5 class="pt-2 text-white number">{{ upcoming.length }}</h5>
               </div>
               <div class="col d-flex justify-content-end">
                 <img src="../assets/img/update.png" alt="" class="update-icn">
@@ -158,7 +158,7 @@ import store from '../store';
 
 const router = useRouter();
 
-const upcoming = ref(computed(() => store.state.events.upcoming))|| [];
+const upcoming = ref(computed(() => store.state.events.upcoming_events))|| [];
 const event_today = ref(computed(() => store.state.events.events_today))|| [];
 const joined_event = ref(computed(() => store.state.events.joined))|| [];
  
@@ -217,6 +217,9 @@ a {
 }
 .banner{
   background-color: #F1EDED;
+  display: flex;
+  justify-self:center;
+  align-items: center;
 }
 .hello-img{
   height: 5rem;

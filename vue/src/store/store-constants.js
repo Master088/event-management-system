@@ -27,7 +27,7 @@ export const CREATE_FOLDER_MUTATION = "[mutations] set folder data";
 
 
 
-export const FETCH_EVENTS = "[actions] get events";
+export const FETCH_EVENTS = "[actions] get events13123";
 
 export const SET_EVENTS = "[mutations] set events";
 
@@ -38,7 +38,7 @@ export const SET_DASHBOARD_EVENTS = "[mutations] set dashboard events";
 
 export const ADD_EVENT_ACTION = "[actions] add event";
 
-export const ADD_EVENT_MUTATION = "[mutations] add event";
+export const ADD_EVENT_MUTATION = "[mutations] add single event";
 
 
 export const GET_EVENT = "[actions] get event";

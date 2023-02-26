@@ -30,6 +30,10 @@
                                             <label for="title">Event Title</label>
                                             <input v-model="event.title" type="text" class="form-control" id="title" required>
                                         </div>
+                                        <div class="form-group mb-2">
+                                            <label for="title">Location</label>
+                                            <input v-model="event.location" type="text" class="form-control" id="location" required>
+                                        </div>
 
                                         <div class="form-group mb-2">
                                             <label for="date">Date</label>
@@ -119,6 +123,7 @@
                             placeholder="Search..."
                             aria-label="Search..."
                             aria-describedby="basic-addon2"
+                            v-model="search"
                             /><span class="input-group-text search-icon"
                             ><i class="bi bi-search"></i
                             ></span>
@@ -128,7 +133,7 @@
             </div>  
         </div>
         
-        <div v-for="event in events" :key="event.id" class="fluid-container mt-5" >
+        <div v-for="event in eventData" :key="event.id" class="fluid-container mt-5" >
             <div  class="card mb-3 w-100"  >
                 <div class="row no-gutters" >
                     <div class="col-md-2" >
@@ -177,7 +182,30 @@
                     </div>
                 </div>
             </div>
-            
+        </div>
+        <div class="container py-5">
+            <div
+                class="px-2 pb-2 table-pagination "
+                style="margin-top: -40px; width: 100%"
+            >
+                <div class="d-flex align-items-center pagination-label">
+                Showing {{ pagination.firstVal }} to {{ pagination.secondVal }} of
+                {{ pagination.totalEvents }}
+                </div>
+
+                <!-- Imported Pagination Component -->
+                <Pagination
+                :maxVisibleButtons="pagination.maxVisibleButtons"
+                :totalPages="pagination.totalPages"
+                :perPage="pagination.perPage"
+                :currentPage="pagination.currentPage"
+                @pagechanged="getPage"
+                class="d-flex justify-content-end float-end"
+                style="width: fit-content; margin-left: 0px"
+                v-if="pagination.totalEvents >= 5"
+                >
+                </Pagination>
+            </div>
         </div>
     </div>
 </template>
@@ -186,34 +214,109 @@
 <script setup>
 // import store from "../store";
 import { useRouter } from "vue-router";
-import { ref, computed, watchEffect } from "vue";
+import { ref, computed, watchEffect, watch } from "vue";
 import { ADD_EVENT_ACTION, FETCH_EVENTS} from "../store/store-constants";
 import store from '../store';
+import Pagination from '../components/Pagination.vue'
 
 const router = useRouter();
 
 const events = ref(computed(() => store.state.events.events))|| [];
+
+const eventData =  ref([]);
+
+const search =  ref("");
  
- 
+const pagination = ref({
+        maxVisibleButtons: 5,
+        totalPages: 10,
+        perPage: 5,
+        currentPage: 1,
+        totalEvents: 50,
+        showPagination: true,
+        firstVal: 1,
+        secondVal: 5
+      })
+
+
+      const getPage = page => {
+        pagination.value.currentPage = page
+
+        // pagination.value.totalEvents = 100
+        // pagination.value.totalPages = 100 / 5
+
+        console.log({page})
+        setPageNumbers()
+      }
+
+
+ // Method for changing number values in "showing X to X of X" on pagination
+ const setPageNumbers = () => {
+        let val1 = 1
+        let val2 = 5
+
+        val2 = val2 * pagination.value.currentPage
+        val1 = val2 - 4
+
+        pagination.value.firstVal = val1
+        pagination.value.secondVal = val2
+        console.log(val1,val2)
+        console.log(events.value.slice(val1,val2))
+        
+        eventData.value=events.value.slice(val1-1,val2)
+
+        console.log("events",events.value)
+
+        if (pagination.value.totalEvents < 5) {
+          pagination.value.secondVal = pagination.value.totalEvents
+        } else if (pagination.value.firstVal + 5 > pagination.value.totalEvents) {
+          pagination.value.secondVal = pagination.value.totalEvents
+        }
+      }
+
 let loading = ref(false);
 let errorMsg = ref("");
 
 let event = ref({
     title:"",
     date:null,
+    location:"",
     start:"1 am",
     end:"2 am",
     description:""
 });
 
+const searchEvents=()=>{
+}
 
+const filterItems = (needle, heystack) => {
+  let query = needle.toLowerCase();
+  return heystack.filter(item => item.title.toLowerCase().indexOf(query) >= 0);
+}
 
-const  getEvents=()=>{
+watch(search,()=>{
+    console.log("search.value",search.value)
+    if(search.value.length>0){
+        console.log(filterItems(search.value,events.value))
+        eventData.value=filterItems(search.value,events.value)
+    }else{
+        eventData.value=events.value.slice(0,5)
+        pagination.currentPage=1
+    }
+})
+const getEvents=()=>{
   store
     .dispatch(`events/${FETCH_EVENTS}`, {})
-    .then((data) => {
+    .then(data=> {
       // loading.value = false;
-        console.log("data here ", data);
+      console.log(data);
+      eventData.value=data.events.slice(0,5)
+      pagination.value.totalEvents=data.events.length
+      pagination.value.totalPages=data.events.length/5
+      if(data.events.length%5!==0){
+        pagination.value.totalPages+=1;
+      }
+      console.log("data here ", data.events.length);
     })
     .catch((err) => {
       console.log("error", err);
@@ -239,13 +342,23 @@ const handleSubmit= ()=>{
         store
         .dispatch(`events/${ADD_EVENT_ACTION}`, {
           title:event.value.title,
+          location:event.value.location,
           description:event.value.description,
           date:event.value.date,
           time:event.value.start+"-"+event.value.end,
         })
-        .then(() => {
+        .then((data) => {
+            event.value = ref({
+                title:"",
+                date:null,
+                location:"",
+                start:"1 am",
+                end:"2 am",
+                description:""
+            });
+
           // loading.value = false;
-          //   console.log("data here ", data.data);
+            console.log("data here ", data.data);
         })
         .catch((err) => {
           console.log("error", err);
@@ -263,5 +376,8 @@ const handleSubmit= ()=>{
 </script>
 
 <style>
-
+ .pagination-label {
+    color: #8b9da8;
+    font: normal normal normal 14px/19px Clear Sans;
+  }
 </style>

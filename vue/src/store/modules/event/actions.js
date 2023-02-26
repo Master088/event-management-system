@@ -22,12 +22,13 @@ export default {
       },
     async [FETCH_EVENTS](context, payload) {
         /*Call axios get request */
-      axiosClient 
+ return  await  axiosClient 
       .get(`event`)
       .then(res => {
-        console.log(res.data.data)
+        console.log("here",res.data.data)
         context.commit(SET_EVENTS, res.data.data);
-        return Promise.resolve(res.data.data)
+
+      return Promise.resolve(res.data.data)
       })
       .catch(err => {
         console.log(err)

@@ -10,7 +10,7 @@ export default {
   state() {
     return {
       events:[],
-      upcoming:[],
+      upcoming_events:[],
       events_today:[],
       joined:[],
       event:{}
