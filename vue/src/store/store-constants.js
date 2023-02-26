@@ -45,10 +45,29 @@ export const GET_EVENT = "[actions] get event";
 
 export const SET_EVENT = "[mutations] set event";
 
+export const EDIT_EVENT = "[actions] edit event";
+
+export const SET_EDIT_EVENT = "[mutations] set edit event";
+
+export const DELETE_EVENT = "[actions] delete event";
+
+export const SET_DELETE_EVENT = "[mutations] set delete event";
+
+
+export const REGISTER = "[actions] register event";
+
+export const SET_REGISTER = "[mutations] set register event";
+
+export const GET_EVENT_REGISTRATIONS = "[actions] get event registration data";
+
+export const SET_EVENT_REGISTRATIONS = "[mutations] set event registration data";
+
+export const UPDATE_EVENT_STATUS = "[actions] update event status";
+
+export const UPDATE_EVENT_REGISTRATION_STATUS = "[actions] update event registration status";
+
+export const SET_EVENT_REGISTRATION_STATUS = "[actions] set event registration status";
 
 
 
-
-
-
-
+ 

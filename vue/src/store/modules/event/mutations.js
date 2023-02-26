@@ -1,4 +1,4 @@
-import {  ADD_EVENT_MUTATION, SET_DASHBOARD_EVENTS, SET_EVENT, SET_EVENTS } from "../../store-constants";
+import {  ADD_EVENT_MUTATION, DELETE_EVENT, SET_DASHBOARD_EVENTS, SET_DELETE_EVENT, SET_EDIT_EVENT, SET_EVENT, SET_EVENTS, SET_EVENT_REGISTRATIONS, SET_EVENT_REGISTRATION_STATUS, SET_REGISTER } from "../../store-constants";
 
 export default {
   //  add other data
@@ -12,11 +12,38 @@ export default {
   },
   [ADD_EVENT_MUTATION](state, payload) {
     console.log("here31312",payload)
-    state.events = [payload.event,...state.events];
+    state.events = [payload,...state.events];
 
+  },
+  [SET_EDIT_EVENT](state, payload) {
+    console.log("here31312",payload)
+    let index = state.events.findIndex(x => x.id == payload.id)
+    console.log("hello",state.events[index])
+    state.events[index] = payload;
+  },
+  [SET_DELETE_EVENT](state, payload) {
+    console.log("delete",payload)
+    state.events= state.events.filter(x => x.id != payload)
   },
   [SET_EVENT](state, payload) {
     state.event = payload.event;
   },
+  [SET_REGISTER](state, payload) {
+    state.event_registrations = [payload,...state.event_registrations];
+  },
+  [SET_EVENT_REGISTRATIONS](state, payload) {
+  
+    state.event_registrations = payload;
+    state.event_registrations_count.approve= state.event_registrations.filter(x => x.status == "approve").length
+    state.event_registrations_count.denied= state.event_registrations.filter(x => x.status == "denied").length
+    state.event_registrations_count.pending= state.event_registrations.filter(x => x.status == "pending").length
 
+  },
+  [SET_EVENT_REGISTRATION_STATUS](state, payload) {
+   
+    let index = state.event_registrations.findIndex(x => x.id == payload.id)
+    console.log("hello",state.event_registrations[index])
+    state.event_registrations[index] = payload;
+  },
+  
 };

@@ -1,11 +1,19 @@
 <?php
-
+ 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;    
+use App\Models\Event;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+ 
+use App\Traits\HttpResponses;
+use Illuminate\Support\Facades\Storage;
 
 class EventRegistrationController extends Controller
 {
+    use HttpResponses;
+
     /**
      * Display a listing of the resource.
      *
@@ -16,12 +24,18 @@ class EventRegistrationController extends Controller
          //
 
     }
-
+/**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function getEventRegistrations($id)
-    {
+    {     
+        
+        
           /**Check if event exist */
-          $event = DB::table('events')
-          ->where('id', '=', $id)
+         $event= DB::table('events')
+          ->where('id', $id)
           ->get();
           
         /**Check if parent data is exist */
@@ -29,8 +43,19 @@ class EventRegistrationController extends Controller
             return $this->error('', 'Record not found', 404);
         }
 
-
-        $event_registrations = DB::table('event_registrations')->where('event_id', '=',$id)->get();
+        $event_registrations = DB::table('event_registrations as er')
+        ->select(
+          'er.id', 
+          'er.created_at',
+          'er.status',
+          'u.fullname',
+          'u.role',
+          'u.section'
+          )
+        ->join('users as u', 'u.id', '=', 'er.user_id')
+        ->orderBy('er.created_at', 'desc')
+        ->where('er.event_id', '=', $id)
+        ->get();
               
         return $this->success(["event_registrations" =>  $event_registrations], "", 200);
 
@@ -67,7 +92,7 @@ class EventRegistrationController extends Controller
     {
           /**Check if event exist */
           $event = DB::table('events')
-          ->where('id', '=', $id)
+          ->where('id', '=', $request->event_id)
           ->get();
           
         /**Check if parent data is exist */
@@ -77,12 +102,23 @@ class EventRegistrationController extends Controller
         
           /** Get user*/    
           $user = auth()->user();
+
+           /**Check user already registered */
+           $event_registration = DB::table('event_registrations')
+           ->where('user_id', '=', $user->id)
+           ->where('event_id', '=', $request->event_id)
+           ->count();
+    
+         /**Check if parent data is exist */
+         if($event_registration>0){
+             return $this->error('', 'User already regsitered', 404);
+         }
+         
   
           /**Check if admin[ADD LATER] */
          
-  
           /**Insert data */
-          $id =  DB::table('event_registrations')->insertGetId([
+          $insert_id =  DB::table('event_registrations')->insertGetId([
               'user_id' =>  $user->id,
               'event_id'=>$request->event_id,
               'created_at'=>now(),
@@ -90,10 +126,22 @@ class EventRegistrationController extends Controller
   
           /**Get last inserted data */
   
-          if($id!=0){
-              $event = DB::table('events')->where('id', '=',$id)->get();
-              
-              return $this->success(["event" =>  $event], "", 200);
+          if($insert_id!=0){
+            $event_registration_data  = DB::table('event_registrations as er')
+            ->select(
+              'er.id', 
+              'er.created_at',
+              'er.status',
+              'u.fullname',
+              'u.role',
+              'u.section'
+              )
+            ->join('users as u', 'u.id', '=', 'er.user_id')
+            ->orderBy('er.created_at', 'desc')
+            ->where('er.id', '=', $insert_id)
+            ->get();
+        
+              return $this->success(["event_registration" =>  $event_registration_data[0]], "", 200);
           }
   
           return $this->error('', 'Record not found', 404);
@@ -130,6 +178,8 @@ class EventRegistrationController extends Controller
      */
     public function updateStatus(Request $request, $id)
     {
+        $idHolder=$id;
+
         $data = $request->validate([
             'status' => 'required|string',
         ]);
@@ -145,7 +195,7 @@ class EventRegistrationController extends Controller
                     'status' => $request->status,
             ]);
 
-            $event_registration = DB::table('event_registrations')->where('id', '=',$id)->get();
+            $event_registration = DB::table('event_registrations')->where('id', '=',$idHolder)->get();
             
             return $this->success(["event_registration" =>  $event_registration[0]], "", 200);
         }
