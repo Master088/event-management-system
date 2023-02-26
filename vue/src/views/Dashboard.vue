@@ -1,6 +1,6 @@
 <template>
   <div class="container d-flex justify-content-center pt-4 ">
-        <div class="card mx-5">
+        <div class="card mx-5 py-3">
           <div class="card-body">
             <div class="row">
               <div class=" col-2  text-center">
@@ -8,14 +8,18 @@
               </div>
               <div class="col-10">
                   <div class="row">
-                    <div class="col">
-                      <h2 class="hi"> Hi, John Doe E.</h2>
+                    <div class="col-md-8">
+                      <h1 > Welcome Back <span class="hi">John Doe E.</span> </h1>
                     </div>
                   <div class="col">
                     <p class="d-flex justify-content-end hi-txt">10:10:00</p>
                   </div>
                   </div>
-                  <h6 class="py-2 ps-4 hi-txt">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ducimus repellendus quis consequatur qui deserunt expedita ut, labore dignissimos fuga!</h6>
+                 <div class="row">
+                  <div class="col-md-8">
+                    <h6 class="py-2 hi-txt">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ducimus repellendus quis consequatur qui deserunt expedita ut, labore dignissimos fuga!</h6>
+                  </div>
+                 </div>
               </div>
             </div>
           </div>
@@ -72,73 +76,108 @@
     </div>
   </div>
   
-  <div class="container pt-5">
+  <div class="container-fluid pt-5">
     <div class="row d-flex justify-content-center">
       <div class="col-3 me-3">
-        <div class="card">
+        <div v-for="event in joined_event" :key="event.id"  class="card mb-3">
           <div class="card-body">
             <div class="row">
-              <p class="date text-center d-flex justify-content-end">08/08/23</p>
+              <div class="col-md-12 d-flex justify-content-end ">
+                <div class="">
+                  <div class=""><p class="date-t">Date: <b>{{ event.date  }}</b></p></div>
+                  <div class=""><p class="date-t ">Time: <b> {{ event.time }}</b></p></div>
+                </div>
+              </div>
+            
+
+               <!-- <p class="date  d-flex justify-content-end">08/24/23</p> -->
               <div class="col-3">
                 <div class="profile">
+                  <!-- posted_by_profile -->
                   <img src="../assets/img/kuku.jpg" alt="" class="profile-pic">
                 </div>
               </div>
-              <div class="col">
-                <p><b>Max Dela Cruz</b></p>
-                <p class="name-t">Teacher</p>
+              <div class="col-7">
+                <h5><b>{{ event.posted_by_fullname }}</b></h5>
+                <p class="name-t">{{ event.posted_by_role }}</p>
               </div>
-              <p class="text-center pt-2"><b>Git Webinar</b></p>
-              <p class="text-center info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, libero...</p>
-              <div class="pt-4 text-center">
-                <button class="btn btn-outline-success px-5"><i class="bi bi-eye"></i> View</button>
+              
+              
+              <h5 class=" py-2"><b>{{ event.title }}</b></h5>
+              <p class=" info"> {{event?.description.substring(0,200)}} ...</p>
+              
+              <div class="pt-4 text-center d-flex justify-content-end">
+                <button class="btn btn-outline-success px-5"  @click="redirect(event.id)"><i class="bi bi-eye"></i> View</button>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="col-4">
-        <div class="card">
+        <div v-for="event in event_today" :key="event.id"  class="card mb-3 shadow">
           <div class="card-body">
             <div class="row">
-              <p class="date-t d-flex justify-content-end"><b>08:30 AM</b></p>
+              <div class="col-md-12 d-flex justify-content-end ">
+                <div class="">
+                  <div class=""><p class="date-t">Date: <b>{{ event.date  }}</b></p></div>
+                  <div class=""><p class="date-t ">Time: <b> {{ event.time }}</b></p></div>
+                </div>
+              </div>
+            
+
                <!-- <p class="date  d-flex justify-content-end">08/24/23</p> -->
               <div class="col-2">
                 <div class="profile">
+                  <!-- posted_by_profile -->
                   <img src="../assets/img/kuku.jpg" alt="" class="profile-pic">
                 </div>
               </div>
-              <div class="col">
-                <p><b>Max Dela Cruz</b></p>
-                <p class="name-t">Teacher</p>
+              <div class="col-8">
+                <h5><b>{{ event.posted_by_fullname }}</b></h5>
+                <p class="name-t">{{ event.posted_by_role }}</p>
               </div>
-              <h2 class=" py-2"><b>Git Webinar</b></h2>
-              <p class="text-center info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, libero...</p>
-              <div class="pt-4 text-center">
-                <button class="btn btn-outline-success px-5"><i class="bi bi-eye"></i> View</button>
+              
+              
+              <h3 class=" py-2"><b>{{ event.title }}</b></h3>
+              <p class=" info"> {{event?.description.substring(0,300)}} ...</p>
+              
+              <div class="pt-4 text-center d-flex justify-content-end">
+                <button class="btn btn-outline-success px-5"  @click="redirect(event.id)"><i class="bi bi-eye"></i> View</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-3 ms-3">
-        <div class="card">
+      <div class="col-3 me-3">
+        <div v-for="event in upcoming" :key="event.id"  class="card mb-3">
           <div class="card-body">
             <div class="row">
-              <p class="date text-center d-flex justify-content-end">08/08/29</p>
+              <div class="col-md-12 d-flex justify-content-end ">
+                <div class="">
+                  <div class=""><p class="date-t">Date: <b>{{ event.date  }}</b></p></div>
+                  <div class=""><p class="date-t ">Time: <b> {{ event.time }}</b></p></div>
+                </div>
+              </div>
+            
+
+               <!-- <p class="date  d-flex justify-content-end">08/24/23</p> -->
               <div class="col-3">
                 <div class="profile">
+                  <!-- posted_by_profile -->
                   <img src="../assets/img/kuku.jpg" alt="" class="profile-pic">
                 </div>
               </div>
-              <div class="col">
-                <p><b>Max Dela Cruz</b></p>
-                <p class="name-t">Teacher</p>
+              <div class="col-7">
+                <h5><b>{{ event.posted_by_fullname }}</b></h5>
+                <p class="name-t">{{ event.posted_by_role }}</p>
               </div>
-              <p class="text-center pt-2"><b>Git Webinar</b></p>
-              <p class="text-center info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, libero...</p>
-              <div class="pt-4 text-center">
-                <button class="btn btn-outline-success px-5"><i class="bi bi-eye"></i> View</button>
+              
+              
+              <h5 class=" py-2"><b>{{ event.title }}</b></h5>
+              <p class=" info"> {{event?.description.substring(0,200)}} ...</p>
+              
+              <div class="pt-4 text-center d-flex justify-content-end">
+                <button class="btn btn-outline-success px-5"  @click="redirect(event.id)"><i class="bi bi-eye"></i> View</button>
               </div>
             </div>
           </div>
@@ -181,6 +220,9 @@ const  getDashboardEvents=()=>{
     });
    
     
+}
+const redirect=(id)=>{
+  router.push(`/event/${id}`)
 }
  
     watchEffect(() => getDashboardEvents())
@@ -283,7 +325,7 @@ a {
   position:absolute;
 }
 .profile-pic{
-  width: 3rem;
+  width: 4.5rem;
   border-radius: 50%;
   /* margin-right: 30px; */
 }
@@ -292,6 +334,7 @@ a {
 }
 .name-t, .info, .date{
   font-size: 12px;
+
 }
 
 </style>

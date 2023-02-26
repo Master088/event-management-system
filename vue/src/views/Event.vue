@@ -229,10 +229,10 @@ const search =  ref("");
  
 const pagination = ref({
         maxVisibleButtons: 5,
-        totalPages: 10,
+        totalPages: 1,
         perPage: 5,
         currentPage: 1,
-        totalEvents: 50,
+        totalEvents: 5,
         showPagination: true,
         firstVal: 1,
         secondVal: 5

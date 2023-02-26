@@ -53,26 +53,93 @@ class EventController extends Controller
          $user = auth()->user();
 
         /**Get user joined event */
-        $user_events = DB::table('events as e')
-        ->select('e.*')
-        ->join('event_registrations as er', 'er.event_id', '=', 'e.id')
-        ->where('er.user_id',$user->id)
-        ->where('date', 'like', date("Y-m-d")."%")
-        ->orderBy('created_at', 'desc')
-        ->get();
+        $user_events = 
+        DB::table('events as e')
+            ->select(
+             'e.id', 
+             'e.title',
+             'e.description',
+             'e.location',
+             'e.posted_by',
+             'e.is_canceled',
+             'e.date',
+             'e.time',
+             'e.created_at',
+             'u.fullname as posted_by_fullname' ,
+             'u.role as posted_by_role',
+             'u.profile_picture as posted_by_profile'
+             )
+         ->join('users as u', 'u.id', '=', 'e.posted_by')
+         ->join('event_registrations as er', 'er.event_id', '=', 'e.id')
+         ->where('date', '>', date('Y-m-d'))
+         ->orderBy('e.created_at', 'desc')
+         ->get();
+        
+        
+        // DB::table('events as e')
+        // ->select('e.*')
+        // ->join('event_registrations as er', 'er.event_id', '=', 'e.id')
+        // ->where('er.user_id',$user->id)
+        // ->where('date', 'like', date("Y-m-d")."%")
+        // ->orderBy('created_at', 'desc')
+        // ->get();
 
 
          /**Get event today */
-         $events_today = DB::table('events')
-         ->where('date', 'like', date("Y-m-d")."%")
-         ->orderBy('created_at', 'desc')
+         $events_today = 
+         
+         $event = DB::table('events as e')
+         ->select(
+             'e.id', 
+             'e.title',
+             'e.description',
+             'e.location',
+             'e.posted_by',
+             'e.is_canceled',
+             'e.date',
+             'e.time',
+             'e.created_at',
+             'u.fullname as posted_by_fullname' ,
+             'u.role as posted_by_role',
+             'u.profile_picture as posted_by_profile'
+             )
+         ->join('users as u', 'u.id', '=', 'e.posted_by')
+         ->where('e.date', 'like', date("Y-m-d")."%")
+         ->orderBy('e.created_at', 'desc')
          ->get();
 
+
+        //  DB::table('events')
+        //  ->where('date', 'like', date("Y-m-d")."%")
+        //  ->orderBy('created_at', 'desc')
+        //  ->get();
+
            /**Get upcomming event  */
-           $upcoming_events = DB::table('events')
-           ->where('date', '>', date('Y-m-d'))
-           ->orderBy('created_at', 'desc')
-           ->get();
+           $upcoming_events = DB::table('events as e')
+            ->select(
+             'e.id', 
+             'e.title',
+             'e.description',
+             'e.location',
+             'e.posted_by',
+             'e.is_canceled',
+             'e.date',
+             'e.time',
+             'e.created_at',
+             'u.fullname as posted_by_fullname' ,
+             'u.role as posted_by_role',
+             'u.profile_picture as posted_by_profile'
+             )
+         ->join('users as u', 'u.id', '=', 'e.posted_by')
+         ->where('date', '>', date('Y-m-d'))
+         ->orderBy('e.created_at', 'desc')
+         ->get();
+         
+         
+        //  DB::table('events')
+        //    ->where('date', '>', date('Y-m-d'))
+        //    ->orderBy('created_at', 'desc')
+        //    ->get();
 
         return $this->success(["user_events" =>  $user_events,"events_today" =>  $events_today,"upcoming_events" =>  $upcoming_events], "", 200);
 
