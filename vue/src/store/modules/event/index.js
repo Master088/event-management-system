@@ -10,6 +10,12 @@ export default {
   state() {
     return {
       events:[],
+      event_registrations:[],
+      event_registrations_count:{
+        approve:0,
+        denied:0,
+        pending:0
+      },
       upcoming_events:[],
       events_today:[],
       joined:[],

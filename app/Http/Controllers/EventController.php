@@ -33,10 +33,26 @@ class EventController extends Controller
     public function getAllEvent()
     {
         /**Check if event exist */
-        $events = DB::table('events')
-        ->orderBy('created_at', 'desc')
-        ->get();
 
+        $events = DB::table('events as e')
+            ->select(
+                'e.id', 
+                'e.title',
+                'e.description',
+                'e.location',
+                'e.posted_by',
+                'e.is_canceled',
+                'e.date',
+                'e.time',
+                'e.created_at',
+                'u.fullname',
+                'u.role',
+                'u.profile_picture'
+                )
+            ->join('users as u', 'u.id', '=', 'e.posted_by')
+            ->orderBy('created_at', 'desc')
+            ->get();
+    
         return $this->success(["events" =>  $events], "", 200);
 
     }
@@ -53,8 +69,7 @@ class EventController extends Controller
          $user = auth()->user();
 
         /**Get user joined event */
-        $user_events = 
-        DB::table('events as e')
+        $user_events = DB::table('events as e')
             ->select(
              'e.id', 
              'e.title',
@@ -71,7 +86,8 @@ class EventController extends Controller
              )
          ->join('users as u', 'u.id', '=', 'e.posted_by')
          ->join('event_registrations as er', 'er.event_id', '=', 'e.id')
-         ->where('date', '>', date('Y-m-d'))
+         ->where('er.user_id',$user->id)
+         ->where('e.date', '>=', date('Y-m-d'))
          ->orderBy('e.created_at', 'desc')
          ->get();
         
@@ -86,9 +102,7 @@ class EventController extends Controller
 
 
          /**Get event today */
-         $events_today = 
-         
-         $event = DB::table('events as e')
+         $events_today =  DB::table('events as e')
          ->select(
              'e.id', 
              'e.title',
@@ -254,11 +268,14 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-    
+        $idHolder=$id;
+       
         $data = $request->validate([
             'title' => 'required|string',
             'description' => 'required|string',
+            'location' => 'required|string',
+            'date' => 'required|string',
+            'time' => 'required|string'
         ]);
 
         // return $this->success(["event" =>  $data], "", 200);
@@ -271,13 +288,45 @@ class EventController extends Controller
             $id =  DB::table('events')
             ->where('id', $id)
             ->update([
-                    'title' => $request->title  ,
+                    'title' => $request->title,
                     'description'=>$request->description,
-                    'is_canceled'=>$request->is_canceled,
+                    'location'=>$request->location,
+                    'date'=>$request->date,
+                    'time'=>$request->time,
                     'date_modified'=>now(),
             ]);
 
-            $event = DB::table('events')->where('id', '=',$id)->get();
+            $event = DB::table('events')->where('id', '=',$idHolder)->get();
+            
+            return $this->success(["event" =>  $event[0]], "", 200);
+        }
+
+        return $this->error('', 'Record not found', 404);
+    }
+
+    public function updateEventStatus(Request $request, $id)
+    {
+        $idHolder=$id;
+       
+        $data = $request->validate([
+            'is_canceled' => 'required',
+        ]);
+
+        // return $this->success(["event" =>  $data], "", 200);
+    
+        /**Check if admin[ADD LATER] */
+       
+        if($id!=0){
+            
+            /**Update data */
+            $id =  DB::table('events')
+            ->where('id', $id)
+            ->update([
+                    'is_canceled' => $request->is_canceled,
+                    'date_modified'=>now(),
+            ]);
+
+            $event = DB::table('events')->where('id', '=',$idHolder)->get();
             
             return $this->success(["event" =>  $event[0]], "", 200);
         }
@@ -292,13 +341,19 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   $idHolder=$id;
+        
         if($id!=0){
             
-            /**Update data */
-            $id =  DB::table('events')
+            /**Delete data */
+            DB::table('events')
             ->where('id', $id)
             ->delete();
+
+             /**Delete data */
+            DB::table('event_registrations')
+             ->where('event_id', $id)
+             ->delete();
                    
             return $this->success([], "Deleted successfully", 200);
         }
