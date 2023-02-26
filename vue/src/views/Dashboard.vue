@@ -72,30 +72,26 @@
     </div>
   </div>
   
-  <div class="container  pt-3">
+  <div class="container pt-5">
     <div class="row d-flex justify-content-center">
       <div class="col-3 me-3">
         <div class="card">
           <div class="card-body">
-            <!-- <p><b>Git Webinar</b></p> -->
             <div class="row">
-              <div class="col ">
-                 <p class="text-center title"><b>Git Webinar</b></p>
-                 <p class="student text-center">Student</p>
-                
+              <p class="date text-center d-flex justify-content-end">08/08/23</p>
+              <div class="col-3">
+                <div class="profile">
+                  <img src="../assets/img/kuku.jpg" alt="" class="profile-pic">
+                </div>
               </div>
-              <div class="col text-center time-date">
-                 <p><b>Date/Time:</b></p>
-                 <p>21-02-2023</p>
-                 <!-- <p>8:00AM-11:00 AM</p> -->
+              <div class="col">
+                <p><b>Max Dela Cruz</b></p>
+                <p class="name-t">Teacher</p>
               </div>
-                <p class="pt-4 place"><b>Place:</b> Learning Center</p>
-                <p class="teacher"><b>Teacher:</b> Mr. Max Dela Cruz</p>
-              <div class="button d-flex justify-content-end pt-2">
-                <button class="btn btn-outline-success"> <i class="bi bi-eye"></i> View</button>
-              </div>
-              <div class="profile">
-                <img src="../assets/img/kuku.jpg" alt="" class="profile-icn">
+              <p class="text-center pt-2"><b>Git Webinar</b></p>
+              <p class="text-center info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, libero...</p>
+              <div class="pt-4 text-center">
+                <button class="btn btn-outline-success px-5"><i class="bi bi-eye"></i> View</button>
               </div>
             </div>
           </div>
@@ -105,35 +101,51 @@
         <div class="card">
           <div class="card-body">
             <div class="row">
-              <div class="col ">
-                 <p class="text-center title"><b>Git Webinar</b></p>
-                 <p class="student ps-5">Student</p>
+              <p class="date-t d-flex justify-content-end"><b>08:30 AM</b></p>
+               <!-- <p class="date  d-flex justify-content-end">08/24/23</p> -->
+              <div class="col-2">
+                <div class="profile">
+                  <img src="../assets/img/kuku.jpg" alt="" class="profile-pic">
+                </div>
               </div>
-              <div class="col time-date ps-5">
-                 <p><b>Date/Time:</b></p>
-                 <p>21-02-23</p>
-                 <p>8:00AM-11:00 AM</p>
+              <div class="col">
+                <p><b>Max Dela Cruz</b></p>
+                <p class="name-t">Teacher</p>
+              </div>
+              <h2 class=" py-2"><b>Git Webinar</b></h2>
+              <p class="text-center info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, libero...</p>
+              <div class="pt-4 text-center">
+                <button class="btn btn-outline-success px-5"><i class="bi bi-eye"></i> View</button>
               </div>
             </div>
-            <p class="pt-4 place"><b>Place:</b> Learning Center</p>
-                <p class="teacher"><b>Teacher:</b> Mr. Max Dela Cruz</p>
-             <div class="button d-flex justify-content-end pt-2">
-                <button class="btn btn-outline-success"> <i class="bi bi-eye"></i> View</button>
-              </div>
-            <div class="profile">
-                <img src="../assets/img/kuku.jpg" alt="" class="main-pic">
-              </div>
           </div>
         </div>
       </div>
       <div class="col-3 ms-3">
         <div class="card">
           <div class="card-body">
-            This is some text within a card body.
+            <div class="row">
+              <p class="date text-center d-flex justify-content-end">08/08/29</p>
+              <div class="col-3">
+                <div class="profile">
+                  <img src="../assets/img/kuku.jpg" alt="" class="profile-pic">
+                </div>
+              </div>
+              <div class="col">
+                <p><b>Max Dela Cruz</b></p>
+                <p class="name-t">Teacher</p>
+              </div>
+              <p class="text-center pt-2"><b>Git Webinar</b></p>
+              <p class="text-center info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, libero...</p>
+              <div class="pt-4 text-center">
+                <button class="btn btn-outline-success px-5"><i class="bi bi-eye"></i> View</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -234,6 +246,7 @@ a {
   width: 8rem;
   position: absolute;
   margin-top: -18px;
+  margin-right: -16px;
   
 }
 .icon1{
@@ -242,6 +255,7 @@ a {
   position: absolute;
   margin-top: -18px;
   opacity: 0.7;
+  margin-right: -16px;
   }
 
 .boxmain{
@@ -254,38 +268,27 @@ a {
   width: 9rem;
   position: absolute;
   margin-top: -15px;
+  margin-right: -16px;
 }
 .up{
   position: absolute;
   z-index: 1;
   
 }
-.time-date{
-  font-size: 14px;
-}
-.student, .place, .teacher{
-   font-size: 14px;
-}
-.profile{
-  position: absolute;
- 
-}
-.profile-icn{
-  width: 4rem;
-  height: 4rem;
-  margin-left: -55px;
-  margin-top: 15px;
-  border-radius: 50%;
-}
-.main-pic{
-  width: 4rem;
-  height: 4rem;
-  margin-left: -50px;
-  margin-top: -290px;
-  border-radius: 50%;
-}
 .number{
   margin-top: 25px;
   position:absolute;
 }
+.profile-pic{
+  width: 3rem;
+  border-radius: 50%;
+  /* margin-right: 30px; */
+}
+.date-t{
+  font-size: 13px;
+}
+.name-t, .info, .date{
+  font-size: 12px;
+}
+
 </style>
