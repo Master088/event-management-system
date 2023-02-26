@@ -7,7 +7,7 @@
                 <div class="col-md-7 me-auto">
                     <h1>Event</h1>
                 </div>
-                <div class="col-md-5 me-auto  d-flex justify-content-end">
+                <div class="col-md-5 me-auto d-flex justify-content-end" style="height: 40px;">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <i class="bi bi-plus-circle"></i> Add Event
                     </button>
@@ -153,7 +153,7 @@
                                         <p>{{event.date}}, {{event.time}}</p>
                                         </div>
 
-                                        <div class="col-3">
+                                        <div class="col-auto me-auto">
                                             <button id="action" type="button" class="btn" data-bs-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false">
                                             <i class="bi bi-three-dots display-6 border-0" ></i>
