@@ -11,6 +11,9 @@ import Event from "../views/Event.vue";
 import ViewEvent from "../views/ViewEvent.vue";
 import Student from "../views/Student.vue";
 import Thankyou from "../views/Thankyou.vue";
+import Loader from "../components/Loader.vue"
+import Loader2 from "../components/Loader2.vue"
+
 
 import Admin from "../views/Admin.vue"
 import Faculty from "../views/Faculty.vue";
@@ -61,6 +64,16 @@ const routes = [
         path: "/thankyou",
         name: "Thankyou",
         component: Thankyou,
+      },
+      {
+        path: "/loader",
+        name: "Loader",
+        component: Loader,
+      },
+      {
+        path: "/loader2",
+        name: "Loader2",
+        component: Loader2,
       },
     ],
   },
