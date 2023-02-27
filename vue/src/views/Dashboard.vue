@@ -1,5 +1,6 @@
 <template>
-  <div class="container d-flex justify-content-center pt-4 ">
+  <div>
+    <div class="container d-flex justify-content-center pt-4 ">
         <div class="card mx-5 py-3">
           <div class="card-body">
             <div class="row">
@@ -204,6 +205,7 @@
       </div>
     </div>
 
+  </div>
   </div>
 </template>
 
