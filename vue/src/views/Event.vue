@@ -28,21 +28,22 @@
                                 
                                         <div class="form-group mb-2">
                                             <label for="title">Event Title</label>
-                                            <input v-model="event.title" type="text" class="form-control" id="title" required>
+                                            <input v-model="event.title" type="text" class="form-control" id="title"  >
+                                            <span class="text-danger">{{ errors.title }}</span>
                                         </div>
                                         <div class="form-group mb-2">
                                             <label for="title">Location</label>
-                                            <input v-model="event.location" type="text" class="form-control" id="location" required>
+                                            <input v-model="event.location" type="text" class="form-control" id="location" >
                                         </div>
 
                                         <div class="form-group mb-2">
                                             <label for="date">Date</label>
-                                            <input v-model="event.date" type="date" class="form-control" id="date" required>
+                                            <input v-model="event.date" type="date" class="form-control" id="date"  >
                                         </div>
                                         <div class="row mb-2">
                                             <div class="col-md-6 form-group">
                                                 <label for="start">Start</label>
-                                                <select v-model="event.start" class="form-control" id="start" required>
+                                                <select v-model="event.start" class="form-control" id="start"  >
                                                     <option>1 am</option>
                                                     <option>2 am</option>
                                                     <option>3 am</option>
@@ -71,7 +72,7 @@
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <label for="start">End</label>
-                                                <select v-model="event.end" class="form-control" id="end" required>
+                                                <select v-model="event.end" class="form-control" id="end"  >
                                                     <option>1 am</option>
                                                     <option>2 am</option>
                                                     <option>3 am</option>
@@ -101,7 +102,9 @@
                                         </div>
                                         <div class="form-group mb-2">
                                             <label for="description">Description</label>
-                                            <textarea v-model="event.description" minlength="10" class="form-control" id="description" rows="8" required></textarea>
+                                            <textarea v-model="event.description" minlength="10" class="form-control" id="description" rows="8"  ></textarea>
+                                            <span class="text-danger">{{ errors.description }}</span>
+
                                         </div>
                                 
                                     </div>
@@ -510,12 +513,35 @@ const redirect=(id)=>{
   router.push(`/event/${id}`)
 }
 
+const errors=ref({
+    title:"",
+    description:"",
+})
+
+
 const handleSubmit= ()=>{
      
         console.log(event.value)
       /** set validation later */
-      
-        errorMsg.value=""
+
+        let is_valid=true
+        is_valid=true
+        
+        if(event.value.title.length>0 && event.value.title.length<20){
+            errors.value.title=""
+        }else{
+            errors.value.title="Please enter title(1-20 characters)"
+            is_valid=false
+        }
+
+        if(event.value.description.length>10 && event.value.description.length<1000){
+            errors.value.description=""
+        }else{
+            errors.value.description="Please enter description(10-1000 characters)"
+            is_valid=false
+        }
+
+     if(is_valid){
         store
         .dispatch(`events/${ADD_EVENT_ACTION}`, {
           title:event.value.title,
@@ -554,6 +580,8 @@ const handleSubmit= ()=>{
           //   errorMsg.value = err.response.data.error;
         });
 
+     }
+      
      
 
       // this.yearValidation = this.year.length < 4 || this.year.length > 4 ? 'The year must at least 4 number only' : ''

@@ -2,8 +2,6 @@
   <div class="container p-5">
     <div class="fluid-container">
         <div class="row">
-
-            
             <div class="col-auto me-auto">
                 <h1 class="display-2">{{ event.title }}</h1>
                 <small>Date posted: {{ event.created_at }}</small>
