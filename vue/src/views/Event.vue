@@ -8,7 +8,7 @@
                     <h1>Event</h1>
                 </div>
                 <div class="col-md-5 me-auto d-flex justify-content-end" style="height: 40px;">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn-bg-add" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <i class="bi bi-plus-circle"></i> Add Event
                     </button>
                 </div>
@@ -109,8 +109,12 @@
                                 
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary px-4">Save</button>
+                                        <button type="button" class="btn" data-bs-dismiss="modal">
+                                             Close
+                                        </button>
+                                        <button type="submit" class="btn-bg-save px-4">
+                                            <i class="bi bi-cloud-download"></i> Save
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -211,8 +215,12 @@
                                 
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary px-4">Update</button>
+                                        <button type="button" class="btn" data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button type="submit" class="btn-bg-save px-4">
+                                            <i class="bi bi-cloud-download"></i> Update
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -222,21 +230,29 @@
 
                 <div class="col-md-12">
                     <div class="modal fade" id="delEvent" tabindex="-1" role="dialog" aria-labelledby="delEvent" aria-hidden="true">
-                        <div class="modal-dialog modal-sm">
+                        <div class="modal-dialog">
                             <form  @submit.prevent="handleSubmitDelete">  
                                 <div class="modal-content">
                                     <div class="modal-header bg-danger text-white">
-                                        <h5 class="modal-title" id="exampleModalLabel">Delete Event</h5>
-                                        <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                        <button type="button" class="btn text-white" data-bs-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        <h4>Are you sure you want to delete this event?</h4>
+                                    <div class="modal-body ">
+                                        <div class="col">
+                                            <i class="bi bi-exclamation-circle-fill text-danger justify-content-center d-flex"></i>
+                                            <h4 class="justify-content-center d-flex fw-semibold ">Delete Confirmation</h4>
+                                            <p class="justify-content-center d-flex text-black-50 mt-3">Are you sure you want to delete this event?</p>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-danger px-4">Delete</button> 
+                                        <button type="button" class="btn" data-bs-dismiss="modal">
+                                            Cancel
+                                        </button>
+                                        <button type="submit" class="btn btn-danger px-4">
+                                            Delete
+                                        </button> 
                                     </div>
                                 </div>
                             </form>
@@ -264,7 +280,7 @@
         </div>
         
         <div v-for="event in eventDataDisplay" :key="event.id" class="fluid-container mt-5" >
-            <div  class="card mb-3 w-100"  >
+            <div  class="card mb-3 w-100 shadow"  >
                 <div class="row no-gutters" >
                     <div class="col-md-2" >
                         <img src="../assets/logos/clsu-logo.png" class="card-img" alt="img" >
@@ -289,7 +305,7 @@
                                             <i class="bi bi-three-dots display-6 border-0" ></i>
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="action">
-                                                <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#editEvent" href="#" @click="setData(event)"><i class="bi bi-pencil-square"></i> Edit</a>
+                                                <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#editEvent" href="#" @click="setData(event)"><i class="bi bi-pencil-square "></i> Edit</a>
                                                 <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delEvent" @click="()=>{
                                                     deleteId=event.id
                                                 }"><i class="bi bi-trash"></i> Delete</a>
@@ -305,7 +321,7 @@
                             </p>
                             <div class="mt-3 d-flex justify-content-end mb-0">
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-light border" @click="redirect(event.id)">
+                                    <button type="button" class="btn border" @click="redirect(event.id)">
                                         <i class="bi bi-file-earmark-plus"></i> View More
                                     </button>
                                 </div>
@@ -687,5 +703,32 @@ const handleSubmitDelete= ()=>{
  .pagination-label {
     color: #8b9da8;
     font: normal normal normal 14px/19px Clear Sans;
+  }
+  .btn-bg-add{
+    background-color: #2b99be;
+    border-radius: 5px;
+    color: aliceblue;
+    border: none;
+    width: fit-content;
+    padding: 0px 10px 0px 10px;
+  }
+  .btn-bg-save{
+    background-color: #2b99be;
+    border-radius: 5px;
+    color: aliceblue;
+    border: none;
+    width: fit-content;
+    padding: 6.5px;
+  }
+  .bi-exclamation-circle-fill{
+    font-size: 110px;
+    /* border: solid 1px blue; */
+    width: fit-content;
+    margin-left: 35%;
+    padding: 10px;
+    margin-top: -15%;
+    margin-bottom: 5%;
+    background-color: #fff;
+    border-radius: 50%;
   }
 </style>

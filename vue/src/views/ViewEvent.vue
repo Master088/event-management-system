@@ -29,20 +29,24 @@
 
             <div class="col-md-12">
                     <div class="modal fade" id="cancelEvent" tabindex="-1" role="dialog" aria-labelledby="cancelEvent" aria-hidden="true">
-                        <div class="modal-dialog modal-sm">
+                        <div class="modal-dialog">
                             <form  @submit.prevent="handleCancelEvent">  
                                 <div class="modal-content">
                                     <div class="modal-header bg-danger text-white">
                                         <h5 class="modal-title" id="exampleModalLabel">Cancel Event</h5>
                                         <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
+                                        <span aria-hidden="true"><i class="bi bi-x-lg text-white"></i></span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h4>Are you sure you want to cancel this event?</h4>
+                                        <div class="col">
+                                            <i class="bi bi-exclamation-circle-fill text-danger justify-content-center d-flex"></i>
+                                            <p class="justify-content-center d-flex ">Are you sure you want to cancel this event?</p>
+                                        </div>
+                                     
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-danger px-4">Yes</button> 
                                     </div>
                                 </div>
@@ -53,20 +57,24 @@
 
             <div class="col-md-12">
                     <div class="modal fade" id="openEvent" tabindex="-1" role="dialog" aria-labelledby="openEvent" aria-hidden="true">
-                        <div class="modal-dialog modal-sm">
+                        <div class="modal-dialog">
                             <form  @submit.prevent="handleOpenEvent">  
                                 <div class="modal-content">
                                     <div class="modal-header bg-primary text-white">
-                                        <h5 class="modal-title" id="exampleModalLabel">Open Event</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
                                         <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
+                                        <span aria-hidden="true"><i class="bi bi-x-lg text-white"></i></span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h4>Are you sure you want to re open this event?</h4>
+                                        <div class="col">
+                                            <i class="bi bi-question-circle-fill text-primary justify-content-center d-flex"></i>
+                                            <h4 class="justify-content-center d-flex fw-semibold ">Event Confirmation</h4>
+                                            <p class="justify-content-center d-flex text-black-50 mt-3">Are you sure you want to re open this event?</p>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary px-4">Yes</button> 
                                     </div>
                                 </div>
@@ -80,17 +88,21 @@
                         <div class="modal-dialog modal-md">
                             <form  @submit.prevent="handleRegister">  
                                 <div class="modal-content">
-                                    <div class="modal-header ">
-                                        <h5 class="modal-title" id="exampleModalLabel">Registration Confirmation</h5>
-                                        <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
+                                    <div class="modal-header text-white bg-primary">
+                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                        <button type="button" class="btn" aria-label="Close">
+                                        <span aria-hidden="true" data-bs-dismiss="modal"><i class="bi bi-x-lg text-white"></i></span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h4>Are you sure you want to register this event?</h4>
+                                        <div class="col">
+                                            <i class="bi bi-question-circle-fill text-primary justify-content-center d-flex"></i>
+                                            <h4 class="justify-content-center d-flex fw-semibold ">Register Confirmation</h4>
+                                            <p class="justify-content-center d-flex text-black-50 mt-3">Are you sure you want to register this event?</p>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary px-4">Register</button> 
                                     </div>
                                 </div>
@@ -104,17 +116,21 @@
                         <div class="modal-dialog modal-md">
                             <form  @submit.prevent="handleAprove">  
                                 <div class="modal-content">
-                                    <div class="modal-header ">
-                                        <h5 class="modal-title" id="exampleModalLabel">Approve Confirmation</h5>
+                                    <div class="modal-header bg-primary text-white">
+                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
                                         <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
+                                        <span aria-hidden="true"><i class="bi bi-x-lg text-white"></i></span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h4>Are you sure you want to approve <span><b>{{ event_registration_info.fullname }}'s</b></span> to this event?</h4>
+                                        <div class="col">
+                                            <i class="bi bi-check-circle-fill text-primary justify-content-center d-flex"></i>
+                                            <h4 class="justify-content-center d-flex fw-semibold ">Approve Confirmation</h4>
+                                            <p class="justify-content-center d-flex text-black-50 mt-3">Are you sure you want to approve <pre> <b>{{ event_registration_info.fullname }}'s</b> </pre> to this event?</p>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary px-4">Approve</button> 
                                     </div>
                                 </div>
@@ -128,18 +144,22 @@
                         <div class="modal-dialog modal-md">
                             <form  @submit.prevent="handleDecline">  
                                 <div class="modal-content">
-                                    <div class="modal-header ">
-                                        <h5 class="modal-title" id="exampleModalLabel">Unapprove Confirmation</h5>
+                                    <div class="modal-header bg-info text-white">
+                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
                                         <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
+                                        <span aria-hidden="true"><i class="bi bi-x-lg text-white"></i></span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h4>Are you sure you want to unapprove <span><b>{{ event_registration_info.fullname }}'s</b></span> to this event?</h4>
+                                        <div class="col">
+                                            <i class="bi bi-exclamation-circle-fill text-info justify-content-center d-flex"></i>
+                                            <h4 class="justify-content-center d-flex fw-semibold ">Unapproved Confirmation</h4>
+                                            <p class="justify-content-center d-flex text-black-50 mt-3">Are you sure you want to unapproved <pre><b> {{ event_registration_info.fullname }}'s </b></pre> to this event?</p>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary px-4">Unapprove</button> 
+                                        <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-info px-4 text-white">Unapproved</button> 
                                     </div>
                                 </div>
                             </form>
@@ -150,21 +170,25 @@
 
             <div class="col-md-12">
                     <div class="modal fade" id="deniedConfirmation" tabindex="-1" role="dialog" aria-labelledby="registrationConfirmation" aria-hidden="true">
-                        <div class="modal-dialog modal-md">
+                        <div class="modal-dialog">
                             <form  @submit.prevent="handleDecline">  
                                 <div class="modal-content">
-                                    <div class="modal-header ">
-                                        <h5 class="modal-title" id="exampleModalLabel">Denied Confirmation</h5>
+                                    <div class="modal-header bg-warning text-white">
+                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
                                         <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
+                                        <span aria-hidden="true"><i class="bi bi-x-lg text-white"></i></span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h4>Are you sure you want to denied <span><b>{{ event_registration_info.fullname }}'s</b></span> to this event?</h4>
+                                         <div class="col">
+                                            <i class="bi bi-exclamation-circle-fill text-warning justify-content-center d-flex"></i>
+                                            <h4 class="justify-content-center d-flex fw-semibold ">Denied Confirmation</h4>
+                                            <p class="justify-content-center d-flex text-black-50 mt-3">Are you sure you want to denied <b><pre>{{ event_registration_info.fullname }}'s</pre></b> to this event?</p>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary px-4">Denied</button> 
+                                        <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-warning text-white px-4">Denied</button> 
                                     </div>
                                 </div>
                             </form>
@@ -309,12 +333,12 @@
 
                             <td v-if="registration.status=='pending'">
                                 <button class="btn btn-sm btn-danger" @click="()=>event_registration_info=registration">Delete</button>
-                                <button class="btn btn-sm btn-warning mx-2" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#deniedConfirmation">Denied</button>
+                                <button class="btn btn-sm btn-warning text-white mx-2" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#deniedConfirmation">Denied</button>
                                 <button class="btn btn-sm btn-primary mx-2" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#approveConfirmation">Approve</button>
                             </td> 
                             <td v-if="registration.status=='approve'">
                                 <button class="btn btn-sm btn-danger" @click="()=>event_registration_info=registration">Delete</button>
-                                <button class="btn btn-sm btn-warning mx-2" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#unapproveConfirmation">Unapprove</button>
+                                <button class="btn btn-sm btn-info text-white mx-2" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#unapproveConfirmation">Unapproved</button>
                             </td>
                             <td v-if="registration.status=='denied'">
                                 <button class="btn btn-sm btn-danger" @click="()=>event_registration_info=registration">Delete</button>
@@ -551,5 +575,15 @@ watchEffect(() => getEventRegistrations())
 
 
 <style>
-
+.bi-exclamation-circle-fill, .bi-question-circle-fill, .bi-check-circle-fill{
+    font-size: 110px;
+    /* border: solid 1px blue; */
+    width: fit-content;
+    margin-left: 35%;
+    padding: 10px;
+    margin-top: -15%;
+    margin-bottom: 5%;
+    background-color: #fff;
+    border-radius: 50%;
+  }
 </style>
