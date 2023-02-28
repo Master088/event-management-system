@@ -8,6 +8,38 @@
         </button>
         <div class="dropdown-menu mt-1" aria-labelledby="btnGroupDrop1">
           <a class="dropdown-item text-center" href="#" @click="logout"><i class="bi bi-box-arrow-left"></i> Logout</a>
+          <a class="dropdown-item text-center" data-bs-toggle="modal" data-bs-target="#changepass">
+            Change Password
+          </a>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="changepass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Change Password</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="">
+                <div class="modal-body">
+                  
+                    <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                    <input type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock">
+                    <!-- <div id="passwordHelpBlock" class="form-text">
+                      Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                    </div> -->
+                    <label for="confirm_password" class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                    <input type="password" id="confirm_password" class="form-control" aria-describedby="passwordHelpBlock">
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Change Password</button>
+                </div>
+              </form>
+              
+            </div>
+          </div>
         </div>
       </div>
     </div>

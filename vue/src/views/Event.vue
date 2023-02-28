@@ -29,16 +29,24 @@
                                         <div class="form-group mb-2">
                                             <label for="title">Event Title</label>
                                             <input v-model="event.title" type="text" class="form-control" id="title"  >
-                                            <span class="text-danger">{{ errors.title }}</span>
+                                            <div class="text-danger">
+                                                {{ errors.title }}
+                                            </div>
                                         </div>
                                         <div class="form-group mb-2">
-                                            <label for="title">Location</label>
+                                            <label for="location">Location</label>
                                             <input v-model="event.location" type="text" class="form-control" id="location" >
+                                            <div class="text-danger">
+                                                {{ errors.location }}
+                                            </div>
                                         </div>
 
                                         <div class="form-group mb-2">
                                             <label for="date">Date</label>
                                             <input v-model="event.date" type="date" class="form-control" id="date"  >
+                                            <div class="text-danger">
+                                                {{ errors.date }}
+                                            </div>
                                         </div>
                                         <div class="row mb-2">
                                             <div class="col-md-6 form-group">
@@ -103,7 +111,9 @@
                                         <div class="form-group mb-2">
                                             <label for="description">Description</label>
                                             <textarea v-model="event.description" minlength="10" class="form-control" id="description" rows="8"  ></textarea>
-                                            <span class="text-danger">{{ errors.description }}</span>
+                                            <div class="text-danger">
+                                                {{ errors.description }}
+                                            </div>
 
                                         </div>
                                 
@@ -137,16 +147,25 @@
                                 
                                         <div class="form-group mb-2">
                                             <label for="title">Event Title</label>
-                                            <input v-model="editEventData.title" type="text" class="form-control" id="title" required>
+                                            <input v-model="editEventData.title" type="text" class="form-control" id="title">
+                                            <div class="text-danger">
+                                                {{ errors.title }}
+                                            </div>
                                         </div>
                                         <div class="form-group mb-2">
                                             <label for="title">Location</label>
-                                            <input v-model="editEventData.location" type="text" class="form-control" id="location" required>
+                                            <input v-model="editEventData.location" type="text" class="form-control" id="location">
+                                            <div class="text-danger">
+                                                {{ errors.location }}
+                                            </div>
                                         </div>
 
                                         <div class="form-group mb-2">
                                             <label for="date">Date</label>
-                                            <input v-model="editEventData.date" type="date" class="form-control" id="date" required>
+                                            <input v-model="editEventData.date" type="date" class="form-control" id="date">
+                                            <div class="text-danger">
+                                                {{ errors.date }}
+                                            </div>
                                         </div>
                                         <div class="row mb-2">
                                             <div class="col-md-6 form-group">
@@ -210,7 +229,10 @@
                                         </div>
                                         <div class="form-group mb-2">
                                             <label for="description">Description</label>
-                                            <textarea v-model="editEventData.description" minlength="10" class="form-control" id="description" rows="8" required></textarea>
+                                            <textarea v-model="editEventData.description" minlength="10" class="form-control" id="description" rows="8"></textarea>
+                                            <div class="text-danger">
+                                                {{ errors.description }}
+                                            </div>
                                         </div>
                                 
                                     </div>
@@ -531,6 +553,8 @@ const redirect=(id)=>{
 
 const errors=ref({
     title:"",
+    location: "",
+    date: null,
     description:"",
 })
 
@@ -543,17 +567,32 @@ const handleSubmit= ()=>{
         let is_valid=true
         is_valid=true
         
-        if(event.value.title.length>0 && event.value.title.length<20){
+        
+        if(event.value.title.length>0 && event.value.title.length<100){
             errors.value.title=""
         }else{
-            errors.value.title="Please enter title(1-20 characters)"
+            errors.value.title="Please Enter Title (1-100 characters)"
+            is_valid=false
+        }
+
+        if(event.value.location.length>0 && event.value.location.length<100){
+            errors.value.location=""
+        }else{
+            errors.value.location ="Please Enter Location (1-100 characters)"
+            is_valid=false
+        }
+
+        if(event.value.date != null){
+            errors.value.date=""
+        }else{
+            errors.value.date="Please Select Date"
             is_valid=false
         }
 
         if(event.value.description.length>10 && event.value.description.length<1000){
             errors.value.description=""
         }else{
-            errors.value.description="Please enter description(10-1000 characters)"
+            errors.value.description="Please Enter Description (10-1000 characters)"
             is_valid=false
         }
 
@@ -608,49 +647,83 @@ const handleSubmitEdit= ()=>{
      
      console.log(editEventData.value)
    /** set validation later */
+
+    let is_valid = true
+    is_valid = true
+
+    if (editEventData.value.title.length > 0 && editEventData.value.title.length < 100) {
+        errors.value.title = ""
+    } else {
+        errors.value.title = "Please Enter Title (1-100 characters)"
+        is_valid = false
+    }
+
+    if (editEventData.value.location.length > 0 && editEventData.value.location.length < 100) {
+        errors.value.location = ""
+    } else {
+        errors.value.location = "Please Enter Location (1-100 characters)"
+        is_valid = false
+    }
+
+    if (editEventData.value.date != null) {
+        errors.value.date = ""
+        console.log(editEventData.date)
+    } else {
+        errors.value.date = "Please Select Date"
+        console.log(date)
+        is_valid = false
+    }
+
+    if (editEventData.value.description.length > 10 && editEventData.value.description.length < 1000) {
+        errors.value.description = ""
+    } else {
+        errors.value.description = "Please Enter 2  Description (10-1000 characters)"
+        is_valid = false
+    }
    
-     errorMsg.value=""
-     store
-     .dispatch(`events/${EDIT_EVENT}`, {
-        id:editEventData.value.id,
-        data:{
-            title:editEventData.value.title,
-            location:editEventData.value.location,
-            description:editEventData.value.description,
-            date:editEventData.value.date,
-            time:editEventData.value.start+"-"+editEventData.value.end,
-        }
-     })
-     .then((data) => {
-
-            eventDataHolder.value=events.value
-            eventDataDisplay.value=eventDataHolder.value.slice(0,5)
-            
-            pagination.value.currentPage=1
-
-            pagination.value.totalEvents=eventDataHolder.value.length
-            pagination.value.totalPages=parseInt(eventDataHolder.value.length/5)
-
-            if(eventDataHolder.value.length%5!==0){
-                pagination.value.totalPages+=1;
+     if(is_valid){
+        store
+        .dispatch(`events/${EDIT_EVENT}`, {
+            id: editEventData.value.id,
+            data: {
+                title: editEventData.value.title,
+                location: editEventData.value.location,
+                description: editEventData.value.description,
+                date: editEventData.value.date,
+                time: editEventData.value.start + "-" + editEventData.value.end,
             }
-        editEventData.value = ref({
-             title:"",
-             date:null,
-             location:"",
-             start:"1 am",
-             end:"2 am",
-             description:""
-         });
+        })
+        .then((data) => {
 
-       // loading.value = false;
-         console.log("data here ", data);
-     })
-     .catch((err) => {
-       console.log("error", err);
-       loading.value = false;
-       //   errorMsg.value = err.response.data.error;
-     });
+            eventDataHolder.value = events.value
+            eventDataDisplay.value = eventDataHolder.value.slice(0, 5)
+
+            pagination.value.currentPage = 1
+
+            pagination.value.totalEvents = eventDataHolder.value.length
+            pagination.value.totalPages = parseInt(eventDataHolder.value.length / 5)
+
+            if (eventDataHolder.value.length % 5 !== 0) {
+                pagination.value.totalPages += 1;
+            }
+            editEventData.value = ref({
+                title: "",
+                date: null,
+                location: "",
+                start: "1 am",
+                end: "2 am",
+                description: ""
+            });
+
+            // loading.value = false;
+            console.log("data here ", data);
+        })
+        .catch((err) => {
+            console.log("error", err);
+            loading.value = false;
+        });
+     }
+     
 
   
 
