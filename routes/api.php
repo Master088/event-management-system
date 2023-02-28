@@ -42,13 +42,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/event/{id}', [EventController::class, 'show']);
     Route::delete('/event/{id}', [EventController::class, 'destroy']);
 
+   
     Route::get('/event/register/{id}', [EventRegistrationController::class, 'getEventRegistrations']);
     Route::post('/event/register', [EventRegistrationController::class, 'store']);
     Route::patch('/event/register/status/{id}', [EventRegistrationController::class, 'updateStatus']);
+
+    Route::delete('/event/register/delete/{id}', [EventRegistrationController::class, 'destroy']);
+
 
 });
 
 
 
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/account/register/', [AuthController::class, 'register']);
+Route::patch('/account/{id}', [AuthController::class, 'updateUser']);
+Route::get('/accounts/{role}', [AuthController::class, 'getUsersByType']);
+
 Route::post('/login', [AuthController::class, 'login']);

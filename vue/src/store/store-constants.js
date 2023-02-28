@@ -66,8 +66,27 @@ export const UPDATE_EVENT_STATUS = "[actions] update event status";
 
 export const UPDATE_EVENT_REGISTRATION_STATUS = "[actions] update event registration status";
 
-export const SET_EVENT_REGISTRATION_STATUS = "[actions] set event registration status";
+export const SET_EVENT_REGISTRATION_STATUS = "[mutations] set event registration status";
 
 
+export const DELETE_REGISTRATION = "[actions] delete event registration";
 
+export const SET_DELETE_REGISTRATION = "[mutations] set delete registration";
  
+
+export const GET_USER_BY_ROLE = "[actions] get user by user role";
+
+export const SET_ADMIN_USERS = "[mutations] set admin users";
+
+export const SET_TEACHERS_USERS = "[mutations] set teacher users";
+
+export const SET_STUDENT_USERS = "[mutations] set student users";
+
+
+export const ADD_USER = "[actions] add user";
+
+export const SET_ADD_USER = "[mutations] set add user";
+
+export const UPDATE_USER = "[actions] update user";
+
+export const SET_UPDATE_USER = "[mutations] set update user";

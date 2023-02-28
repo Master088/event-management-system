@@ -167,6 +167,30 @@
                     </div>
             </div>
 
+            
+            <div class="col-md-12">
+                    <div class="modal fade" id="deleteRegistration" tabindex="-1" role="dialog" aria-labelledby="deleteRegistration" aria-hidden="true">
+                        <div class="modal-dialog modal-md">
+                            <form  @submit.prevent="handleDelete">  
+                                <div class="modal-content">
+                                    <div class="modal-header ">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete Registration</h5>
+                                        <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Are you sure you want to delete <span><b>{{ event_registration_info.fullname }}'s registration</b></span> to this event?</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary px-4">Delete</button> 
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
 
             <div class="col-md-12">
                     <div class="modal fade" id="deniedConfirmation" tabindex="-1" role="dialog" aria-labelledby="registrationConfirmation" aria-hidden="true">
@@ -341,7 +365,7 @@
                                 <button class="btn btn-sm btn-info text-white mx-2" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#unapproveConfirmation">Unapproved</button>
                             </td>
                             <td v-if="registration.status=='denied'">
-                                <button class="btn btn-sm btn-danger" @click="()=>event_registration_info=registration">Delete</button>
+                                <button class="btn btn-sm btn-danger" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#deleteRegistration">Delete</button>
                                 <button class="btn btn-sm btn-primary mx-2" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#approveConfirmation">Approve</button>
                             </td>
                         </tr>
@@ -360,7 +384,7 @@
 // import store from "../store";
 import { useRoute, useRouter } from "vue-router";
 import { ref, computed, watchEffect } from "vue";
-import {  GET_EVENT, GET_EVENT_REGISTRATIONS, REGISTER, UPDATE_EVENT_REGISTRATION_STATUS, UPDATE_EVENT_STATUS } from "../store/store-constants";
+import {  DELETE_REGISTRATION, GET_EVENT, GET_EVENT_REGISTRATIONS, REGISTER, UPDATE_EVENT_REGISTRATION_STATUS, UPDATE_EVENT_STATUS } from "../store/store-constants";
 import store from '../store';
 
 
@@ -476,7 +500,8 @@ const handleCancelEvent= ()=>{
         id:id.value,
         data:{
             is_canceled:1
-        }
+        },
+        old_status:event_registration_info.value.status,
      })
      .then((data) => {
       
@@ -501,7 +526,8 @@ const handleOpenEvent= ()=>{
         id:id.value,
         data:{
             is_canceled:0
-        }
+        },
+        old_status:event_registration_info.value.status,
      })
      .then((data) => {
       
@@ -526,10 +552,11 @@ const handleAprove= ()=>{
         id:event_registration_info.value.id,
         data:{
             status:"approve"
-        }
+        },
+        old_status:event_registration_info.value.status,
      })
      .then((data) => {
-      
+        $('#approveConfirmation').modal('hide')
        // loading.value = false;
          console.log("data here ", data.data);
      })
@@ -551,7 +578,31 @@ const handleDecline= ()=>{
         id:event_registration_info.value.id,
         data:{
             status:"denied"
-        }
+        },
+        old_status:event_registration_info.value.status,
+     })
+     .then((data) => {
+        document.getElementById('close').click();
+       // loading.value = false;
+         console.log("data here ", data.data);
+     })
+     .catch((err) => {
+       console.log("error", err);
+       loading.value = false;
+       //   errorMsg.value = err.response.data.error;
+     });
+
+}
+
+const handleDelete= ()=>{
+     
+     console.log(event.value)
+   /** set validation later */
+     errorMsg.value=""
+     store
+     .dispatch(`events/${DELETE_REGISTRATION}`, {
+        id:event_registration_info.value.id,
+        type:event_registration_info.value.status,
      })
      .then((data) => {
       
@@ -565,6 +616,7 @@ const handleDecline= ()=>{
      });
 
 }
+
 watchEffect(() => getEvent())
 
 watchEffect(() => getEventRegistrations())
