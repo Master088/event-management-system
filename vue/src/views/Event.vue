@@ -396,6 +396,13 @@ const events = ref(computed(() => store.state.events.events))|| [];
 const eventDataHolder = ref([]);
 const eventDataDisplay =  ref([]);
 
+const errors = ref({
+    title: "",
+    location: "",
+    date: null,
+    description: "",
+})
+
 const editEventData =  ref({
     id:"",
     title:"",
@@ -475,8 +482,12 @@ const setData = data => {
     console.log(time)
     editEventData.value.start=time[0]
     editEventData.value.end=time[1]
-
-
+    errors.value = {
+        title: "",
+        location: "",
+        date: null,
+        description: "",
+    }
 }
  //  
 
@@ -551,12 +562,7 @@ const redirect=(id)=>{
   router.push(`/event/${id}`)
 }
 
-const errors=ref({
-    title:"",
-    location: "",
-    date: null,
-    description:"",
-})
+
 
 
 const handleSubmit= ()=>{
