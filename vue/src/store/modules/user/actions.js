@@ -4,7 +4,7 @@ import {
     UPDATE_EVENT_STATUS,
     DELETE_EVENT,
     EDIT_EVENT,
-    FETCH_DASHBOARD_EVENTS,FETCH_EVENTS,GET_EVENT,GET_EVENT_REGISTRATIONS,REGISTER,SET_DASHBOARD_EVENTS, SET_DELETE_EVENT, SET_EDIT_EVENT, SET_EVENT, SET_EVENTS, SET_EVENT_REGISTRATIONS, SET_REGISTER, UPDATE_EVENT_REGISTRATION_STATUS, SET_EVENT_REGISTRATION_STATUS, DELETE_REGISTRATION, SET_DELETE_REGISTRATION, GET_USER_BY_ROLE, SET_ADMIN_USERS, SET_TEACHERS_USERS, SET_STUDENT_USERS, ADD_USER, SET_ADD_USER, UPDATE_USER, SET_UPDATE_USER
+    FETCH_DASHBOARD_EVENTS,FETCH_EVENTS,GET_EVENT,GET_EVENT_REGISTRATIONS,REGISTER,SET_DASHBOARD_EVENTS, SET_DELETE_EVENT, SET_EDIT_EVENT, SET_EVENT, SET_EVENTS, SET_EVENT_REGISTRATIONS, SET_REGISTER, UPDATE_EVENT_REGISTRATION_STATUS, SET_EVENT_REGISTRATION_STATUS, DELETE_REGISTRATION, SET_DELETE_REGISTRATION, GET_USER_BY_ROLE, SET_ADMIN_USERS, SET_TEACHERS_USERS, SET_STUDENT_USERS, ADD_USER, SET_ADD_USER, UPDATE_USER, SET_UPDATE_USER, DELETE_USER, SET_DELETE_USER
 } from "../../store-constants";
 import axiosClient from "../../../axios";
 
@@ -83,6 +83,21 @@ export default {
             console.log("re",res.data.data)
 
             context.commit(SET_UPDATE_USER, res.data.data.user);
+            
+            return Promise.resolve(res)
+          })
+          .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+          })
+        },
+        async [DELETE_USER](context, payload) {
+          /*Call axios get request */ 
+            console.log({payload}) 
+        return axiosClient 
+          .delete(`account/delete/${payload.id}`)
+          .then(res => {
+            context.commit(SET_DELETE_USER,payload);
             
             return Promise.resolve(res)
           })

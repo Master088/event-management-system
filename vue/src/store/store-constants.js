@@ -90,3 +90,7 @@ export const SET_ADD_USER = "[mutations] set add user";
 export const UPDATE_USER = "[actions] update user";
 
 export const SET_UPDATE_USER = "[mutations] set update user";
+
+export const DELETE_USER = "[actions] delete user";
+
+export const SET_DELETE_USER = "[mutations] set delete user";

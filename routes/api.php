@@ -53,9 +53,10 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-
+//pasok sa loob to later
 Route::post('/account/register/', [AuthController::class, 'register']);
 Route::patch('/account/{id}/', [AuthController::class, 'updateUser']);
 Route::get('/accounts/{role}', [AuthController::class, 'getUsersByType']);
+Route::delete('/account/delete/{role}', [AuthController::class, 'destroy']);
 
 Route::post('/login', [AuthController::class, 'login']);

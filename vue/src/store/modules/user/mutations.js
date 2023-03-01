@@ -1,4 +1,4 @@
-import {  ADD_EVENT_MUTATION, DELETE_EVENT, DELETE_REGISTRATION, SET_ADD_USER, SET_ADMIN_USERS, SET_DASHBOARD_EVENTS, SET_DELETE_EVENT, SET_DELETE_REGISTRATION, SET_EDIT_EVENT, SET_EVENT, SET_EVENTS, SET_EVENT_REGISTRATIONS, SET_EVENT_REGISTRATION_STATUS, SET_REGISTER, SET_STUDENT_USERS, SET_TEACHERS_USERS, SET_UPDATE_USER } from "../../store-constants";
+import {  ADD_EVENT_MUTATION, DELETE_EVENT, DELETE_REGISTRATION, SET_ADD_USER, SET_ADMIN_USERS, SET_DASHBOARD_EVENTS, SET_DELETE_EVENT, SET_DELETE_REGISTRATION, SET_DELETE_USER, SET_EDIT_EVENT, SET_EVENT, SET_EVENTS, SET_EVENT_REGISTRATIONS, SET_EVENT_REGISTRATION_STATUS, SET_REGISTER, SET_STUDENT_USERS, SET_TEACHERS_USERS, SET_UPDATE_USER } from "../../store-constants";
 
 export default {
   //  add other data
@@ -37,6 +37,16 @@ export default {
     }
   
   },
-
+  [SET_DELETE_USER](state, payload) {
+    console.log(payload)
+    if(payload.role=="admin"){
+      state.admins= state.admins.filter(x => x.id != payload.id)
+    }else if(payload.role=="teacher"){
+      state.teachers= state.teachers.filter(x => x.id != payload.id)
+    }else if(payload.role=="student"){
+      state.students= state.students.filter(x => x.id != payload.id)
+    }
+  
+  },
 
 };

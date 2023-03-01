@@ -183,4 +183,35 @@ class AuthController extends Controller
             'success' => true
         ]);
     }
+
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {   $idHolder=$id;
+        
+        if($id!=0){
+            
+            /**Delete data */
+            DB::table('users')
+            ->where('id', $id)
+            ->delete();
+
+             /**Delete data */
+            DB::table('event_registrations')
+             ->where('user_id', $id)
+             ->delete();
+            
+            DB::table('events')
+             ->where('posted_by', $id)
+             ->delete();
+                   
+            return $this->success([], "Deleted successfully", 200);
+        }
+
+        return $this->error('', 'Record not found', 404);
+    }
 }

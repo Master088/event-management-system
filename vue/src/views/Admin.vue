@@ -138,6 +138,37 @@
           </form>
         </div>
       </div>
+       
+        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
+            <div class="modal-dialog">
+                <form  @submit.prevent="handleDelete">  
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title" id="exampleModalLabel"></h5>
+                            <button type="button" class="btn text-white" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
+                            </button>
+                        </div>
+                        <div class="modal-body ">
+                            <div class="col">
+                                <i class="bi bi-exclamation-circle-fill text-danger justify-content-center d-flex"></i>
+                                <h4 class="justify-content-center d-flex fw-semibold ">Delete Account</h4>
+                                <p class="justify-content-center d-flex text-black-50 mt-3">Are you sure you want to delete this account?</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-danger px-4">
+                                Delete
+                            </button> 
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+                
       
       <div class="border rounded p-2 mt-5">
           <div class="mt-5">
@@ -159,7 +190,7 @@
                     <td>{{ user.email }}</td>
                     <td>{{ user.cellphone_number }}</td>
                     <td>{{ user.gender}}</td>
-                    <td><button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#update" @click="setUser(user)">Update</button> <button class="btn btn-sm btn-danger">Delete</button></td>
+                    <td><button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#update" @click="setUser(user)">Update</button> <button class="btn btn-sm btn-danger" @click="setUserId(user.id)" data-bs-toggle="modal" data-bs-target="#delete">Delete</button></td>
                   </tr>
                 </tbody>
               </table>
@@ -173,7 +204,7 @@
   <script setup>
   import { computed, ref, watchEffect } from "vue";
 import store from "../store";
-import { ADD_EVENT_ACTION, ADD_USER, GET_USER_BY_ROLE, UPDATE_USER } from "../store/store-constants";
+import { ADD_EVENT_ACTION, ADD_USER, DELETE_USER, GET_USER_BY_ROLE, UPDATE_USER } from "../store/store-constants";
    
 const previewImage=ref(null)
 const previewImageEdit=ref(null)
@@ -193,7 +224,7 @@ const usersData=ref({
     "password_confirmation":""
 })
   
-let userDataEdit=ref({
+const userDataEdit=ref({
     "profile_picture":null,
     "fullname":"",
     "cellphone_number":"",
@@ -202,8 +233,9 @@ let userDataEdit=ref({
     "role":"admin",
     "id_number":"",
     "section":"",
-     
 })
+
+const user_id=ref("")
 
 
 const onFileSelected=(event)=> {
@@ -222,6 +254,10 @@ const setUser=(data)=>{
     userDataEdit.value={
         ...data
     }
+}
+const setUserId=(data)=>{
+    console.log("hello =",data)
+    user_id.value=data
 }
 const getUsers=()=>{
         
@@ -290,7 +326,28 @@ const handleSubmitEdit= ()=>{
 }
 
 
+const handleDelete= ()=>{
+     
+     
+   /** set validation later */
+ 
+     store
+     .dispatch(`users/${DELETE_USER}`, {
+        id:user_id.value,
+        role:"admin",
+     })
+     .then((data) => {
+      
+       // loading.value = false;
+         console.log("data here ", data.data);
+     })
+     .catch((err) => {
+       console.log("error", err);
+       loading.value = false;
+       //   errorMsg.value = err.response.data.error;
+     });
 
+}
 
 watchEffect(() => getUsers())
 
