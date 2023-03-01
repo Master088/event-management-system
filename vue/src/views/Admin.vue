@@ -193,7 +193,7 @@ const usersData=ref({
     "password_confirmation":""
 })
   
-const userDataEdit=ref({
+let userDataEdit=ref({
     "profile_picture":null,
     "fullname":"",
     "cellphone_number":"",
@@ -218,8 +218,10 @@ const onFileSelectedEdit=(event)=> {
 }
 
 const setUser=(data)=>{
-    let test=data
-    userDataEdit.value=test
+    console.log("hello =",data)
+    userDataEdit.value={
+        ...data
+    }
 }
 const getUsers=()=>{
         
@@ -258,21 +260,24 @@ const getUsers=()=>{
 
 const handleSubmitEdit= ()=>{
     /** set validation later */
+    console.log(userDataEdit.value)
     var data = new FormData();
-        data.append('fullname', userDataEdit.fullname);
-        data.append('email', userDataEdit.email);
-        data.append('cellphone_number', userDataEdit.cellphone_number);
-        data.append('gender', userDataEdit.gender);
+        data.append('fullname', userDataEdit.value.fullname);
+        data.append('email', userDataEdit.value.email);
+        data.append('cellphone_number', userDataEdit.value.cellphone_number);
+        data.append('gender', userDataEdit.value.gender);
         
         if(previewImageEdit){
-            data.append('profile_picture', userDataEdit.profile_picture);
+            data.append('profile_picture', userDataEdit.value.profile_picture);
         }
         data.append('section', '');
         data.append('id_number', '');
+        data.append('_method', 'PATCH');
+
         
      store
      .dispatch(`users/${UPDATE_USER}`,{
-         id:userDataEdit.id,
+         id:userDataEdit.value.id,
          data
      })
      .then((data) => {

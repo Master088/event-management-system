@@ -151,7 +151,7 @@ export default {
       async [UPDATE_EVENT_STATUS](context, payload) {
         /*Call axios get request */
         return  await  axiosClient 
-          .patch(`event/status/${payload.id}`,payload.data)
+          .patch(`event/status/${payload.id}/`,payload.data)
           .then(res => {
             console.log("here",res.data.data)
             context.commit(SET_EVENT, res.data.data);

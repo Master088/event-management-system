@@ -40,8 +40,6 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-      
-
         $data = $request->validate([
             'fullname' => 'required|string',
             'cellphone_number' => 'required|string',
@@ -86,22 +84,31 @@ class AuthController extends Controller
         ]);
     }
 
-
-    public function updateUser($id,Request $request)
+   /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateUser(Request $request, $id)
     {
         $idHolder=$id;
+        // return $this->success(["user" =>  $request->fullname], "", 200);
         $data = $request->validate([
             'fullname' => 'required|string',
             'cellphone_number' => 'required|string',
             'gender' => 'required|string',
         ]);
 
+        // return $this->success(["user" =>  $data], "", 200);
+
         if ($request->hasFile('profile_picture')) {
             $file = $request->file('profile_picture')->store('profiles', 'public_uploads');
             $data['profile_picture'] = asset('uploads/'.$file);
 
             if($id!=0){
-                $id =  DB::table('events')
+                $id =  DB::table('users')
                 ->where('id', $id)
                 ->update([
                     'fullname' => $data['fullname'],
@@ -119,7 +126,7 @@ class AuthController extends Controller
     
         } else{
             if($id!=0){
-                $id =  DB::table('events')
+                $id =  DB::table('users')
                 ->where('id', $id)
                 ->update([
                     'fullname' => $data['fullname'],

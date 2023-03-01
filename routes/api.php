@@ -55,7 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 Route::post('/account/register/', [AuthController::class, 'register']);
-Route::patch('/account/{id}', [AuthController::class, 'updateUser']);
+Route::patch('/account/{id}/', [AuthController::class, 'updateUser']);
 Route::get('/accounts/{role}', [AuthController::class, 'getUsersByType']);
 
 Route::post('/login', [AuthController::class, 'login']);

@@ -80,9 +80,9 @@ export default {
         return axiosClient 
           .post(`account/${payload.id}`,payload.data)
           .then(res => {
-            console.log(res.data)
+            console.log("re",res.data.data)
 
-            context.commit(SET_UPDATE_USER, res.data.user);
+            context.commit(SET_UPDATE_USER, res.data.data.user);
             
             return Promise.resolve(res)
           })
