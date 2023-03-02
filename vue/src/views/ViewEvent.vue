@@ -356,12 +356,12 @@
                             <td>{{ registration.status }}</td>
 
                             <td v-if="registration.status=='pending'">
-                                <button class="btn btn-sm btn-danger" @click="()=>event_registration_info=registration">Delete</button>
+                                <button class="btn btn-sm btn-danger" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#deleteRegistration">Delete</button>
                                 <button class="btn btn-sm btn-warning text-white mx-2" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#deniedConfirmation">Denied</button>
                                 <button class="btn btn-sm btn-primary mx-2" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#approveConfirmation">Approve</button>
                             </td> 
                             <td v-if="registration.status=='approve'">
-                                <button class="btn btn-sm btn-danger" @click="()=>event_registration_info=registration">Delete</button>
+                                <button class="btn btn-sm btn-danger" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#deleteRegistration" >Delete</button>
                                 <button class="btn btn-sm btn-info text-white mx-2" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#unapproveConfirmation">Unapproved</button>
                             </td>
                             <td v-if="registration.status=='denied'">
