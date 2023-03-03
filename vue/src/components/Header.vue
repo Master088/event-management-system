@@ -7,10 +7,10 @@
           John Doe
         </button>
         <div class="dropdown-menu mt-1" aria-labelledby="btnGroupDrop1">
-          <a class="dropdown-item text-center" href="#" @click="logout"><i class="bi bi-box-arrow-left"></i> Logout</a>
           <a class="dropdown-item text-center" data-bs-toggle="modal" data-bs-target="#changepass">
             Change Password
           </a>
+          <a class="dropdown-item text-center" href="#" @click="logout"> Logout</a>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="changepass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

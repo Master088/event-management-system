@@ -26,55 +26,77 @@
                     
                 
                     <div class="row justify-content-start">
-                        <div class="col-4">
+                        <div class="col-4 ">
                             <!-- <div class="imagePreviewWrapper" :style="{ 'background-image': `url(${previewImage})` }" @click="selectImage"> </div> -->
                         
-                        <img v-if="previewImage" :src="previewImage" id="frame" class="img-fluid image rounded-circle imagePreviewWrapper" />
-                        <img v-else src="../assets/img/default_image.png" id="frame" class="img-fluid image rounded-circle imagePreviewWrapper" />
+                        <img v-if="previewImage" :src="previewImage" id="frame" class="img-fluid image rounded-circle imagePreviewWrapper border" />
+                        <img v-else src="../assets/img/default_image.png" id="frame" class="img-fluid image rounded-circle imagePreviewWrapper border" />
     
                         </div>
                         <div class="col mt-5">
+                            <label for="profile">Profile Picture <span class="text-danger">*</span></label>
                             <input  type="file" accept="image/jpeg, image/png, image/jpg" class="form-control" id="customFile" @change="onFileSelected"/>
+                            <div class="text-danger">
+                                {{ errors.profile_picture }}
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                        <label for="fullname">Fullname</label>
-                        <input type="text" class="form-control" id="fullname" v-model="usersData.fullname">
+                            <label for="fullname">Fullname <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="fullname" v-model="usersData.fullname">
+                            <div class="text-danger">
+                                {{ errors.fullname }}
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
-                        <label for="cp">Cellphone No.</label>
-                        <input type="text" class="form-control" id="cp" v-model="usersData.cellphone_number">
+                            <label for="cp">Cellphone No. <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="cp" v-model="usersData.cellphone_number">
+                            <div class="text-danger">
+                                {{ errors.cellphone_number }}
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="email">Email address</label>
-                            <input type="email" class="form-control" id="email" v-model="usersData.email">             
+                            <label for="email">Email address <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" v-model="usersData.email">
+                            <div class="text-danger">
+                                {{ errors.email }}
+                            </div>             
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="sex">Gender</label>
+                            <label for="sex">Gender <span class="text-danger">*</span></label>
                             <select id="inputState" class="form-control" v-model="usersData.gender">
                                 <option selected>Choose...</option>
                                 <option>Male</option>
                                 <option>Female</option>
                             </select>
+                            <div class="text-danger">
+                                {{ errors.gender }}
+                            </div>
                         </div>   
                     </div> 
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="password">Password</label>
+                            <label for="password">Password <span class="text-danger">*</span></label>
                             <input type="password" class="form-control" id="password" v-model="usersData.password">
+                            <div class="text-danger">
+                                {{ errors.password }}
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="cpassword">Confirm Password</label>
+                            <label for="cpassword">Confirm Password <span class="text-danger">*</span></label>
                             <input type="password" class="form-control" id="cpassword" v-model="usersData.password_confirmation">
+                            <div class="text-danger">
+                                {{ errors.password_confirmation }}
+                            </div>
                         </div>
                     </div>
                 
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-primary">Add Record</button>
                 </div>
             </div>
@@ -97,28 +119,38 @@
                         <div class="col-4">
                             <!-- <div class="imagePreviewWrapper" :style="{ 'background-image': `url(${previewImage})` }" @click="selectImage"> </div> -->
                         
-                        <img v-if="previewImageEdit" :src="previewImageEdit" id="frame" class="img-fluid image rounded-circle imagePreviewWrapper" />
-                        <img v-else :src="userDataEdit.profile_picture" id="frame" class="img-fluid image rounded-circle imagePreviewWrapper" />
+                        <img v-if="previewImageEdit" :src="previewImageEdit" id="frame" class="img-fluid image rounded-circle imagePreviewWrapper border" />
+                        <img v-else :src="userDataEdit.profile_picture" id="frame" class="img-fluid image rounded-circle imagePreviewWrapper border" />
     
                         </div>
                         <div class="col mt-5">
+                            <label for="profile">Profile Picture</label>
                             <input  type="file" accept="image/jpeg, image/png, image/jpg" class="form-control" id="customFile" @change="onFileSelectedEdit"/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                        <label for="fullname">Fullname</label>
-                        <input type="text" class="form-control" id="fullname" v-model="userDataEdit.fullname">
+                            <label for="fullname">Fullname</label>
+                            <input type="text" class="form-control" id="fullname" v-model="userDataEdit.fullname">
+                            <div class="text-danger">
+                                {{ errors.fullname }}
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
-                        <label for="cp">Cellphone No.</label>
-                        <input type="text" class="form-control" id="cp" v-model="userDataEdit.cellphone_number">
+                            <label for="cp">Cellphone No.</label>
+                            <input type="text" class="form-control" id="cp" v-model="userDataEdit.cellphone_number">
+                            <div class="text-danger">
+                                {{ errors.cellphone_number }}
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="email">Email address</label>
-                            <input type="email" class="form-control" id="email" v-model="userDataEdit.email">             
+                            <input type="email" class="form-control" id="email" v-model="userDataEdit.email">
+                            <div class="text-danger">
+                                {{ errors.email }}
+                            </div>             
                         </div>
                         <div class="form-group col-md-6">
                             <label for="sex">Gender</label>
@@ -127,11 +159,14 @@
                                 <option>Male</option>
                                 <option>Female</option>
                             </select>
+                            <div class="text-danger">
+                                {{ errors.gender }}
+                            </div>
                         </div>   
                     </div> 
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-primary">Update Record</button>
                 </div>
             </div>
@@ -150,8 +185,8 @@
                             </button>
                         </div>
                         <div class="modal-body ">
-                            <div class="col">
-                                <i class="bi bi-exclamation-circle-fill text-danger justify-content-center d-flex"></i>
+                            <i class="bi bi-exclamation-circle-fill text-danger justify-content-center d-flex"></i>
+                            <div class="col content-modal">
                                 <h4 class="justify-content-center d-flex fw-semibold ">Delete Account</h4>
                                 <p class="justify-content-center d-flex text-black-50 mt-3">Are you sure you want to delete this account?</p>
                             </div>
@@ -237,23 +272,42 @@ const userDataEdit=ref({
 
 const user_id=ref("")
 
+const errors = ref({
+    profile_picture: null,
+    fullname: "",
+    cellphone_number: "",
+    email: "",
+    gender: "",
+    password: "",
+    id_number: "",
+    section: "",
+    password_confirmation: ""
+})
 
 const onFileSelected=(event)=> {
     usersData.value.profile_picture = event.target.files[0]
     previewImage.value= URL.createObjectURL(event.target.files[0])    
 }
-
-
 const onFileSelectedEdit=(event)=> {
     userDataEdit.value.profile_picture = event.target.files[0]
     previewImageEdit.value= URL.createObjectURL(event.target.files[0])    
 }
-
 const setUser=(data)=>{
     console.log("hello =",data)
     userDataEdit.value={
         ...data
     }
+    errors.value = {
+          profile_picture: null,
+          fullname: "",
+          cellphone_number: "",
+          email: "",
+          gender: "",
+          password: "",
+          id_number: "",
+          section: "",
+          password_confirmation: "",
+      }
 }
 const setUserId=(data)=>{
     console.log("hello =",data)
@@ -278,51 +332,145 @@ const getUsers=()=>{
    
  const handleSubmit= ()=>{
    /** set validation later */
-     store
-     .dispatch(`users/${ADD_USER}`,{
-        ...usersData.value
-     })
-     .then((data) => {
-    
-       // loading.value = false;
-         console.log("data here ", data.data);
-     })
-     .catch((err) => {
-       console.log("error", err);
-    
-      
-     }); 
+
+    let is_valid = true
+    is_valid = true
+
+    var regexPhone =  /^(?:[0-9]|\d{11})$/; 
+    var regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    var regexPassword = /^.*(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&?@."]).*$/;
+
+     if (usersData.value.profile_picture != null) {
+          errors.value.profile_picture = ""
+      } else {
+          errors.value.profile_picture = "Please Input Profile Picture"
+          is_valid = false
+      }
+     if (usersData.value.fullname.length > 0 && usersData.value.fullname.length < 50) {
+          errors.value.fullname = ""
+      } else {
+          errors.value.fullname = "Please Enter your Fullname"
+          is_valid = false
+      }
+      if (regexPhone.test(usersData.value.cellphone_number)) {
+          errors.value.cellphone_number = ""
+      } else {
+          errors.value.cellphone_number = "Please Enter Valid Phone Number"
+          is_valid = false
+      }
+      if (regexEmail.test(usersData.value.email)) {
+          errors.value.email = ""
+      } else {
+          errors.value.email = "Please Enter Valid Email"
+          is_valid = false
+      }
+      if (usersData.value.gender.length != "") {
+          errors.value.gender = ""
+      } else {
+          errors.value.gender = "Please Enter your Gender"
+          is_valid = false
+      }
+      if (regexPassword.test(usersData.value.password)) {
+          errors.value.password = ""
+      } else {
+          errors.value.password = "password must be including one uppercase letter, one special character and alphanumeric characters"
+          is_valid = false
+      }
+      if (usersData.value.password_confirmation === usersData.value.password) {
+          errors.value.password_confirmation = ""
+      } else {
+          errors.value.password_confirmation = "Invalid Password"
+          is_valid = false
+      }
+
+
+    if(is_valid){
+        store
+        .dispatch(`users/${ADD_USER}`,{
+           ...usersData.value
+        })
+        .then((data) => {
+       
+          // loading.value = false;
+            console.log("data here ", data.data);
+        })
+        .catch((err) => {
+          console.log("error", err);
+       
+         
+        });   
+    }
 }
 
 const handleSubmitEdit= ()=>{
     /** set validation later */
     console.log(userDataEdit.value)
-    var data = new FormData();
-        data.append('fullname', userDataEdit.value.fullname);
-        data.append('email', userDataEdit.value.email);
-        data.append('cellphone_number', userDataEdit.value.cellphone_number);
-        data.append('gender', userDataEdit.value.gender);
-        
-        if(previewImageEdit){
-            data.append('profile_picture', userDataEdit.value.profile_picture);
-        }
-        data.append('section', '');
-        data.append('id_number', '');
-        data.append('_method', 'PATCH');
 
-        
-     store
-     .dispatch(`users/${UPDATE_USER}`,{
-         id:userDataEdit.value.id,
-         data
-     })
-     .then((data) => {
-       // loading.value = false;
-         console.log("data here ", data.data);
-     })
-     .catch((err) => {
-       console.log("error", err);
-     }); 
+    let is_valid = true
+      is_valid = true
+
+      var regexPhone = /^(?:[0-9]|\d{11})$/;
+      var regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+
+    //   if (userDataEdit.value.profile_picture != null) {
+    //       errors.value.profile_picture = ""
+    //   } else {
+    //       errors.value.profile_picture = "Please Input Profile Picture"
+    //       is_valid = false
+    //   }
+      if (userDataEdit.value.fullname.length > 0 && userDataEdit.value.fullname.length < 50) {
+          errors.value.fullname = ""
+      } else {
+          errors.value.fullname = "Please Enter your Fullname"
+          is_valid = false
+      }
+      if (regexPhone.test(userDataEdit.value.cellphone_number)) {
+          errors.value.cellphone_number = ""
+      } else {
+          errors.value.cellphone_number = "Please Enter Valid Phone Number"
+          is_valid = false
+      }
+      if (regexEmail.test(userDataEdit.value.email)) {
+          errors.value.email = ""
+      } else {
+          errors.value.email = "Please Enter Valid Email"
+          is_valid = false
+      }
+      if (userDataEdit.value.gender.length != "") {
+          errors.value.gender = ""
+      } else {
+          errors.value.gender = "Please Enter your Gender"
+          is_valid = false
+      }
+
+      if(is_valid){
+        var data = new FormData();
+          data.append('fullname', userDataEdit.value.fullname);
+          data.append('email', userDataEdit.value.email);
+          data.append('cellphone_number', userDataEdit.value.cellphone_number);
+          data.append('gender', userDataEdit.value.gender);
+
+          if (previewImageEdit) {
+              data.append('profile_picture', userDataEdit.value.profile_picture);
+          }
+          data.append('section', '');
+          data.append('id_number', '');
+          data.append('_method', 'PATCH');
+
+
+          store
+              .dispatch(`users/${UPDATE_USER}`, {
+                  id: userDataEdit.value.id,
+                  data
+              })
+              .then((data) => {
+                  // loading.value = false;
+                  console.log("data here ", data.data);
+              })
+              .catch((err) => {
+                  console.log("error", err);
+              });
+      }
 }
 
 

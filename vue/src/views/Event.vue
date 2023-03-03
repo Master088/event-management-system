@@ -262,8 +262,8 @@
                                         </button>
                                     </div>
                                     <div class="modal-body ">
-                                        <div class="col">
-                                            <i class="bi bi-exclamation-circle-fill text-danger justify-content-center d-flex"></i>
+                                        <i class="bi bi-exclamation-circle-fill text-danger justify-content-center d-flex"></i>
+                                        <div class="col content-modal">
                                             <h4 class="justify-content-center d-flex fw-semibold ">Delete Confirmation</h4>
                                             <p class="justify-content-center d-flex text-black-50 mt-3">Are you sure you want to delete this event?</p>
                                         </div>
@@ -781,7 +781,7 @@ const handleSubmitDelete= ()=>{
 <style>
  .pagination-label {
     color: #8b9da8;
-    font: normal normal normal 14px/19px Clear Sans;
+    /* font: normal normal normal 14px/19px Clear Sans; */
   }
   .btn-bg-add{
     background-color: #2b99be;

@@ -102,7 +102,7 @@
 
 <style>
   a.page-link {
-    font: normal normal normal 12px/14px Clear Sans;
+    /* font: normal normal normal 12px/14px Clear Sans; */
     font-size: 14px;
     color: #2b99be;
     /* padding: 5px 8px; */
