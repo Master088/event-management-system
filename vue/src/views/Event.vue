@@ -333,9 +333,9 @@
         <div v-for="event in eventDataDisplay" :key="event.id" class="fluid-container mt-5" >
             <div class="card mb-3 w-100 shadow card-box">
                 <div class="row no-gutters" >
-                    <div class="col-md-2 " >
+                    <div class="col-md-2" >
                         <!-- <div class="profile"> -->
-                            <img :src="event.profile_picture" alt="" class="img-fluid profile rounded">
+                            <img :src="event.profile_picture" alt="" class="img-fluid profile">
                         <!-- </div> -->
                     </div>
                     <div class="col h-100">
@@ -823,7 +823,7 @@ const handleSubmitDelete= ()=>{
 
 </script>
 
-<style>
+<style >
  .pagination-label {
     color: #8b9da8;
     /* font: normal normal normal 14px/19px Clear Sans; */
@@ -859,8 +859,9 @@ const handleSubmitDelete= ()=>{
     height: 100% !important;
     /* position: absolute; */
     width: 100%;
-    padding: 2px;
+    padding: 10px;
     object-fit: cover;
-    height: 100px;
+    /* height: 100px; */
+    border-radius: 50%;
   }
 </style>

@@ -85,7 +85,37 @@
   
   <div class="container pt-5 ">
 
-    <div class="row d-flex justify-content-around"  v-if="active=='joined'">
+    <div class="d-flex justify-content-around" v-if="active == 'joined'" >
+      <div class="card mb-3" style="max-width: 25rem;" v-for="event in joined_event" :key="event.id">
+        <div class="card-header bg-transparent">
+          <div class="row">
+            <span><p class="d-flex justify-content-end date-t">Date: <b>{{ event.date }}</b></p></span>
+            <span><p class="d-flex justify-content-end date-t ">Time: <b> {{ event.time }}</b></p></span>
+          </div>
+        </div>
+        <div class="card-body">
+           <div class="row justify-content-start">
+              <div class="col-sm-3 p-2">
+                <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img shadow ">
+              </div>
+              <div class="col">
+                <h5><b>{{ event.posted_by_fullname }}</b></h5>
+                  <p class="name-t">{{ event.posted_by_role }}</p>
+              </div>
+            </div>
+             <div class="row">
+              <div class="col-md-12">
+                <h5 class=" py-2 mt-2"><b>{{ event.title }}</b></h5>
+              </div>
+              <div class="col-md-12">
+              <p class=" info"> {{ event?.description.substring(0, 200) }}<span class="btn info"  @click="redirect(event.id)"><b>View More</b></span></p>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="row d-flex justify-content-around"  v-if="active=='joined'">
       <div class="col-4 d-flex" v-for="event in joined_event" :key="event.id"  >
         <div  class="card mb-3">
           <div class="card-body">
@@ -96,16 +126,12 @@
                   <div class=""><p class="date-t ">Time: <b> {{ event.time }}</b></p></div>
                 </div>
               </div>
-            
-
-               <!-- <p class="date  d-flex justify-content-end">08/24/23</p> -->
-              <div class="col-3">
+              <div class="col-md-3">
                 <div class="profile">
-                  <!-- posted_by_profile -->
                   <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img shadow ">
                 </div>
               </div>
-              <div class="col-7">
+              <div class="col-md-7">
                 <h5><b>{{ event.posted_by_fullname }}</b></h5>
                 <p class="name-t">{{ event.posted_by_role }}</p>
               </div>
@@ -119,10 +145,10 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     
 
-    <div class="row d-flex justify-content-around"  v-else-if="active=='today'">
+    <!-- <div class="row d-flex justify-content-around"  v-else-if="active=='today'">
       <div class="col-4 d-flex" v-for="event in event_today" :key="event.id"  >
         <div  class="card mb-3">
           <div class="card-body">
@@ -133,31 +159,84 @@
                   <div class=""><p class="date-t ">Time: <b> {{ event.time }}</b></p></div>
                 </div>
               </div>
-            
-
-              <!-- <p class="date  d-flex justify-content-end">08/24/23</p> -->
+             
               <div class="col-3">
                 <div class="profile">
-                  <!-- posted_by_profile -->
+                 
                   <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img shadow ">
                 </div>
               </div>
               <div class="col-7">
                 <h5><b>{{ event.posted_by_fullname }}</b></h5>
                 <p class="name-t">{{ event.posted_by_role }}</p>
-              </div>
-              
-              
+              </div>           
               <h5 class=" py-2 mt-2"><b>{{ event.title }}</b></h5>
               <p class=" info"> {{event?.description.substring(0,200)}}<span class="btn info"  @click="redirect(event.id)"><b>View More</b></span></p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+    <div class="d-flex justify-content-around" v-if="active == 'today'" >
+        <div class="card mb-3" style="max-width: 25rem;" v-for="event in event_today" :key="event.id">
+          <div class="card-header bg-transparent">
+            <div class="row">
+              <span><p class="d-flex justify-content-end date-t">Date: <b>{{ event.date }}</b></p></span>
+              <span><p class="d-flex justify-content-end date-t ">Time: <b> {{ event.time }}</b></p></span>
+            </div>
+          </div>
+          <div class="card-body">
+             <div class="row justify-content-start">
+                <div class="col-sm-3 p-2">
+                  <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img shadow ">
+                </div>
+                <div class="col">
+                  <h5><b>{{ event.posted_by_fullname }}</b></h5>
+                    <p class="name-t">{{ event.posted_by_role }}</p>
+                </div>
+              </div>
+               <div class="row">
+                <div class="col-md-12">
+                  <h5 class=" py-2 mt-2"><b>{{ event.title }}</b></h5>
+                </div>
+                <div class="col-md-12">
+                <p class=" info"> {{ event?.description.substring(0, 200) }}<span class="btn info"  @click="redirect(event.id)"><b>View More</b></span></p>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-around" v-if="active == 'upcoming'" >
+          <div class="card mb-3" style="max-width: 25rem;" v-for="event in upcoming" :key="event.id">
+            <div class="card-header bg-transparent">
+              <div class="row">
+                <span><p class="d-flex justify-content-end date-t">Date: <b>{{ event.date }}</b></p></span>
+                <span><p class="d-flex justify-content-end date-t ">Time: <b> {{ event.time }}</b></p></span>
+              </div>
+            </div>
+            <div class="card-body">
+               <div class="row justify-content-start">
+                  <div class="col-sm-3 p-2">
+                    <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img shadow ">
+                  </div>
+                  <div class="col">
+                    <h5><b>{{ event.posted_by_fullname }}</b></h5>
+                      <p class="name-t">{{ event.posted_by_role }}</p>
+                  </div>
+                </div>
+                 <div class="row">
+                  <div class="col-md-12">
+                    <h5 class=" py-2 mt-2"><b>{{ event.title }}</b></h5>
+                  </div>
+                  <div class="col-md-12">
+                  <p class=" info"> {{ event?.description.substring(0, 200) }}<span class="btn info"  @click="redirect(event.id)"><b>View More</b></span></p>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
 
-
-    <div class="row d-flex justify-content-around"  v-else-if="active=='upcoming'">
+    <!-- <div class="row d-flex justify-content-around"  v-else-if="active=='upcoming'">
       <div class="col-4 d-flex" v-for="event in upcoming" :key="event.id"  >
         <div  class="card mb-3">
           <div class="card-body">
@@ -167,29 +246,23 @@
                   <div class=""><p class="date-t">Date: <b>{{ event.date  }}</b></p></div>
                   <div class=""><p class="date-t ">Time: <b> {{ event.time }}</b></p></div>
                 </div>
-              </div>
-            
-
-             <!-- <p class="date  d-flex justify-content-end">08/24/23</p> -->
+              </div> 
              <div class="col-3">
-                <div class="profile">
-                  <!-- posted_by_profile -->
+                <div class="profile">               
                   <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img shadow ">
                 </div>
               </div>
               <div class="col-7">
                 <h5><b>{{ event.posted_by_fullname }}</b></h5>
                 <p class="name-t">{{ event.posted_by_role }}</p>
-              </div>
-              
-              
+              </div>           
               <h5 class=" py-2 mt-2"><b>{{ event.title }}</b></h5>
               <p class=" info"> {{event?.description.substring(0,200)}}<span class="btn info"  @click="redirect(event.id)"><b>View More</b></span></p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
   </div>
   </div>
@@ -391,7 +464,8 @@ height: 100%;
 }
 .profile-img{
   border-radius: 50%;
-  height: 100%;
+  /* height: 80% !important; */
+  /* width: auto; */
 }
 .date-t{
   font-size: 13px;

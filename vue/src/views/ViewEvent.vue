@@ -8,7 +8,7 @@
                 <div class="card mb-2 border-0 mt-4" style="width: 18rem;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                        <img :src="event.profile_picture" class="img-fluid rounded-circle " alt="...">
+                        <img :src="event.profile_picture" class="img-fluid rounded-circle profile-img" alt="...">
                         </div>
                         <div class="col-md-8">
                         <div class="card-body">
@@ -700,5 +700,10 @@ watchEffect(() => getEventRegistrations())
   }
   .content-modal{
     margin-top: 10vh;
+  }
+  .profile-img{
+    height: 100% !important;
+    width: 100%;
+    object-fit: cover;
   }
 </style>

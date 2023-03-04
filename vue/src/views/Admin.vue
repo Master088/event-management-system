@@ -567,14 +567,15 @@ watchEffect(() => getUsers())
   
   <style scoped>
   .imagePreviewWrapper {
-      /* width: 110px; */
+      width: 90%;
       height: 200px;
       margin: 10px;
       display: block;
       cursor: pointer;
       background-size: cover;
       background-position: center center;
-      margin: 0 auto 30px;
+      /* margin: 0 auto 30px; */
       border-radius: 7px;
+      object-fit: cover;
   }
   </style>
