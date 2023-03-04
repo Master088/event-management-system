@@ -2,7 +2,7 @@
     <div class="fluid-container p-5">
       <div class="row">
           <div class="col-md-7 me-auto">
-              <h1>Student</h1>
+              <h1>Teacher</h1>
           </div>
           <div class="row justify-content-end m-0 p-0">
               <div class="col-2">
@@ -54,16 +54,6 @@
                             <div class="text-danger">
                                 {{ errors.cellphone_number }}
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="section">Section</label>
-                            <input type="text" class="form-control" id="section" v-model="usersData.section">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="id">I.D</label>
-                            <input type="text" class="form-control" id="id" v-model="usersData.id_number">
                         </div>
                     </div>
                     <div class="row">
@@ -278,7 +268,7 @@ const previewImage=ref(null)
 const previewImageEdit=ref(null)
 const loading=ref(false)
 
-const users = ref(computed(() => store.state.users.students))|| [];
+const users = ref(computed(() => store.state.users.teachers))|| [];
     
 const usersData=ref({
     profile_picture:null,
@@ -286,7 +276,7 @@ const usersData=ref({
     cellphone_number:"",
     email:"",
     gender:"male",
-    role:"student",
+    role:"teacher",
     password:"",
     id_number:"",
     section:"",
@@ -299,7 +289,7 @@ const userDataEdit=ref({
     cellphone_number:"",
     email:"",
     gender:"",
-    role:"student",
+    role:"teacher",
     id_number:"",
     section:"",
 })
@@ -351,7 +341,7 @@ const getUsers=()=>{
         
     store
         .dispatch(`users/${GET_USER_BY_ROLE}`, {
-        role:"student"
+        role:"teacher"
         })
         .then((data) => {
         // loading.value = false;
@@ -401,19 +391,6 @@ const getUsers=()=>{
           errors.value.gender = ""
       } else {
           errors.value.gender = "Please Enter your Gender"
-          is_valid = false
-      }
-     
-      if (usersData.value.id_number.length != "") {
-          errors.value.id_number = ""
-      } else {
-          errors.value.gender = "Please Enter your ID number"
-          is_valid = false
-      }
-      if (usersData.value.section.length != "") {
-          errors.value.section = ""
-      } else {
-          errors.value.section = "Please Enter your Section"
           is_valid = false
       }
       if (regexPassword.test(usersData.value.password)) {
