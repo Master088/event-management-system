@@ -1,10 +1,10 @@
 <template>
-  <header class="bg-light shadow">
+  <header class="bg-white shadow">
     <div class="fluid-container p-1">
       <div class="btn-group logout py-3 justify-content-end" role="group">
         <button id="btnGroupDrop1" type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          John Doe
+          {{user?.fullname}}
         </button>
         <div class="dropdown-menu mt-1" aria-labelledby="btnGroupDrop1">
           <a class="dropdown-item text-center" data-bs-toggle="modal" data-bs-target="#changepass">
@@ -49,10 +49,13 @@
 <script setup>
 import store from "../store";
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { LOGOUT_ACTION } from "../store/store-constants";
 
 const router = useRouter();
+const user = ref(computed(() => store.state.auth.user))|| {
+  fullname:"user"
+};
 
 function logout(ev) {
   ev.preventDefault();

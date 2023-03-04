@@ -1,37 +1,35 @@
 <template>
   <div>
-    <div class="container d-flex justify-content-center pt-4 ">
-        <div class="card mx-5 py-3">
-          <div class="card-body">
+    <div class="container  mt-5 banner py-4 mb-5 ">
             <div class="row">
-              <div class=" col-2  text-center">
-                <img src="../assets/logos/clsu-logo.png" alt="" class="hello-img text-center">
+              <div class=" col-md-3  text-center  ">
+                <img src="../assets/img/t.png" alt="" class="hello-img img-fluid text-center">
               </div>
-              <div class="col-10">
+              <div class="col-md-9 ">
                   <div class="row">
-                    <div class="col-md-8">
-                      <h1 > Welcome Back <span class="hi">John Doe E.</span> </h1>
+                    <div class="col-md-8 mt-2">
+                      <h1 class="display-4" > Welcome Back <br> <span class="hi">{{user?.fullname}}.</span> </h1>
+                      <div class="">
+                        <h6 class="py-2 hi-txt">Please check the latest events today!</h6>
+                      </div>
                     </div>
-                  <div class="col">
-                    <p class="d-flex justify-content-end hi-txt">10:10:00</p>
+
+                  <div class="col-md-4">
+                    <p class="d-flex justify-content-end hi-txt">{{timer_date}}</p>
+                    <p class="d-flex justify-content-end hi-txt">{{timer_time}}</p>
                   </div>
                   </div>
-                 <div class="row">
-                  <div class="col-md-8">
-                    <h6 class="py-2 hi-txt">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ducimus repellendus quis consequatur qui deserunt expedita ut, labore dignissimos fuga!</h6>
-                  </div>
-                 </div>
+ 
               </div>
             </div>
-          </div>
-        </div>
+         
   </div>
 
   <div class="container pt-4 ">
     <div class="row d-flex justify-content-around">
       
       <div class="col-4">
-        <div class="card box2 border-0" @click="setActive('joined')">
+        <div :class="active=='joined' ? 'card box3 border-0 shadow'  : 'card box2 border-0'" @click="setActive('joined')">
           <div :class="active=='joined' ? 'card-body boxmain' : 'card-body'"  >
             <div class="row">
               <div class="col">
@@ -50,7 +48,7 @@
       </div>
 
       <div class="col-4 ">
-        <div class="card box2 border-0" @click="setActive('today')">
+        <div :class="active=='today' ? 'card box3 border-0 shadow'  : 'card box2 border-0'" @click="setActive('today')">
           <div :class="active=='today' ? 'card-body boxmain' : 'card-body'"  >
             <div class="row">
               <div class="col">
@@ -67,7 +65,7 @@
       </div>
       
       <div class="col-4  ">
-        <div class="card box2 border-0" @click="setActive('upcoming')">
+        <div :class="active=='upcoming' ? 'card box3 border-0 shadow'  : 'card box2 border-0'" @click="setActive('upcoming')">
           <div :class="active=='upcoming' ? 'card-body boxmain' : 'card-body'"  >
             <div class="row">
               <div class="col">
@@ -104,7 +102,7 @@
               <div class="col-3">
                 <div class="profile">
                   <!-- posted_by_profile -->
-                  <img src="../assets/img/kuku.jpg" alt="" class="profile-pic">
+                  <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img shadow ">
                 </div>
               </div>
               <div class="col-7">
@@ -113,13 +111,10 @@
               </div>
               
               
-              <h5 class=" py-2"><b>{{ event.title }}</b></h5>
+              <h5 class=" py-2 mt-2"><b>{{ event.title }}</b></h5>
               <p class=" info"> {{event?.description.substring(0,200)}}<span class="btn info"  @click="redirect(event.id)"><b>View More</b></span></p>
 
               
-              <!-- <div class="pt-4 text-center d-flex justify-content-end">
-                <button class="btn btn-outline-success px-5"  @click="redirect(event.id)"><i class="bi bi-eye"></i> View</button>
-              </div> -->
             </div>
           </div>
         </div>
@@ -140,11 +135,11 @@
               </div>
             
 
-               <!-- <p class="date  d-flex justify-content-end">08/24/23</p> -->
+              <!-- <p class="date  d-flex justify-content-end">08/24/23</p> -->
               <div class="col-3">
                 <div class="profile">
                   <!-- posted_by_profile -->
-                  <img src="../assets/img/kuku.jpg" alt="" class="profile-pic">
+                  <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img shadow ">
                 </div>
               </div>
               <div class="col-7">
@@ -153,12 +148,8 @@
               </div>
               
               
-              <h5 class=" py-2"><b>{{ event.title }}</b></h5>
+              <h5 class=" py-2 mt-2"><b>{{ event.title }}</b></h5>
               <p class=" info"> {{event?.description.substring(0,200)}}<span class="btn info"  @click="redirect(event.id)"><b>View More</b></span></p>
-              
-              <!-- <div class="pt-4 text-center d-flex justify-content-end">
-                <button class="btn btn-outline-success px-5" ><i class="bi bi-eye"></i> View</button>
-              </div> -->
             </div>
           </div>
         </div>
@@ -179,11 +170,11 @@
               </div>
             
 
-               <!-- <p class="date  d-flex justify-content-end">08/24/23</p> -->
-              <div class="col-3">
+             <!-- <p class="date  d-flex justify-content-end">08/24/23</p> -->
+             <div class="col-3">
                 <div class="profile">
                   <!-- posted_by_profile -->
-                  <img src="../assets/img/kuku.jpg" alt="" class="profile-pic">
+                  <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img shadow ">
                 </div>
               </div>
               <div class="col-7">
@@ -192,13 +183,8 @@
               </div>
               
               
-              <h5 class=" py-2"><b>{{ event.title }}</b></h5>
+              <h5 class=" py-2 mt-2"><b>{{ event.title }}</b></h5>
               <p class=" info"> {{event?.description.substring(0,200)}}<span class="btn info"  @click="redirect(event.id)"><b>View More</b></span></p>
-
-              
-              <!-- <div class="pt-4 text-center d-flex justify-content-end">
-                <button class="btn btn-outline-success px-5"  @click="redirect(event.id)"><i class="bi bi-eye"></i> View</button> -->
-              <!-- </div> -->
             </div>
           </div>
         </div>
@@ -218,6 +204,8 @@ import store from '../store';
 
 const router = useRouter();
 
+const user = ref(computed(() => store.state.auth.user))|| {};
+
 const upcoming = ref(computed(() => store.state.events.upcoming_events))|| [];
 const event_today = ref(computed(() => store.state.events.events_today))|| [];
 const joined_event = ref(computed(() => store.state.events.joined))|| [];
@@ -229,6 +217,24 @@ let loading = ref(false);
 let errorMsg = ref("");
 
 const active = ref("joined");
+
+const timer_date=ref("")
+const timer_time=ref("")
+
+
+const time=()=> {
+  var d = new Date();
+  // var s = d.getSeconds();
+  // var m = d.getMinutes();
+  // var h = d.getHours();
+  // timer.value = 
+  //   ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
+  timer_date.value=d.toDateString();
+  timer_time.value=d.toLocaleTimeString();
+
+}
+
+setInterval(time, 1000);
 
 const setActive=(value)=>{
       console.log(value)
@@ -300,16 +306,18 @@ a {
   color: inherit;
 }
 .banner{
-  background-color: #F1EDED;
-  display: flex;
-  justify-self:center;
-  align-items: center;
+  background-color:#D9E9F6;
+  border-radius: 15px;
 }
+
 .hello-img{
-  height: 5rem;
+width: 100%;
+height: 100%;
 }
+ 
 .hi {
-  color: #FB9847;
+  color: #4176bd;
+  font-weight: 600;
 }
 .hi-txt{
   color: #025498;
@@ -325,6 +333,13 @@ a {
 }
 .box2{
   background: #2B468A;
+  position: relative;
+  border-radius: 10px;
+  height: 90px;
+  cursor: pointer;
+}
+.box3{
+  background: #d6d6d6;
   position: relative;
   border-radius: 10px;
   height: 90px;
@@ -369,10 +384,14 @@ a {
   margin-top: 25px;
   position:absolute;
 }
-.profile-pic{
-  width: 4.5rem;
-  border-radius: 50%;
+.profile{
+  width: 80px;
+  height: 80px;
   /* margin-right: 30px; */
+}
+.profile-img{
+  border-radius: 50%;
+  height: 100%;
 }
 .date-t{
   font-size: 13px;

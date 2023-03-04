@@ -7,8 +7,8 @@ export default {
   },
 
   [SET_USER_DATA](state, payload) {
-    state.id = payload.id;
-    state.email = payload.email;
-    state.name = payload.name;
+    console.log("payload.user",payload)
+    state.user = payload
+    
   },
 };

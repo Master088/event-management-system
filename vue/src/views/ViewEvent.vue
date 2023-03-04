@@ -8,12 +8,12 @@
                 <div class="card mb-2 border-0 mt-4" style="width: 18rem;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                        <img src="../assets/logos/clsu-logo.png" class="img-fluid rounded-start" alt="...">
+                        <img :src="event.profile_picture" class="img-fluid rounded-circle " alt="...">
                         </div>
                         <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">John Doe</h5>
-                            <p class="card-text"><small class="text-muted">Teacher</small></p>
+                            <h5 class="card-title">{{ event.fullname }}</h5>
+                            <p class="card-text"><small class="text-muted">{{event.type}}</small></p>
                         </div>
                         </div>
                     </div>
@@ -48,7 +48,16 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-danger px-4">Yes</button> 
+                                        <button type="button" class="btn btn-danger px-4"  v-show="loading">
+                                             Yes
+                                            <span
+                                                    v-show="loading"
+                                                    class="spinner-border spinner-border-sm"
+                                            ></span>
+                                        </button>
+                                        <button type="submit" class="btn btn-danger px-4"  v-show="!loading">
+                                           Yes
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -76,7 +85,16 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary px-4">Yes</button> 
+                                        <button type="button" class="btn btn-primary px-4"  v-show="loading">
+                                             Yes
+                                            <span
+                                                    v-show="loading"
+                                                    class="spinner-border spinner-border-sm"
+                                            ></span>
+                                        </button>
+                                        <button type="submit" class="btn btn-primary px-4"  v-show="!loading">
+                                           Yes
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -104,7 +122,17 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary px-4">Register</button> 
+                                        
+                                        <button type="button" class="btn btn-primary px-4"  v-show="loading">
+                                            Register
+                                            <span
+                                                    v-show="loading"
+                                                    class="spinner-border spinner-border-sm"
+                                            ></span>
+                                        </button>
+                                        <button type="submit" class="btn btn-primary px-4"  v-show="!loading">
+                                        Register
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -132,7 +160,17 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary px-4">Approve</button> 
+                                       
+                                        <button type="button" class="btn btn-primary px-4"  v-show="loading">
+                                            Approve
+                                            <span
+                                                    v-show="loading"
+                                                    class="spinner-border spinner-border-sm"
+                                            ></span>
+                                        </button>
+                                        <button type="submit" class="btn btn-primary px-4"  v-show="!loading">
+                                            Approve
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -160,7 +198,17 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-info px-4 text-white">Unapproved</button> 
+                                        
+                                        <button type="button" class="btn btn-info px-4"  v-show="loading">
+                                            Unapproved
+                                            <span
+                                                    v-show="loading"
+                                                    class="spinner-border spinner-border-sm"
+                                            ></span>
+                                        </button>
+                                        <button type="submit" class="btn btn-info px-4"  v-show="!loading">
+                                            Unapproved
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -190,7 +238,17 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-danger px-4">Delete</button> 
+                                       
+                                        <button type="button" class="btn btn-danger px-4"  v-show="loading">
+                                            Delete
+                                            <span
+                                                    v-show="loading"
+                                                    class="spinner-border spinner-border-sm"
+                                            ></span>
+                                        </button>
+                                        <button type="submit" class="btn btn-danger px-4"  v-show="!loading">
+                                            Delete
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -218,7 +276,17 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-warning text-white px-4">Denied</button> 
+                                         
+                                        <button type="button" class="btn btn-warning px-4"  v-show="loading">
+                                            Denied
+                                            <span
+                                                    v-show="loading"
+                                                    class="spinner-border spinner-border-sm"
+                                            ></span>
+                                        </button>
+                                        <button type="submit" class="btn btn-warning px-4"  v-show="!loading">
+                                            Denied
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -398,8 +466,8 @@ const router = useRouter();
 
 const route = useRoute();
  
-let loading = ref(false);
-let errorMsg = ref("");
+const loading = ref(false);
+const errorMsg = ref("");
 const name=ref("")
 
 const id = ref (route.params.id ||0);
@@ -452,53 +520,29 @@ const getEventRegistrations=()=>{
 
 const handleRegister= ()=>{
      
-     console.log(event.value)
+     loading.value=true
    /** set validation later */
-     errorMsg.value=""
+   
      store
      .dispatch(`events/${REGISTER}`, {
         event_id:id.value,
      })
      .then((data) => {
-        //  eventDataHolder.value=events.value
-        //  eventDataDisplay.value=eventDataHolder.value.slice(0,5)
+       loading.value = false;
+       $('#registrationConfirmation').modal('hide')
          
-        //  pagination.value.currentPage=1
-
-        //  pagination.value.totalEvents=eventDataHolder.value.length
-        //  pagination.value.totalPages=parseInt(eventDataHolder.value.length/5)
-
-        //  if(eventDataHolder.value.length%5!==0){
-        //      pagination.value.totalPages+=1;
-        //  }
-        //  event.value = ref({
-        //      title:"",
-        //      date:null,
-        //      location:"",
-        //      start:"1 am",
-        //      end:"2 am",
-        //      description:""
-        //  });
-
-       // loading.value = false;
-         console.log("data here ", data.data);
      })
      .catch((err) => {
        console.log("error", err);
        loading.value = false;
-       //   errorMsg.value = err.response.data.error;
+     
      });
-
-  
-
-   // this.yearValidation = this.year.length < 4 || this.year.length > 4 ? 'The year must at least 4 number only' : ''
-  
 }
 
 
 const handleCancelEvent= ()=>{
      
-     console.log(event.value)
+    loading.value=true
    /** set validation later */
      errorMsg.value=""
      store
@@ -511,7 +555,9 @@ const handleCancelEvent= ()=>{
      })
      .then((data) => {
       
-       // loading.value = false;
+       loading.value = false;
+       $('#cancelEvent').modal('hide')
+
          console.log("data here ", data.data);
      })
      .catch((err) => {
@@ -524,7 +570,8 @@ const handleCancelEvent= ()=>{
 
 const handleOpenEvent= ()=>{
      
-     console.log(event.value)
+    loading.value=true
+
    /** set validation later */
      errorMsg.value=""
      store
@@ -537,20 +584,23 @@ const handleOpenEvent= ()=>{
      })
      .then((data) => {
       
-       // loading.value = false;
+       loading.value = false;
+       $('#openEvent').modal('hide')
+
          console.log("data here ", data.data);
      })
      .catch((err) => {
        console.log("error", err);
        loading.value = false;
-       //   errorMsg.value = err.response.data.error;
+    
      });
 
 }
 
 const handleAprove= ()=>{
      
-     console.log(event.value)
+    loading.value =true;
+    
    /** set validation later */
      errorMsg.value=""
      store
@@ -563,21 +613,20 @@ const handleAprove= ()=>{
      })
      .then((data) => {
         $('#approveConfirmation').modal('hide')
-       // loading.value = false;
+       loading.value = false;
          console.log("data here ", data.data);
      })
      .catch((err) => {
        console.log("error", err);
        loading.value = false;
-       //   errorMsg.value = err.response.data.error;
+       
      });
 
 }
 
-const handleDecline= ()=>{
+const handleDecline= (data)=>{
+    loading.value = true;
      
-     console.log(event.value)
-   /** set validation later */
      errorMsg.value=""
      store
      .dispatch(`events/${UPDATE_EVENT_REGISTRATION_STATUS}`, {
@@ -588,23 +637,25 @@ const handleDecline= ()=>{
         old_status:event_registration_info.value.status,
      })
      .then((data) => {
-        document.getElementById('close').click();
-       // loading.value = false;
-         console.log("data here ", data.data);
+       
+       loading.value = false;
+   
+       $('#deniedConfirmation').modal('hide')
+       $('#unapproveConfirmation').modal('hide')
+       
      })
      .catch((err) => {
        console.log("error", err);
        loading.value = false;
-       //   errorMsg.value = err.response.data.error;
+     
      });
 
 }
 
 const handleDelete= ()=>{
      
-     console.log(event.value)
-   /** set validation later */
-     errorMsg.value=""
+    loading.value=true
+   
      store
      .dispatch(`events/${DELETE_REGISTRATION}`, {
         id:event_registration_info.value.id,
@@ -612,13 +663,15 @@ const handleDelete= ()=>{
      })
      .then((data) => {
       
-       // loading.value = false;
-         console.log("data here ", data.data);
+       loading.value = false;
+    
+       $('#deleteRegistration').modal('hide')
+         
      })
      .catch((err) => {
        console.log("error", err);
        loading.value = false;
-       //   errorMsg.value = err.response.data.error;
+     
      });
 
 }

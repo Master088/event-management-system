@@ -465,6 +465,7 @@ const handleSubmitEdit= ()=>{
               })
               .then((data) => {
                   // loading.value = false;
+                  
                   console.log("data here ", data.data);
               })
               .catch((err) => {
@@ -475,8 +476,7 @@ const handleSubmitEdit= ()=>{
 
 
 const handleDelete= ()=>{
-     
-     
+
    /** set validation later */
  
      store
@@ -485,13 +485,13 @@ const handleDelete= ()=>{
         role:"admin",
      })
      .then((data) => {
-      
+        $('#delete').modal('hide')
        // loading.value = false;
-         console.log("data here ", data.data);
+         console.log("data here 1", data.data);
      })
      .catch((err) => {
        console.log("error", err);
-       loading.value = false;
+    //    loading.value = false;
        //   errorMsg.value = err.response.data.error;
      });
 

@@ -91,7 +91,7 @@ export default {
       .patch(`event/${payload.id}`,payload.data)
       .then(res => {
 
-        console.log("return data",res.data.data.event);
+        console.log("return data1",res.data.data.event);
 
         context.commit(SET_EDIT_EVENT, res.data.data.event);
         

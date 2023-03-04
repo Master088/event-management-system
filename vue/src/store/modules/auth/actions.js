@@ -13,7 +13,7 @@ export default {
       .then((response) => {
         let data = response.data;
         axiosClient.defaults.headers["Authorization"] = "Bearer " + data.token;
-
+        console.log("here1",data)
         localStorage.setItem("token", JSON.stringify(data.token));
         localStorage.setItem("user", JSON.stringify(data.user));
 

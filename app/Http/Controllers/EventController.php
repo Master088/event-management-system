@@ -296,7 +296,26 @@ class EventController extends Controller
                     'date_modified'=>now(),
             ]);
 
-            $event = DB::table('events')->where('id', '=',$idHolder)->get();
+         
+            $event = DB::table('events as e')
+            ->select(
+                'e.id', 
+                'e.title',
+                'e.description',
+                'e.location',
+                'e.posted_by',
+                'e.is_canceled',
+                'e.date',
+                'e.time',
+                'e.created_at',
+                'u.fullname',
+                'u.role',
+                'u.profile_picture'
+                )
+            ->join('users as u', 'u.id', '=', 'e.posted_by')
+            ->where('e.id', '=',$idHolder)
+            ->get();
+            
             
             return $this->success(["event" =>  $event[0]], "", 200);
         }
@@ -326,7 +345,25 @@ class EventController extends Controller
                     'date_modified'=>now(),
             ]);
 
-            $event = DB::table('events')->where('id', '=',$idHolder)->get();
+            $event = DB::table('events as e')
+            ->select(
+                'e.id', 
+                'e.title',
+                'e.description',
+                'e.location',
+                'e.posted_by',
+                'e.is_canceled',
+                'e.date',
+                'e.time',
+                'e.created_at',
+                'u.fullname',
+                'u.role',
+                'u.profile_picture'
+                )
+            ->join('users as u', 'u.id', '=', 'e.posted_by')
+            ->where('e.id', '=',$idHolder)
+            ->get();
+            
             
             return $this->success(["event" =>  $event[0]], "", 200);
         }

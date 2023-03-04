@@ -8,18 +8,19 @@
                     <h1>Event</h1>
                 </div>
                 <div class="col-md-5 me-auto d-flex justify-content-end" style="height: 40px;">
-                    <button type="button" class="btn-bg-add" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn-bg-add" data-bs-toggle="modal" data-bs-target="#addEvent">
                         <i class="bi bi-plus-circle"></i> Add Event
                     </button>
                 </div>
               
                 <div class="col-md-12">
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                
+                    <div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="addEventLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <form  @submit.prevent="handleSubmit">  
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add Event</h5>
+                                        <h5 class="modal-title" id="addEventLabel">Add Event</h5>
                                         <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
                                         </button>
@@ -122,7 +123,16 @@
                                         <button type="button" class="btn" data-bs-dismiss="modal">
                                              Close
                                         </button>
-                                        <button type="submit" class="btn-bg-save px-4">
+
+                                       
+                                        <button type="button" class="btn-bg-save px-4"  v-show="loading">
+                                            <i class="bi bi-cloud-download"></i> Save 
+                                            <span
+                                                    v-show="loading"
+                                                    class="spinner-border spinner-border-sm"
+                                            ></span>
+                                        </button>
+                                        <button type="submit" class="btn-bg-save px-4"  v-show="!loading">
                                             <i class="bi bi-cloud-download"></i> Save
                                         </button>
                                     </div>
@@ -133,12 +143,12 @@
                 </div>
 
                 <div class="col-md-12">
-                    <div class="modal fade" id="editEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="editEvent" tabindex="-1" role="dialog" aria-labelledby="editEventLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <form  @submit.prevent="handleSubmitEdit">  
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Edit Event</h5>
+                                        <h5 class="modal-title" id="editEventLabel">Edit Event</h5>
                                         <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
                                         </button>
@@ -240,9 +250,17 @@
                                         <button type="button" class="btn" data-bs-dismiss="modal">
                                             Close
                                         </button>
-                                        <button type="submit" class="btn-bg-save px-4">
+                                        <button type="button" class="btn-bg-save px-4"  v-show="loading">
+                                            <i class="bi bi-cloud-download"></i> Update
+                                            <span
+                                                    v-show="loading"
+                                                    class="spinner-border spinner-border-sm"
+                                            ></span>
+                                        </button>
+                                        <button type="submit" class="btn-bg-save px-4"  v-show="!loading">
                                             <i class="bi bi-cloud-download"></i> Update
                                         </button>
+                                       
                                     </div>
                                 </div>
                             </form>
@@ -256,7 +274,7 @@
                             <form  @submit.prevent="handleSubmitDelete">  
                                 <div class="modal-content">
                                     <div class="modal-header bg-danger text-white">
-                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                        <h5 class="modal-title" id="delEventLabel"></h5>
                                         <button type="button" class="btn text-white" data-bs-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true"><i class="bi bi-x-lg"></i></span>
                                         </button>
@@ -270,11 +288,18 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn" data-bs-dismiss="modal">
-                                            Cancel
+                                            Close
                                         </button>
-                                        <button type="submit" class="btn btn-danger px-4">
-                                            Delete
-                                        </button> 
+                                        <button type="button" class="btn  btn-danger px-4"  v-show="loading">
+                                            <i class="bi bi-trash"></i> Delete
+                                            <span
+                                                    v-show="loading"
+                                                    class="spinner-border spinner-border-sm"
+                                            ></span>
+                                        </button>
+                                        <button type="submit" class="btn  btn-danger px-4"  v-show="!loading">
+                                            <i class="bi bi-trash"></i> Delete
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -300,12 +325,18 @@
                 </div>
             </div>  
         </div>
-        
+        <div  class="fluid-container mt-5 d-flex justify-content-center" v-if="fecthLoading">
+            <span class="spinner-border spinner-border-lg"></span>
+        </div>
+
+       <div class="" v-else>
         <div v-for="event in eventDataDisplay" :key="event.id" class="fluid-container mt-5" >
             <div  class="card mb-3 w-100 shadow"  >
                 <div class="row no-gutters" >
-                    <div class="col-md-2" >
-                        <img src="../assets/logos/clsu-logo.png" class="card-img" alt="img" >
+                    <div class="col-md-2 " >
+                        <div class="profile">
+                        <img :src="event.profile_picture" alt="" class="img-fluid profile-img shadow ">
+                         </div>
                     </div>
                     <div class="col h-100">
                         <div class="card-body ">
@@ -353,6 +384,7 @@
                 </div>
             </div>
         </div>
+
         <div class="container py-5">
             <div
                 class="px-2 pb-2 table-pagination "
@@ -377,6 +409,8 @@
                 </Pagination>
             </div>
         </div>
+       </div>
+
     </div>
 </template>
 
@@ -413,10 +447,12 @@ const editEventData =  ref({
     description:""
 });
 
-let loading = ref(false);
+const loading = ref(false);
+const fecthLoading = ref(false);
+
 let errorMsg = ref("");
 
-let event = ref({
+let event = ref({ 
     title:"",
     date:null,
     location:"",
@@ -528,12 +564,12 @@ watch(search,()=>{
     }
 })
 
-
-
 const getEvents=()=>{
+    fecthLoading.value=true
   store
     .dispatch(`events/${FETCH_EVENTS}`, {})
     .then(data=> {
+    fecthLoading.value=false
       // loading.value = false;
       console.log(data);
       eventDataHolder.value=data.events
@@ -548,6 +584,8 @@ const getEvents=()=>{
       
     })
     .catch((err) => {
+    fecthLoading.value=false
+
       console.log("error", err);
       // loading.value = false;
       //   errorMsg.value = err.response.data.error;
@@ -567,7 +605,7 @@ const redirect=(id)=>{
 
 const handleSubmit= ()=>{
      
-        console.log(event.value)
+        
       /** set validation later */
 
         let is_valid=true
@@ -603,6 +641,8 @@ const handleSubmit= ()=>{
         }
 
      if(is_valid){
+        loading.value=true
+
         store
         .dispatch(`events/${ADD_EVENT_ACTION}`, {
           title:event.value.title,
@@ -632,7 +672,9 @@ const handleSubmit= ()=>{
                 description:""
             });
 
-          // loading.value = false;
+          loading.value = false;
+        $('#addEvent').modal('hide')
+
             console.log("data here ", data.data);
         })
         .catch((err) => {
@@ -651,7 +693,7 @@ const handleSubmit= ()=>{
 
 const handleSubmitEdit= ()=>{
      
-     console.log(editEventData.value)
+   
    /** set validation later */
 
     let is_valid = true
@@ -688,6 +730,7 @@ const handleSubmitEdit= ()=>{
     }
    
      if(is_valid){
+        loading.value=true
         store
         .dispatch(`events/${EDIT_EVENT}`, {
             id: editEventData.value.id,
@@ -720,8 +763,10 @@ const handleSubmitEdit= ()=>{
                 end: "2 am",
                 description: ""
             });
-
-            // loading.value = false;
+            
+            loading.value=false
+             $('#editEvent').modal('hide')
+  
             console.log("data here ", data);
         })
         .catch((err) => {
@@ -743,6 +788,8 @@ const handleSubmitDelete= ()=>{
    /** set validation later */
    
      errorMsg.value=""
+     loading.value=true
+          
      store
      .dispatch(`events/${DELETE_EVENT}`, {
         id:deleteId.value,  
@@ -761,18 +808,16 @@ const handleSubmitDelete= ()=>{
             }
         deleteId.value = ""
 
-       // loading.value = false;
-         console.log("data here ", data);
+       loading.value = false;
+       $('#delEvent').modal('hide')    
      })
      .catch((err) => {
        console.log("error", err);
        loading.value = false;
-       //   errorMsg.value = err.response.data.error;
+       
      });
 
-  
-
-   // this.yearValidation = this.year.length < 4 || this.year.length > 4 ? 'The year must at least 4 number only' : ''
+   
   
 }
 
@@ -810,4 +855,16 @@ const handleSubmitDelete= ()=>{
     background-color: #fff;
     border-radius: 50%;
   }
+.profile{
+  width:100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  margin-left:10px ;
+}
+.profile-img{
+  
+  height: 100%;
+}
 </style>
