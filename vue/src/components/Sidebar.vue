@@ -14,7 +14,7 @@
             </li>
             <router-link to="/event" ><li class="nav-bar"><a href="#"><i class="bi bi-calendar-week"></i> <span class="px-4">Event</span></a></li></router-link>
             <router-link to="/admin" ><li class="nav-bar"><a href="#"><i class="bi bi-person"></i> <span class="px-4">Admin</span></a></li></router-link>
-            <router-link to="/faculty" ><li class="nav-bar"><a href="#"><i class="bi bi-building"></i> <span class="px-4">Faculty</span></a></li></router-link>
+            <router-link to="/teacher" ><li class="nav-bar"><a href="#"><i class="bi bi-building"></i> <span class="px-4">Teacher</span></a></li></router-link>
             <router-link to="/student" > <li class="nav-bar"><a href="#"><i class="bi bi-people"></i> <span class="px-4">Student</span></a></li></router-link>
           </ul>
       </div>

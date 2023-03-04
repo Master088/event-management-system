@@ -16,7 +16,7 @@ import Loader2 from "../components/Loader2.vue"
 
 
 import Admin from "../views/Admin.vue"
-import Faculty from "../views/Faculty.vue";
+import Teacher from "../views/Teacher.vue";
 
 import NotFound from "../views/NotFound.vue";
 
@@ -56,9 +56,9 @@ const routes = [
         component: Admin,
       },
       {
-        path: "/faculty",
-        name: "Faculty",
-        component: Faculty,
+        path: "/teacher",
+        name: "Teacher",
+        component: Teacher,
       },
       {
         path: "/thankyou",

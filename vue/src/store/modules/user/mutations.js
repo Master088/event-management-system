@@ -25,27 +25,26 @@ export default {
     if(payload.role=="admin"){
       let index = state.admins.findIndex(x => x.id == payload.id)
       state.admins[index] = payload;
-      state.admins = [payload,...state.admins];
+      // state.admins = [payload,...state.admins];
     }else if(payload.role=="teacher"){
       let index = state.teachers.findIndex(x => x.id == payload.id)
       state.teachers[index] = payload;
-      state.teachers = [payload,...state.teachers];
+      // state.teachers = [payload,...state.teachers];
     }else if(payload.role=="student"){
       let index = state.students.findIndex(x => x.id == payload.id)
       state.students[index] = payload;
-      state.students = [payload,...state.students];
+      // state.students = [payload,...state.students];
     }
   
   },
   [SET_DELETE_USER](state, payload) {
-    console.log(payload)
-    if(payload.role=="admin"){
+   
       state.admins= state.admins.filter(x => x.id != payload.id)
-    }else if(payload.role=="teacher"){
+   
       state.teachers= state.teachers.filter(x => x.id != payload.id)
-    }else if(payload.role=="student"){
+ 
       state.students= state.students.filter(x => x.id != payload.id)
-    }
+     
   
   },
 
