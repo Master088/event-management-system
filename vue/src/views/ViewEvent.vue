@@ -155,7 +155,7 @@
                                         <i class="bi bi-check-circle-fill text-primary justify-content-center d-flex"></i>
                                         <div class="col content-modal">
                                             <h4 class="justify-content-center d-flex fw-semibold ">Approve Confirmation</h4>
-                                            <p class="justify-content-center d-flex text-black-50 mt-3">Are you sure you want to approve <pre> <b>{{ event_registration_info.fullname }}'s</b> </pre> to this event?</p>
+                                            <p class=" text-black-50 mt-3">Are you sure you want to approve <b>{{ event_registration_info.fullname }}'s</b> to this event?</p>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -193,20 +193,20 @@
                                         <i class="bi bi-exclamation-circle-fill text-info justify-content-center d-flex"></i>
                                         <div class="col content-modal">
                                             <h4 class="justify-content-center d-flex fw-semibold ">Unapproved Confirmation</h4>
-                                            <p class="justify-content-center d-flex text-black-50 mt-3">Are you sure you want to unapproved <pre><b> {{ event_registration_info.fullname }}'s </b></pre> to this event?</p>
+                                            <p class="text-black-50 mt-3">Are you sure you want to unapproved <b> {{ event_registration_info.fullname }}'s </b> to this event?</p>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
                                         
-                                        <button type="button" class="btn btn-info px-4"  v-show="loading">
+                                        <button type="button" class="btn btn-info px-4 text-white"  v-show="loading">
                                             Unapproved
                                             <span
                                                     v-show="loading"
                                                     class="spinner-border spinner-border-sm"
                                             ></span>
                                         </button>
-                                        <button type="submit" class="btn btn-info px-4"  v-show="!loading">
+                                        <button type="submit" class="btn btn-info px-4 text-white"  v-show="!loading">
                                             Unapproved
                                         </button>
                                     </div>
@@ -232,7 +232,7 @@
                                         <i class="bi bi-exclamation-circle-fill text-danger justify-content-center d-flex"></i>
                                             <div class="col content-modal">
                                                 <h4 class="justify-content-center d-flex fw-semibold ">Delete Registration</h4>
-                                                <p class="justify-content-center text-black-50">Are you sure you want to delete <span><b>{{ event_registration_info.fullname }}'s registration</b></span> to this event?</p>
+                                                <p class=" text-black-50">Are you sure you want to delete <b>{{ event_registration_info.fullname }}'s registration</b> to this event?</p>
                                             </div>
                                       
                                     </div>
@@ -271,20 +271,20 @@
                                         <i class="bi bi-exclamation-circle-fill text-warning justify-content-center d-flex"></i>
                                          <div class="col content-modal">
                                             <h4 class="justify-content-center d-flex fw-semibold ">Denied Confirmation</h4>
-                                            <p class="justify-content-center d-flex text-black-50 mt-3">Are you sure you want to denied <b><pre>{{ event_registration_info.fullname }}'s</pre></b> to this event?</p>
+                                            <p class="justify-content-center d-flex text-black-50 mt-3">Are you sure you want to denied <pre> <b>{{ event_registration_info.fullname }}'s</b> </pre> to this event?</p>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
                                          
-                                        <button type="button" class="btn btn-warning px-4"  v-show="loading">
+                                        <button type="button" class="btn btn-warning px-4 text-white"  v-show="loading">
                                             Denied
                                             <span
                                                     v-show="loading"
                                                     class="spinner-border spinner-border-sm"
                                             ></span>
                                         </button>
-                                        <button type="submit" class="btn btn-warning px-4"  v-show="!loading">
+                                        <button type="submit" class="btn btn-warning px-4 text-white"  v-show="!loading">
                                             Denied
                                         </button>
                                     </div>

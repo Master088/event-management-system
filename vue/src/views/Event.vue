@@ -331,12 +331,12 @@
 
        <div class="" v-else>
         <div v-for="event in eventDataDisplay" :key="event.id" class="fluid-container mt-5" >
-            <div  class="card mb-3 w-100 shadow"  >
+            <div class="card mb-3 w-100 shadow card-box">
                 <div class="row no-gutters" >
                     <div class="col-md-2 " >
-                        <div class="profile">
-                        <img :src="event.profile_picture" alt="" class="img-fluid profile-img shadow ">
-                         </div>
+                        <!-- <div class="profile"> -->
+                            <img :src="event.profile_picture" alt="" class="img-fluid profile rounded">
+                        <!-- </div> -->
                     </div>
                     <div class="col h-100">
                         <div class="card-body ">
@@ -372,8 +372,8 @@
                             <p class="card-text"> 
                                 {{event?.description.substring(0,300)}} ...
                             </p>
-                            <div class="mt-3 d-flex justify-content-end mb-0">
-                                <div class="col-auto">
+                            <div class="mt-5 d-flex justify-content-end mb-0">
+                                <div class="col-md-10 d-flex justify-content-end">
                                     <button type="button" class="btn border" @click="redirect(event.id)">
                                         <i class="bi bi-file-earmark-plus"></i> View More
                                     </button>
@@ -855,16 +855,12 @@ const handleSubmitDelete= ()=>{
     background-color: #fff;
     border-radius: 50%;
   }
-.profile{
-  width:100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  margin-left:10px ;
-}
-.profile-img{
-  
-  height: 100%;
-}
+  .profile{
+    height: 100% !important;
+    /* position: absolute; */
+    width: 100%;
+    padding: 2px;
+    object-fit: cover;
+    height: 100px;
+  }
 </style>
