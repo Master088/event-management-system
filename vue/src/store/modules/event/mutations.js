@@ -45,42 +45,18 @@ export default {
     let index = state.event_registrations.findIndex(x => x.id == payload.data.id)
     console.log("hello",state.event_registrations[index])
     state.event_registrations[index] = payload.data;
-    
-    console.log("old status",payload.old_status)
 
-    if(payload.old_status=="approve"){
-      state.event_registrations_count.approve-=1
-    }else if(payload.old_status=="denied"){
-      state.event_registrations_count.denied-=1
-    }
-    
-    // else if(payload.old_status=="pending"){
-    //   state.event_registrations_count.pending=parseInt((state.event_registrations.pending))-1 || 0
-    // }
-
-    if(payload.data.status=="approve"){
-      console.log("approve" + state.event_registrations_count.approve)
-      state.event_registrations_count.approve += 1  
-    }else if(payload.data.status=="denied"){
-      state.event_registrations_count.denied += 1  
-    }
-    // else if(payload.data.status=="pending"){
-    //   state.event_registrations_count.pending=state.event_registrations.pending+1 
-    // }
-
-
+    state.event_registrations_count.approve= state.event_registrations.filter(x => x.status == "approve").length
+    state.event_registrations_count.denied= state.event_registrations.filter(x => x.status == "denied").length
+    state.event_registrations_count.pending= state.event_registrations.filter(x => x.status == "pending").length
+   
   },
   [SET_DELETE_REGISTRATION](state, payload) {
     state.event_registrations= state.event_registrations.filter(x => x.id != payload.id)
-
-    if(payload.type=="approve"){
-      state.event_registrations_count.approve-=1 
-    }else   if(payload.type=="denied"){
-      state.event_registrations_count.denied-=1
-
-    }else   if(payload.type=="pending"){
-      state.event_registrations_count.pending-=1
-    }
+    
+    state.event_registrations_count.approve= state.event_registrations.filter(x => x.status == "approve").length
+    state.event_registrations_count.denied= state.event_registrations.filter(x => x.status == "denied").length
+    state.event_registrations_count.pending= state.event_registrations.filter(x => x.status == "pending").length
   },
   
 };

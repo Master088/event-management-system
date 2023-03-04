@@ -97,7 +97,16 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">Add Record</button>
+                <button type="button" class="btn btn-primary px-4"  v-show="loading">
+                   Add record
+                    <span
+                            class="spinner-border spinner-border-sm"
+                    ></span>
+                </button>
+                <button type="submit" class="btn btn-primary px-4"  v-show="!loading">
+                    Add record
+                </button>
+                 
                 </div>
             </div>
           </form>
@@ -167,7 +176,16 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">Update Record</button>
+                <button type="button" class="btn btn-primary px-4"  v-show="loading">
+                    Update Record
+                    <span
+                            class="spinner-border spinner-border-sm"
+                    ></span>
+                </button>
+                <button type="submit" class="btn btn-primary px-4"  v-show="!loading">
+                    Update Record
+                </button>
+                
                 </div>
             </div>
           </form>
@@ -195,9 +213,15 @@
                             <button type="button" class="btn" data-bs-dismiss="modal">
                                 Cancel
                             </button>
-                            <button type="submit" class="btn btn-danger px-4">
+                            <button type="button" class="btn btn-danger px-4"  v-show="loading">
                                 Delete
-                            </button> 
+                                <span
+                                        class="spinner-border spinner-border-sm"
+                                ></span>
+                            </button>
+                            <button type="submit" class="btn btn-danger px-4"  v-show="!loading">
+                                Delete
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -243,31 +267,32 @@ import { ADD_EVENT_ACTION, ADD_USER, DELETE_USER, GET_USER_BY_ROLE, UPDATE_USER 
    
 const previewImage=ref(null)
 const previewImageEdit=ref(null)
+const loading=ref(false)
 
 const users = ref(computed(() => store.state.users.admins))|| [];
     
 const usersData=ref({
-    "profile_picture":null,
-    "fullname":"",
-    "cellphone_number":"",
-    "email":"",
-    "gender":"",
-    "role":"admin",
-    "password":"",
-    "id_number":"",
-    "section":"",
-    "password_confirmation":""
+                profile_picture:null,
+                fullname:"",
+                cellphone_number:"",
+                email:"",
+                gender:"male",
+                role:"admin",
+                password:"",
+                id_number:"",
+                section:"",
+                password_confirmation:""
 })
   
 const userDataEdit=ref({
-    "profile_picture":null,
-    "fullname":"",
-    "cellphone_number":"",
-    "email":"",
-    "gender":"",
-    "role":"admin",
-    "id_number":"",
-    "section":"",
+    profile_picture:null,
+    fullname:"",
+    cellphone_number:"",
+    email:"",
+    gender:"",
+    role:"admin",
+    id_number:"",
+    section:"",
 })
 
 const user_id=ref("")
@@ -325,8 +350,7 @@ const getUsers=()=>{
         })
         .catch((err) => {
         console.log("error", err);
-        // loading.value = false;
-        //   errorMsg.value = err.response.data.error;
+        
         });
     }
    
@@ -385,17 +409,31 @@ const getUsers=()=>{
 
 
     if(is_valid){
+        loading.value=true
         store
         .dispatch(`users/${ADD_USER}`,{
            ...usersData.value
         })
         .then((data) => {
-       
-          // loading.value = false;
-            console.log("data here ", data.data);
+            usersData.value={
+                profile_picture:null,
+                fullname:"",
+                cellphone_number:"",
+                email:"",
+                gender:"male",
+                role:"admin",
+                password:"",
+                id_number:"",
+                section:"",
+                password_confirmation:""
+            }
+          loading.value = false;
+       $('#add').modal('hide')
+            
         })
         .catch((err) => {
           console.log("error", err);
+          loading.value = false;
        
          
         });   
@@ -412,12 +450,7 @@ const handleSubmitEdit= ()=>{
       var regexPhone = /^(?:[0-9]|\d{11})$/;
       var regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-    //   if (userDataEdit.value.profile_picture != null) {
-    //       errors.value.profile_picture = ""
-    //   } else {
-    //       errors.value.profile_picture = "Please Input Profile Picture"
-    //       is_valid = false
-    //   }
+   
       if (userDataEdit.value.fullname.length > 0 && userDataEdit.value.fullname.length < 50) {
           errors.value.fullname = ""
       } else {
@@ -444,6 +477,7 @@ const handleSubmitEdit= ()=>{
       }
 
       if(is_valid){
+        loading.value=true
         var data = new FormData();
           data.append('fullname', userDataEdit.value.fullname);
           data.append('email', userDataEdit.value.email);
@@ -464,7 +498,8 @@ const handleSubmitEdit= ()=>{
                   data
               })
               .then((data) => {
-                  // loading.value = false;
+                  loading.value = false;
+                 $('#update').modal('hide')
                   
                   console.log("data here ", data.data);
               })
@@ -478,7 +513,8 @@ const handleSubmitEdit= ()=>{
 const handleDelete= ()=>{
 
    /** set validation later */
- 
+   loading.value = true;
+            
      store
      .dispatch(`users/${DELETE_USER}`, {
         id:user_id.value,
@@ -486,13 +522,13 @@ const handleDelete= ()=>{
      })
      .then((data) => {
         $('#delete').modal('hide')
-       // loading.value = false;
+       loading.value = false;
          console.log("data here 1", data.data);
      })
      .catch((err) => {
        console.log("error", err);
-    //    loading.value = false;
-       //   errorMsg.value = err.response.data.error;
+       loading.value = false;
+       
      });
 
 }
