@@ -5,8 +5,7 @@ import DefaultLayout from "../components/DefaultLayout.vue";
 import AuthenticatedLayout from "../components/AuthenticatedLayout.vue";
 
 import Dashboard from "../views/Dashboard.vue";
-import DepartmentFolder from "../views/DepartmentFolder.vue";
-import DepartmentFolderContent from "../views/DepartmentFolderContent.vue";
+ 
 import Event from "../views/Event.vue";
 import ViewEvent from "../views/ViewEvent.vue";
 import Student from "../views/Student.vue";
@@ -24,7 +23,7 @@ import store from "../store";
 
 const routes = [
   {
-    path: "/department",
+    path: "/dashboard",
     redirect: "/dashboard",
     component: AuthenticatedLayout,
     meta: { requiresAuth: true },
@@ -107,6 +106,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+
   if (to.meta.requiresAuth && !store.state.auth.token) {
     next({ name: "Login" });
   } else if (store.state.auth.token && to.meta.isGuest) {

@@ -9,26 +9,37 @@
           <hr />
         </div>
           <ul>
-            <li class="nav-bar">             
+            <li   :class="currentRouteName==='DashBoard'? 'nav-bar active' : 'nav-bar '">             
               <router-link to="/dashboard" ><i class="bi bi-house"></i> <span class="px-4">Dashboard</span></router-link>
             </li>
-            <router-link to="/event" ><li class="nav-bar"><a href="#"><i class="bi bi-calendar-week"></i> <span class="px-4">Event</span></a></li></router-link>
-            <router-link to="/admin" ><li class="nav-bar"><a href="#"><i class="bi bi-person"></i> <span class="px-4">Admin</span></a></li></router-link>
-            <router-link to="/teacher" ><li class="nav-bar"><a href="#"><i class="bi bi-building"></i> <span class="px-4">Teacher</span></a></li></router-link>
-            <router-link to="/student" > <li class="nav-bar"><a href="#"><i class="bi bi-people"></i> <span class="px-4">Student</span></a></li></router-link>
+            <router-link to="/event"  v-show="user?.role=='admin'"><li
+              :class="currentRouteName==='Event'? 'nav-bar active' : 'nav-bar '"
+              ><a href="#"><i class="bi bi-calendar-week"></i> <span class="px-4">Event</span></a></li></router-link>
+            <router-link to="/admin" v-show="user?.role=='admin'"><li   :class="currentRouteName==='Admin'? 'nav-bar active' : 'nav-bar '"><a href="#"><i class="bi bi-person"></i> <span class="px-4">Admin</span></a></li></router-link>
+            <router-link to="/teacher"  v-show="user?.role=='admin'"><li   :class="currentRouteName==='Teacher'? 'nav-bar active' : 'nav-bar '"><a href="#"><i class="bi bi-building"></i> <span class="px-4">Teacher</span></a></li></router-link>
+            <router-link to="/student" v-show="user?.role=='admin'"> <li   :class="currentRouteName==='Student'? 'nav-bar active' : 'nav-bar '"><a href="#"><i class="bi bi-people"></i> <span class="px-4">Student</span></a></li></router-link>
           </ul>
       </div>
   </div>
   
 </template>
-<script>
+ 
+<script setup>
+import store from "../store";
+ 
+import { computed, ref } from "vue";
+import { useRoute } from "vue-router";
+ 
+ 
+const user = ref(computed(() => store.state.auth.user))|| {
+  fullname:"user"
+};
 
+const route = useRoute()
+const currentRouteName = computed(() => route.name)
 
-export default {
-  components: {
-  
-  },
-}
+console.log(currentRouteName.value)
+
 </script>
 
 <style scoped>
@@ -81,6 +92,15 @@ display: block;
 background-color: #16796F;
 
 }
+.active{
+border-bottom: 3px solid #16796F;
+color: #fff !important;
+}
+.active a{
+ 
+color: #fff;
+}
+
 a{
 color: inherit;
 }

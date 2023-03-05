@@ -261,7 +261,8 @@
   
   
   <script setup>
-  import { computed, ref, watchEffect } from "vue";
+  import { computed, onMounted, ref, watchEffect } from "vue";
+import { useRouter } from "vue-router";
 import store from "../store";
 import { ADD_EVENT_ACTION, ADD_USER, DELETE_USER, GET_USER_BY_ROLE, UPDATE_USER } from "../store/store-constants";
    
@@ -308,6 +309,25 @@ const errors = ref({
     section: "",
     password_confirmation: ""
 })
+
+
+const user = ref(computed(() => store.state.auth.user))|| {
+  fullname:"user"
+};
+const router = useRouter();
+
+onMounted(()=>{
+    console.log("hello her", user.value)
+
+    if(user.value.role=="student" || user.value.role=="teacher"){
+      console.log("hello her")
+        router.push({
+        name: "DashBoard",
+      });
+
+    }
+})
+
 
 const onFileSelected=(event)=> {
     usersData.value.profile_picture = event.target.files[0]

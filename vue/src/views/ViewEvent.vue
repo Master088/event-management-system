@@ -457,7 +457,7 @@
 <script setup>
 // import store from "../store";
 import { useRoute, useRouter } from "vue-router";
-import { ref, computed, watchEffect } from "vue";
+import { ref, computed, watchEffect, onMounted } from "vue";
 import {  DELETE_REGISTRATION, GET_EVENT, GET_EVENT_REGISTRATIONS, REGISTER, UPDATE_EVENT_REGISTRATION_STATUS, UPDATE_EVENT_STATUS } from "../store/store-constants";
 import store from '../store';
 
@@ -476,6 +476,9 @@ const event_registrations = ref(computed(() => store.state.events.event_registra
 const event_registrations_count = ref(computed(() => store.state.events.event_registrations_count))|| {};
 
 const event_registration_info = ref("");
+
+
+ 
 
 
 const getEvent=()=>{

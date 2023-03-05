@@ -260,7 +260,8 @@
   
   
   <script setup>
-  import { computed, ref, watchEffect } from "vue";
+  import { computed, onMounted, ref, watchEffect } from "vue";
+import { useRouter } from "vue-router";
 import store from "../store";
 import { ADD_EVENT_ACTION, ADD_USER, DELETE_USER, GET_USER_BY_ROLE, UPDATE_USER } from "../store/store-constants";
    
@@ -333,6 +334,25 @@ const setUser=(data)=>{
           password_confirmation: "",
       }
 }
+
+
+const user = ref(computed(() => store.state.auth.user))|| {
+  fullname:"user"
+};
+const router = useRouter();
+
+onMounted(()=>{
+    console.log("hello her", user.value)
+
+    if(user.value.role=="student" || user.value.role=="teacher"){
+      console.log("hello her")
+        router.push({
+        name: "DashBoard",
+      });
+
+    }
+})
+
 const setUserId=(data)=>{
     console.log("hello =",data)
     user_id.value=data

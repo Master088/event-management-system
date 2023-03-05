@@ -418,7 +418,7 @@
 <script setup>
 // import store from "../store";
 import { useRouter } from "vue-router";
-import { ref, computed, watchEffect, watch } from "vue";
+import { ref, computed, watchEffect, watch, onMounted } from "vue";
 import { ADD_EVENT_ACTION, DELETE_EVENT, EDIT_EVENT, FETCH_EVENTS} from "../store/store-constants";
 import store from '../store';
 import Pagination from '../components/Pagination.vue'
@@ -475,6 +475,23 @@ const pagination = ref({
         firstVal: 1,
         secondVal: 5
       })
+
+
+const user = ref(computed(() => store.state.auth.user))|| {
+  fullname:"user"
+};
+
+onMounted(()=>{
+    console.log("hello her", user.value)
+
+    if(user.value.role=="student" || user.value.role=="teacher"){
+      console.log("hello her")
+        router.push({
+        name: "DashBoard",
+      });
+
+    }
+})
 
 
 const getPage = page => {
