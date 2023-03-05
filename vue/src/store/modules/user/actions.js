@@ -57,8 +57,8 @@ export default {
         data.append('gender', payload.gender);
         data.append('role', payload.role);
         data.append('profile_picture', payload.profile_picture);
-        data.append('section', '');
-        data.append('id_number', '');
+        data.append('section', payload?.section||"");
+        data.append('id_number', payload?.id_number||"");
 
         return axiosClient 
           .post(`account/register/`,data)

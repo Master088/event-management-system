@@ -4,7 +4,7 @@ import {
     UPDATE_EVENT_STATUS,
     DELETE_EVENT,
     EDIT_EVENT,
-    FETCH_DASHBOARD_EVENTS,FETCH_EVENTS,GET_EVENT,GET_EVENT_REGISTRATIONS,REGISTER,SET_DASHBOARD_EVENTS, SET_DELETE_EVENT, SET_EDIT_EVENT, SET_EVENT, SET_EVENTS, SET_EVENT_REGISTRATIONS, SET_REGISTER, UPDATE_EVENT_REGISTRATION_STATUS, SET_EVENT_REGISTRATION_STATUS, DELETE_REGISTRATION, SET_DELETE_REGISTRATION
+    FETCH_DASHBOARD_EVENTS,FETCH_EVENTS,GET_EVENT,GET_EVENT_REGISTRATIONS,REGISTER,SET_DASHBOARD_EVENTS, SET_DELETE_EVENT, SET_EDIT_EVENT, SET_EVENT, SET_EVENTS, SET_EVENT_REGISTRATIONS, SET_REGISTER, UPDATE_EVENT_REGISTRATION_STATUS, SET_EVENT_REGISTRATION_STATUS, DELETE_REGISTRATION, SET_DELETE_REGISTRATION, GET_UNREGISTERED_STUDENT, SET_UNREGISTERED_STUDENT
 } from "../../store-constants";
 import axiosClient from "../../../axios";
 
@@ -185,6 +185,22 @@ export default {
         .delete(`event/register/delete/${payload.id}`)
         .then(res => {
           context.commit(SET_DELETE_REGISTRATION,payload);
+          
+          return Promise.resolve(res)
+        })
+        .catch(err => {
+          console.log(err)
+          return Promise.reject(err)
+        })
+      },
+
+      async [GET_UNREGISTERED_STUDENT](context, payload) {
+        /*Call axios get request */ 
+          console.log({payload}) 
+      return axiosClient 
+        .get(`event/unregistered/${payload.id}`)
+        .then(res => {
+          context.commit(SET_UNREGISTERED_STUDENT,res.data.data.students);
           
           return Promise.resolve(res)
         })

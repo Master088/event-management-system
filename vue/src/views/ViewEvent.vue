@@ -308,7 +308,7 @@
                     <button v-if="event.is_canceled" type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#openEvent">
                         Open Event
                     </button>
-                    <button v-if="!event.is_canceled" type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#cancelEvent">
+                    <button v-if="!event.is_canceled"   v-show="user?.role=='admin'" type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#cancelEvent">
                         Cancel Event
                     </button>
 
@@ -321,7 +321,7 @@
                 </div>
             </div>
         </div>
-        <div class="fluid-container mt-4">
+        <div class="fluid-container mt-4"  v-if="user?.role=='admin' || user?.role=='teacher' ">
             <hr>
             <h3>Registered Students</h3>
             <div class="col-md-12 d-flex justify-content-end">
@@ -333,7 +333,7 @@
                 <div class="modal-dialog modal-xl modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Register Student</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Register Student{{ addRegisterIds }}</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -341,10 +341,10 @@
                                 <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
                                     aria-label="Search">
                             </form>
+
                             <div class="modal-dialog-scrollable">
-                            
-                           <div class="container p-5">
-                            <table class="table mt-4">
+                            <div class="container p-5">
+                                <table class="table mt-4">
                                 <thead>
                                     <tr>
                                     <th scope="col">
@@ -352,21 +352,22 @@
                                             <input  type="checkbox" class="form-check-input" @click="selectAll" v-model="allSelected"> Check All
                                         </label>
                                     </th>
+                                    <th scope="col">ID Number</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Section</th>
-                                    <th scope="col">ID Number</th>
+                                   
                                     </tr>
                                 </thead>
-                                <tbody v-for="user in tableUseData" :key="user.idNumber">
+                                <tbody v-for="user in unregistered_student" :key="user.id">
                                     <tr >
                                         <th scope="row">
                                             <label>
-                                                <input  type="checkbox" class="form-check-input" ref="test">
+                                                <input  type="checkbox" class="form-check-input" ref="test" @click="addRemoveId(user.id)">
                                             </label>
                                         </th>
-                                        <td>{{ user.name }}</td>
-                                        <td>ICT-A</td>
-                                        <td>23-00000</td>
+                                        <td>{{ user.id_number }}</td>
+                                        <td>{{ user.fullname }}</td>     
+                                        <td>{{ user.section }}</td>
                                     </tr>
                                
                                 </tbody>
@@ -475,7 +476,7 @@
                         <th scope="col">Section</th>
                         <th scope="col">Registration Date</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <th scope="col"  v-show="user?.role=='admin'">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -487,16 +488,16 @@
                             <td>{{ registration.created_at }}</td>
                             <td>{{ registration.status }}</td>
 
-                            <td v-if="registration.status=='pending'">
+                            <td v-if="registration.status=='pending'"  v-show="user?.role=='admin'">
                                 <button class="btn btn-sm btn-danger" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#deleteRegistration">Delete</button>
                                 <button class="btn btn-sm btn-warning text-white mx-2" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#deniedConfirmation">Denied</button>
                                 <button class="btn btn-sm btn-primary mx-2" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#approveConfirmation">Approve</button>
                             </td> 
-                            <td v-if="registration.status=='approve'">
+                            <td v-if="registration.status=='approve'"  v-show="user?.role=='admin'">
                                 <button class="btn btn-sm btn-danger" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#deleteRegistration" >Delete</button>
                                 <button class="btn btn-sm btn-info text-white mx-2" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#unapproveConfirmation">Unapproved</button>
                             </td>
-                            <td v-if="registration.status=='denied'">
+                            <td v-if="registration.status=='denied'"  v-show="user?.role=='admin'">
                                 <button class="btn btn-sm btn-danger" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#deleteRegistration">Delete</button>
                                 <button class="btn btn-sm btn-primary mx-2" @click="()=>event_registration_info=registration" data-bs-toggle="modal" data-bs-target="#approveConfirmation">Approve</button>
                             </td>
@@ -516,7 +517,7 @@
 // import store from "../store";
 import { useRoute, useRouter } from "vue-router";
 import { ref, computed, watchEffect, onMounted } from "vue";
-import {  DELETE_REGISTRATION, GET_EVENT, GET_EVENT_REGISTRATIONS, REGISTER, UPDATE_EVENT_REGISTRATION_STATUS, UPDATE_EVENT_STATUS } from "../store/store-constants";
+import {  DELETE_REGISTRATION, GET_EVENT, GET_EVENT_REGISTRATIONS, GET_UNREGISTERED_STUDENT, REGISTER, UPDATE_EVENT_REGISTRATION_STATUS, UPDATE_EVENT_STATUS } from "../store/store-constants";
 import store from '../store';
 
 
@@ -532,6 +533,7 @@ const id = ref (route.params.id ||0);
 const event = ref(computed(() => store.state.events.event))|| {};
 const event_registrations = ref(computed(() => store.state.events.event_registrations))|| [];
 const event_registrations_count = ref(computed(() => store.state.events.event_registrations_count))|| {};
+const unregistered_student = ref(computed(() => store.state.events.unregistered_student))|| [];
 
 const event_registration_info = ref("");
 
@@ -543,6 +545,33 @@ const tableUseData = [ {"idNumber": 1, "name": "arturo", "section": "ICT-A"},
                         { "idNumber": 6, "name": "arturo", "section": "ICT-A" }  
                     ];
 
+const user = ref(computed(() => store.state.auth.user))|| {
+  fullname:"user"
+};
+
+const addRegisterIds=ref([])
+
+
+
+
+const addRemoveId=(id)=>{
+    var status =0;
+
+    for (var i = 0; i < addRegisterIds.value.length; i++) {
+        
+        if (addRegisterIds.value[i] == id) {
+            status = 1;
+            break;
+        }
+    }
+
+    if(status==1){
+        addRegisterIds.value.push(id)
+    }else{
+        addRegisterIds.value=addRegisterIds.value.filter(x => x.id !=id)
+    }
+   console.log(addRegisterIds.value)
+}
 
 const getEvent=()=>{
   console.log("helo",id.value)
@@ -562,6 +591,27 @@ const getEvent=()=>{
    
    
 }
+
+
+const getUnregisteredStudents=()=>{
+ 
+  store
+    .dispatch(`events/${GET_UNREGISTERED_STUDENT}`, {
+      id:id.value
+    })
+    .then(() => {
+      // loading.value = false;
+      //   console.log("data here ", data.data);
+    })
+    .catch((err) => {
+      console.log("error", err);
+      // loading.value = false;
+      //   errorMsg.value = err.response.data.error;
+    });
+   
+   
+}
+
 
 const getEventRegistrations=()=>{
   console.log("helo",id.value)
@@ -745,6 +795,9 @@ const handleDelete= ()=>{
 watchEffect(() => getEvent())
 
 watchEffect(() => getEventRegistrations())
+
+watchEffect(() => getUnregisteredStudents())
+
 
 
 </script>

@@ -48,6 +48,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/event/register/status/{id}', [EventRegistrationController::class, 'updateStatus']);
 
     Route::delete('/event/register/delete/{id}', [EventRegistrationController::class, 'destroy']);
+    
+    Route::get('/event/unregistered/{id}', [EventRegistrationController::class, 'getUngisteredStudents']);
 
 
 });

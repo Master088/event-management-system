@@ -61,6 +61,37 @@ class EventRegistrationController extends Controller
 
     }
 
+    public function getUngisteredStudents($id)
+    {     
+        
+        $event_registrations = DB::table('event_registrations as er')
+        ->select(
+          'u.id',
+          'u.fullname',
+          'er.status',
+          )
+        ->join('users as u', 'u.id', '=', 'er.user_id')
+        ->orderBy('er.created_at', 'desc')
+        ->where('er.event_id', '=', $id)
+        ->get();
+       
+        $ids = array();
+        foreach($event_registrations as $key=>$value) {
+            array_push($ids ,  $value->id);
+          }
+              
+
+          $students=DB::table('users')->select(
+            'users.*'
+          )
+          ->where('users.role', '=', 'student')
+          ->whereNotIn('users.id', $ids)
+          ->get();
+
+        return $this->success(["students" => $students], "", 200);
+
+    }
+
     public function getUserEvent()
     {         
         /** Get user*/    

@@ -94,3 +94,7 @@ export const SET_UPDATE_USER = "[mutations] set update user";
 export const DELETE_USER = "[actions] delete user";
 
 export const SET_DELETE_USER = "[mutations] set delete user";
+
+export const GET_UNREGISTERED_STUDENT = "[actions] unregistered user";
+
+export const SET_UNREGISTERED_STUDENT = "[mutations] set unregistered user";

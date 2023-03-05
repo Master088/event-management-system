@@ -11,6 +11,7 @@ export default {
     return {
       events:[],
       event_registrations:[],
+      unregistered_student:[],
       event_registrations_count:{
         approve:0,
         denied:0,

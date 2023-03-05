@@ -33,8 +33,12 @@
                               placeholder="Password"
                               required=""
                             /><i class="bi bi-lock-fill  text-center"></i>
-                          </div>
-              <div class="submit-container pb-4 pt-5 text-center">
+                            </div>
+                            
+              <div class="submit-container pb-4 pt-4 text-center">
+               
+                       <span class="text-center text-danger">{{errorMsg}}</span>
+            
                 <button type="submit" class="btn  btn-primary login-btn">
                   Login
 
@@ -45,9 +49,7 @@
                 </button>
               </div>
         </div>
-        <div class="col-8 col-sm-12">
-                <!-- <i class="bi bi-envelope-fill  text-center "></i> -->
-        </div>
+      
        
         
       </div>
@@ -77,7 +79,7 @@ function login(ev) {
   ev.preventDefault();
 
   loading.value = true;
-
+  errorMsg.value=""
   store
     .dispatch(`auth/${LOGIN_ACTION}`, user)
     .then(() => {
@@ -89,9 +91,9 @@ function login(ev) {
       });
     })
     .catch((err) => {
-      console.log("error", err);
+      console.log("error", err.data);
       loading.value = false;
-      //   errorMsg.value = err.response.data.error;
+        errorMsg.value = "Incorrect Credentials";
     });
 }
 </script>

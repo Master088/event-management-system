@@ -1,4 +1,4 @@
-import {  ADD_EVENT_MUTATION, DELETE_EVENT, DELETE_REGISTRATION, SET_DASHBOARD_EVENTS, SET_DELETE_EVENT, SET_DELETE_REGISTRATION, SET_EDIT_EVENT, SET_EVENT, SET_EVENTS, SET_EVENT_REGISTRATIONS, SET_EVENT_REGISTRATION_STATUS, SET_REGISTER } from "../../store-constants";
+import {  ADD_EVENT_MUTATION, DELETE_EVENT, DELETE_REGISTRATION, SET_DASHBOARD_EVENTS, SET_DELETE_EVENT, SET_DELETE_REGISTRATION, SET_EDIT_EVENT, SET_EVENT, SET_EVENTS, SET_EVENT_REGISTRATIONS, SET_EVENT_REGISTRATION_STATUS, SET_REGISTER, SET_UNREGISTERED_STUDENT } from "../../store-constants";
 
 export default {
   //  add other data
@@ -57,6 +57,10 @@ export default {
     state.event_registrations_count.approve= state.event_registrations.filter(x => x.status == "approve").length
     state.event_registrations_count.denied= state.event_registrations.filter(x => x.status == "denied").length
     state.event_registrations_count.pending= state.event_registrations.filter(x => x.status == "pending").length
+  },
+
+  [SET_UNREGISTERED_STUDENT](state, payload) {
+    state.unregistered_student = payload;
   },
   
 };
