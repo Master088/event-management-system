@@ -94,15 +94,15 @@
           </div>
         </div>
         <div class="card-body">
-           <div class="row justify-content-start">
-              <div class="col-sm-3 p-2">
-                <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img shadow ">
+            <div class="row g-0">
+                  <div class="col-sm-3 img-container d-flex justify-content-center">
+                    <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img mt-1 ">
+                  </div>
+                  <div class="col m-2">
+                    <h5><b>{{ event.posted_by_fullname }}</b></h5>
+                      <p class="name-t">{{ event.posted_by_role }}</p>
+                  </div>
               </div>
-              <div class="col">
-                <h5><b>{{ event.posted_by_fullname }}</b></h5>
-                  <p class="name-t">{{ event.posted_by_role }}</p>
-              </div>
-            </div>
              <div class="row">
               <div class="col-md-12">
                 <h5 class=" py-2 mt-2"><b>{{ event.title }}</b></h5>
@@ -185,12 +185,12 @@
               <span><p class="d-flex justify-content-end date-t ">Time: <b> {{ event.time }}</b></p></span>
             </div>
           </div>
-          <div class="card-body">
-             <div class="row justify-content-start">
-                <div class="col-sm-3 p-2">
-                  <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img shadow ">
+          <div class="card-body ">
+             <div class="row g-0">
+                <div class="col-sm-3 img-container d-flex justify-content-center">
+                  <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img mt-1 ">
                 </div>
-                <div class="col">
+                <div class="col m-2">
                   <h5><b>{{ event.posted_by_fullname }}</b></h5>
                     <p class="name-t">{{ event.posted_by_role }}</p>
                 </div>
@@ -215,11 +215,11 @@
               </div>
             </div>
             <div class="card-body">
-               <div class="row justify-content-start">
-                  <div class="col-sm-3 p-2">
-                    <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img shadow ">
+               <div class="row g-0">
+                  <div class="col-sm-3 img-container d-flex justify-content-center">
+                    <img :src="event.posted_by_profile" alt="" class="img-fluid profile-img mt-1 ">
                   </div>
-                  <div class="col">
+                  <div class="col m-2">
                     <h5><b>{{ event.posted_by_fullname }}</b></h5>
                       <p class="name-t">{{ event.posted_by_role }}</p>
                   </div>
@@ -457,14 +457,15 @@ height: 100%;
   margin-top: 25px;
   position:absolute;
 }
-.profile{
+.img-container{
   width: 80px;
   height: 80px;
+  padding: 5px;
   /* margin-right: 30px; */
 }
 .profile-img{
   border-radius: 50%;
-  /* height: 80% !important; */
+  height: 90% !important;
   /* width: auto; */
 }
 .date-t{

@@ -2,19 +2,19 @@
   <div class="container p-5">
     <div class="fluid-container">
         <div class="row">
-            <div class="col-auto me-auto">
+            <div class="col">
                 <h1 class="display-2">{{ event.title }}</h1>
                 <small>Date posted: {{ event.created_at }}</small>
-                <div class="card mb-2 border-0 mt-4" style="width: 18rem;">
+                <div class="card mt-2 border-0">
                     <div class="row g-0">
-                        <div class="col-md-4">
-                        <img :src="event.profile_picture" class="img-fluid rounded-circle profile-img" alt="...">
+                        <div class="col-sm-3 img-container d-flex justify-content-center">
+                            <img :src="event.profile_picture" class="img-fluid profile-img mt-1" alt="...">
                         </div>
-                        <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ event.fullname }}</h5>
-                            <p class="card-text"><small class="text-muted">{{event.type}}</small></p>
-                        </div>
+                        <div class="col">
+                            <div class="card-body mt-2">
+                                <h5 class="card-title">{{ event.fullname }}</h5>
+                                <p class="card-text"><small class="text-muted">{{event.type}}</small></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -685,7 +685,7 @@ watchEffect(() => getEventRegistrations())
 
 
 
-<style>
+<style scoped>
 .bi-exclamation-circle-fill, .bi-question-circle-fill, .bi-check-circle-fill{
     font-size: 110px;
     /* border: solid 1px blue; */
@@ -702,8 +702,14 @@ watchEffect(() => getEventRegistrations())
     margin-top: 10vh;
   }
   .profile-img{
-    height: 100% !important;
-    width: 100%;
-    object-fit: cover;
+    height: 90% !important;
+    /* width: 100%; */
+    /* object-fit: cover; */
+    border-radius: 50%;
+    
+  }
+  .img-container{
+    width: 80px;
+    height: 80px;
   }
 </style>
