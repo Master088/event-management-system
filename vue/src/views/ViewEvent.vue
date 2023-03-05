@@ -324,6 +324,64 @@
         <div class="fluid-container mt-4">
             <hr>
             <h3>Registered Students</h3>
+            <div class="col-md-12 d-flex justify-content-end">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#student_register">
+                    Register Student
+                </button>
+            </div>
+            <div class="modal fade" id="student_register" tabindex="-1" aria-labelledby="student_register" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Register Student</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2">
+                                <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
+                                    aria-label="Search">
+                            </form>
+                            <div class="modal-dialog-scrollable">
+                            
+                           <div class="container p-5">
+                            <table class="table mt-4">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">
+                                        <label>
+                                            <input  type="checkbox" class="form-check-input" @click="selectAll" v-model="allSelected"> Check All
+                                        </label>
+                                    </th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Section</th>
+                                    <th scope="col">ID Number</th>
+                                    </tr>
+                                </thead>
+                                <tbody v-for="user in tableUseData" :key="user.idNumber">
+                                    <tr >
+                                        <th scope="row">
+                                            <label>
+                                                <input  type="checkbox" class="form-check-input" ref="test">
+                                            </label>
+                                        </th>
+                                        <td>{{ user.name }}</td>
+                                        <td>ICT-A</td>
+                                        <td>23-00000</td>
+                                    </tr>
+                               
+                                </tbody>
+                                </table>
+                           </div>
+            
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success">Register</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="container text-center mt-5">
                 <div class="row align-items-start">
                     <div class="col">
@@ -477,8 +535,13 @@ const event_registrations_count = ref(computed(() => store.state.events.event_re
 
 const event_registration_info = ref("");
 
-
- 
+const tableUseData = [ {"idNumber": 1, "name": "arturo", "section": "ICT-A"},
+                        { "idNumber": 2, "name": "arturo", "section": "ICT-A" },
+                        { "idNumber": 3, "name": "arturo", "section": "ICT-A" },
+                        { "idNumber": 4, "name": "arturo", "section": "ICT-A" },
+                        { "idNumber": 5, "name": "arturo", "section": "ICT-A" },
+                        { "idNumber": 6, "name": "arturo", "section": "ICT-A" }  
+                    ];
 
 
 const getEvent=()=>{
