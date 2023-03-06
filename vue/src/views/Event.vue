@@ -1,9 +1,7 @@
 <template>
   <div class="container p-5">
         <div class="fluid-container">
-            <div class="row">
-                
-           
+            <div class="row">      
                 <div class="col-md-7 me-auto">
                     <h1>Event</h1>
                 </div>
@@ -11,10 +9,8 @@
                     <button type="button" class="btn-bg-add" data-bs-toggle="modal" data-bs-target="#addEvent">
                         <i class="bi bi-plus-circle"></i> Add Event
                     </button>
-                </div>
-              
-                <div class="col-md-12">
-                
+                </div>          
+                <div class="col-md-12">          
                     <div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="addEventLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <form  @submit.prevent="handleSubmit">  
@@ -327,90 +323,79 @@
         </div>
         <div  class="fluid-container mt-5 d-flex justify-content-center" v-if="fecthLoading">
             <span class="spinner-border spinner-border-lg"></span>
-        </div>
-
-       <div class="" v-else>
-        <div v-for="event in eventDataDisplay" :key="event.id" class="fluid-container mt-5" >
-            <div class="card mb-3 w-100 shadow card-box">
-                <div class="row no-gutters" >
-                    <div class="col-md-2" >
-                        <!-- <div class="profile"> -->
-                            <img :src="event.profile_picture" alt="" class="img-fluid profile">
-                        <!-- </div> -->
-                    </div>
-                    <div class="col h-100">
-                        <div class="card-body ">
-                            <div class="row">
-
-                                <div class="col-md-6 me-auto">
-                                    <h1 class="card-title" >{{event.title}}</h1>
+        </div>      
+       <div class="" v-else>      
+            <div v-for="event in eventDataDisplay" :key="event.id" class="fluid-container mt-5" >
+                <div class="card p-4 shadow">
+                    <div class="fluid-container">         
+                        <div class="container text-center">
+                            <div class="row justify-content-center">
+                                <div class="col-auto img-container d-flex justify-content-center">
+                                    <img :src="event.profile_picture" class="profile-img mt-1 shadow" alt="...">
                                 </div>
-                                
-                                <div class="col-4 ">
-                                    <div class="row ">
-                                        <div class="col">
-                                        <p>{{event.date}}, {{event.time}}</p>
-                                        </div>
-
-                                        <div class="col-auto me-auto">
-                                            <button id="action" type="button" class="btn" data-bs-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                            <i class="bi bi-three-dots display-6 border-0" ></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="action">
-                                                <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#editEvent" href="#" @click="setData(event)"><i class="bi bi-pencil-square "></i> Edit</a>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delEvent" @click="()=>{
-                                                    deleteId=event.id
-                                                }"><i class="bi bi-trash"></i> Delete</a>
-                                               
-                                            </div>
-                                        
-                                        </div>
+                                <div class="col pt-4 d-flex justify-content-start">
+                                        <p class="card-title fw-semibold">{{ event.fullname }}</p>
                                     </div>
+                                <div class="col pt-4 d-flex justify-content-end">
+                                    <p>{{ event.date }}, {{ event.time }}</p>
                                 </div>
-                            </div>
-                            <p class="card-text"> 
-                                {{event?.description.substring(0,300)}} ...
-                            </p>
-                            <div class="mt-5 d-flex justify-content-end mb-0">
-                                <div class="col-md-10 d-flex justify-content-end">
-                                    <button type="button" class="btn border" @click="redirect(event.id)">
-                                        <i class="bi bi-file-earmark-plus"></i> View More
+                                <div class="col-auto d-flex justify-content-end">
+                                    <button id="action" type="button" class="btn" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-three-dots display-6 border-0" ></i>
                                     </button>
+                                    <div class="dropdown-menu" aria-labelledby="action">
+                                        <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#editEvent" href="#" @click="setData(event)"><i class="bi bi-pencil-square "></i> Edit</a>
+                                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delEvent" @click="() => {
+                                            deleteId = event.id
+                                        }"><i class="bi bi-trash"></i> Delete</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <hr>
+                    <div class="d-flex justify-content-center">
+                        <h5 class="display-5">{{ event.title }}</h5>
+                    </div>
+                    <hr>
+                    <div class="fluid-container">
+                        <div>
+                            <p align="justify" >{{ event.description }}</p>
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button type="button" class="btn border" @click="redirect(event.id)">
+                                <i class="bi bi-file-earmark-plus"></i> View More
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="container py-5">
-            <div
-                class="px-2 pb-2 table-pagination "
-                style="margin-top: -40px; width: 100%"
-            >
-                <div class="d-flex align-items-center pagination-label">
-                Showing {{ pagination.firstVal }} to {{ pagination.secondVal }} of
-                {{ pagination.totalEvents }}
-                </div>
-
-                <!-- Imported Pagination Component -->
-                <Pagination
-                :maxVisibleButtons="pagination.maxVisibleButtons"
-                :totalPages="pagination.totalPages"
-                :perPage="pagination.perPage"
-                :currentPage="pagination.currentPage"
-                @pagechanged="getPage"
-                class="d-flex justify-content-end float-end"
-                style="width: fit-content; margin-left: 0px"
-                v-if="pagination.totalEvents >= 5"
+            <div class="container py-5">
+                <div
+                    class="px-2 pb-2 table-pagination "
+                    style="margin-top: -40px; width: 100%"
                 >
-                </Pagination>
-            </div>
-        </div>
-       </div>
+                    <div class="d-flex align-items-center pagination-label">
+                    Showing {{ pagination.firstVal }} to {{ pagination.secondVal }} of
+                    {{ pagination.totalEvents }}
+                    </div>
 
+                    <!-- Imported Pagination Component -->
+                    <Pagination
+                    :maxVisibleButtons="pagination.maxVisibleButtons"
+                    :totalPages="pagination.totalPages"
+                    :perPage="pagination.perPage"
+                    :currentPage="pagination.currentPage"
+                    @pagechanged="getPage"
+                    class="d-flex justify-content-end float-end"
+                    style="width: fit-content; margin-left: 0px"
+                    v-if="pagination.totalEvents >= 5"
+                    >
+                    </Pagination>
+                </div>
+            </div>
+       </div>
     </div>
 </template>
 
@@ -880,5 +865,16 @@ const handleSubmitDelete= ()=>{
     object-fit: cover;
     /* height: 100px; */
     border-radius: 50%;
+  }
+.profile-img{
+    height: 90% !important;
+    /* width: 100%; */
+    /* object-fit: cover; */
+    border-radius: 50%;
+    
+  }
+.img-container{
+    width: 80px;
+    height: 80px;
   }
 </style>
