@@ -3,7 +3,7 @@
   <div class="container">
     <form @submit="login">
       <div class="row pt-4">
-        <div class="col-4  pt-5 card-base ">
+        <div class="col-lg-4 col-md-10  pt-5 card-base ">
             <div class="logo text-center">
               <img src="../assets/logos/logo-main.png" alt="" class="logo-main">
             </div>
