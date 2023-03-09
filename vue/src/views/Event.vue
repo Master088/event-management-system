@@ -330,12 +330,7 @@
                     <div class="fluid-container">         
                         <div class="container text-center">
                             <div class="row justify-content-center">
-                                <div class="col-auto img-container d-flex justify-content-center">
-                                    <img :src="event.profile_picture" class="profile-img mt-1 shadow" alt="...">
-                                </div>
-                                <div class="col pt-4 d-flex justify-content-start">
-                                        <p class="card-title fw-semibold">{{ event.fullname }}</p>
-                                    </div>
+                                
                                 <div class="col pt-4 d-flex justify-content-end">
                                     <p>{{ event.date }}, {{ event.time }}</p>
                                 </div>
@@ -354,10 +349,21 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
-                    <div class="d-flex justify-content-center">
+                   
+                    <div class="pb-5">
                         <h5 class="display-5">{{ event.title }}</h5>
+                        <small>Date posted: {{ event.created_at }} </small>
                     </div>
+                   
+                    <div class="row ">
+                        <div class="col-auto img-container d-flex justify-content-center">
+                                    <img :src="event.profile_picture" class="profile-img mt-1 shadow" alt="...">
+                        </div>
+                        <div class="col-md-2 ">
+                            
+                            <p class="card-title fw-semibold">{{ event.fullname }}</p>
+                            <small class="text-center">{{ event.role}}</small></div>
+                        </div>
                     <hr>
                     <div class="fluid-container">
                         <div>
@@ -874,7 +880,7 @@ const handleSubmitDelete= ()=>{
     
   }
 .img-container{
-    width: 80px;
-    height: 80px;
+    width: 77px;
+    height: 77px;
   }
 </style>

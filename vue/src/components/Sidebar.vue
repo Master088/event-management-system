@@ -2,7 +2,7 @@
   <div class="wrapper">
       <div class="sidebar shadow">
         <div class="logo-container" align="center">
-          <img class="img-logo" src="../assets/logos/sidebar_logo.png" alt="logo">
+          <img class="img-logo" src="../assets/logos/logo3.png" alt="logo">
           <p class="text-black mt-1">Event Management <br> System </p>
         </div>
         <div class="underline px-1">

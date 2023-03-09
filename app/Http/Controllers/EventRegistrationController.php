@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;    
 use App\Models\Event;
-
+use App\Mail\EventNotification;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
- 
+use Illuminate\Support\Facades\Mail;
 use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Storage;
 
@@ -177,6 +177,78 @@ class EventRegistrationController extends Controller
   
           return $this->error('', 'Record not found', 404);
     }
+
+    public function registerStudents(Request $request)
+    {
+          /**Check if event exist */
+          $event = DB::table('events')
+          ->where('id', '=', $request->event_id)
+          ->get();
+          
+        /**Check if parent data is exist */
+        if(!$event){
+            return $this->error('', 'Record not found', 404);
+        }
+        
+           
+
+           /**Check user already registered */
+           $event_registration = DB::table('event_registrations')
+           ->where('user_id', '=', $request->user_id)
+           ->where('event_id', '=', $request->event_id)
+           ->count();
+    
+         /**Check if parent data is exist */
+         if($event_registration>0){
+             return $this->error('', 'User already regsitered', 404);
+         }
+         
+  
+          /**Check if admin[ADD LATER] */
+         
+          /**Insert data */
+          $insert_id =  DB::table('event_registrations')->insertGetId([
+              'user_id' =>  $request->user_id,
+              'event_id'=>$request->event_id,
+              'created_at'=>now(),
+          ]);
+  
+          /**Get last inserted data */
+  
+          if($insert_id!=0){
+            $event_registration_data  = DB::table('event_registrations as er')
+            ->select(
+              'er.id', 
+              'er.created_at',
+              'er.status',
+              'u.fullname',
+              'u.role',
+              'u.section'
+              )
+            ->join('users as u', 'u.id', '=', 'er.user_id')
+            ->orderBy('er.created_at', 'desc')
+            ->where('er.id', '=', $insert_id)
+            ->get();
+        
+              return $this->success(["event_registration" =>  $event_registration_data[0]], "", 200);
+          }
+  
+          return $this->error('', 'Record not found', 404);
+    }
+
+
+      /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sendEmail()
+    {
+      Mail::to("duatin08@gmail.com")
+      ->bcc(["mercado.jerrymih@clsu2.edu.ph","mercado.jerrymih1414@gmail.com","yamaguchixia1406@gmail.com"])
+      ->send(new EventNotification("jocel"));
+    }
+
 
     /**
      * Display the specified resource.

@@ -5,7 +5,7 @@
       <div class="row pt-4">
         <div class="col-lg-4 col-md-10  pt-5 card-base ">
             <div class="logo text-center">
-              <img src="../assets/logos/logo-main.png" alt="" class="logo-main">
+              <img src="../assets/logos/logo3.png" alt="" class="logo-main">
             </div>
                         
             <h2 class="text-center welcome-txt">Welcome! </h2>

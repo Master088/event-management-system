@@ -13,7 +13,7 @@
                         <div class="col">
                             <div class="card-body mt-2">
                                 <h5 class="card-title">{{ event.fullname }}</h5>
-                                <p class="card-text"><small class="text-muted">{{event.type}}</small></p>
+                                <p class="card-text"><small class="text-muted">{{event.role}}</small></p>
                             </div>
                         </div>
                     </div>
@@ -325,7 +325,7 @@
             <hr>
             <h3>Registered Students</h3>
             <div class="col-md-12 d-flex justify-content-end">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#student_register">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#student_register" @click="getUnregisteredStudents()">
                     Register Student
                 </button>
             </div>
@@ -333,17 +333,29 @@
                 <div class="modal-dialog modal-xl modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Register Student{{ addRegisterIds }}</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Register Student</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2">
-                                <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
-                                    aria-label="Search">
+                            <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2 ">
+                                <div class="container pt-2">
+                                    <div class="input-group search">
+                                        <input
+                                        type="text"
+                                        class="form-control shadow"
+                                        placeholder="Search..."
+                                        aria-label="Search..."
+                                        aria-describedby="basic-addon2"
+                                        v-model="search"
+                                        /><span class="input-group-text search-icon"
+                                        ><i class="bi bi-search"></i
+                                        ></span>
+                                    </div>
+                                </div>
                             </form>
 
                             <div class="modal-dialog-scrollable">
-                            <div class="container p-5">
+                            <div class="container pb-5 pt-1">
                                 <table class="table mt-4">
                                 <thead>
                                     <tr>
@@ -358,19 +370,28 @@
                                    
                                     </tr>
                                 </thead>
-                                <tbody v-for="user in unregistered_student" :key="user.id">
-                                    <tr >
+                                <tbody >
+                                    <tr v-show="!loading2" v-for="user in unregistered_student" :key="user.id">
                                         <th scope="row">
                                             <label>
-                                                <input  type="checkbox" class="form-check-input" ref="test" @click="addRemoveId(user.id)">
+                                                <input  type="checkbox" class="form-check-input" ref="test" @click="addRemoveId($event,user.id)">
                                             </label>
                                         </th>
                                         <td>{{ user.id_number }}</td>
                                         <td>{{ user.fullname }}</td>     
                                         <td>{{ user.section }}</td>
                                     </tr>
-                               
+                                    <tr v-show="loading2"  >
+                                        <th></th>
+                                        <th></th>
+                                        <th scope="row">
+                                            <span class="spinner-border spinner-border-sm" ></span>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                   
                                 </tbody>
+                             
                                 </table>
                            </div>
             
@@ -378,7 +399,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success">Register</button>
+                            <button v-show="loading" type="button" class="btn btn-success">Register   <span class="spinner-border spinner-border-sm" ></span></button>
+                            <button v-show="!loading" type="button" class="btn btn-success"  @click="handleRegisterStudents">Register </button>
                         </div>
                     </div>
                 </div>
@@ -516,8 +538,8 @@
 <script setup>
 // import store from "../store";
 import { useRoute, useRouter } from "vue-router";
-import { ref, computed, watchEffect, onMounted } from "vue";
-import {  DELETE_REGISTRATION, GET_EVENT, GET_EVENT_REGISTRATIONS, GET_UNREGISTERED_STUDENT, REGISTER, UPDATE_EVENT_REGISTRATION_STATUS, UPDATE_EVENT_STATUS } from "../store/store-constants";
+import { ref, computed, watchEffect, onMounted, watch } from "vue";
+import {  DELETE_REGISTRATION, GET_EVENT, GET_EVENT_REGISTRATIONS, GET_UNREGISTERED_STUDENT, REGISTER, REGISTER_STUDENT, UPDATE_EVENT_REGISTRATION_STATUS, UPDATE_EVENT_STATUS } from "../store/store-constants";
 import store from '../store';
 
 
@@ -526,6 +548,10 @@ const router = useRouter();
 const route = useRoute();
  
 const loading = ref(false);
+
+const loading2 = ref(false);
+
+
 const errorMsg = ref("");
 const name=ref("")
 
@@ -533,17 +559,32 @@ const id = ref (route.params.id ||0);
 const event = ref(computed(() => store.state.events.event))|| {};
 const event_registrations = ref(computed(() => store.state.events.event_registrations))|| [];
 const event_registrations_count = ref(computed(() => store.state.events.event_registrations_count))|| {};
-const unregistered_student = ref(computed(() => store.state.events.unregistered_student))|| [];
+const unregistered_student = ref([]);
+
+const unregistered_student_data = ref(computed(() => store.state.events.unregistered_student))|| [];
+
 
 const event_registration_info = ref("");
 
-const tableUseData = [ {"idNumber": 1, "name": "arturo", "section": "ICT-A"},
-                        { "idNumber": 2, "name": "arturo", "section": "ICT-A" },
-                        { "idNumber": 3, "name": "arturo", "section": "ICT-A" },
-                        { "idNumber": 4, "name": "arturo", "section": "ICT-A" },
-                        { "idNumber": 5, "name": "arturo", "section": "ICT-A" },
-                        { "idNumber": 6, "name": "arturo", "section": "ICT-A" }  
-                    ];
+const search =  ref("");
+
+
+const filterItems = (needle, heystack) => {
+  let query = needle.toLowerCase();
+  return heystack.filter(item => item.fullname.toLowerCase().indexOf(query) >= 0);
+}
+
+watch(search,()=>{
+    console.log("search.value",search.value)
+    if(search.value.length>0){ 
+        console.log(filterItems(search.value,unregistered_student_data.value))
+        unregistered_student.value=filterItems(search.value,unregistered_student_data.value)
+    }else{
+        unregistered_student.value=[...unregistered_student_data.value]
+    }
+})
+
+ 
 
 const user = ref(computed(() => store.state.auth.user))|| {
   fullname:"user"
@@ -552,15 +593,16 @@ const user = ref(computed(() => store.state.auth.user))|| {
 const addRegisterIds=ref([])
 
 
-
-
-const addRemoveId=(id)=>{
+const addRemoveId=(event,id)=>{
+   console.log(event.target)
+   
     var status =0;
 
+    status =1;
     for (var i = 0; i < addRegisterIds.value.length; i++) {
-        
+        console.log("here",id,addRegisterIds.value[i])
         if (addRegisterIds.value[i] == id) {
-            status = 1;
+            status = 0;
             break;
         }
     }
@@ -568,10 +610,43 @@ const addRemoveId=(id)=>{
     if(status==1){
         addRegisterIds.value.push(id)
     }else{
-        addRegisterIds.value=addRegisterIds.value.filter(x => x.id !=id)
+        addRegisterIds.value=addRegisterIds.value.filter(x => x !=id)
     }
-   console.log(addRegisterIds.value)
+    
+   
+   console.log("ids",addRegisterIds.value)
 }
+
+
+const handleRegisterStudents= ()=>{
+        console.log("hello here 131")
+    if(addRegisterIds.value.length>0){
+        loading.value=true
+        console.log(addRegisterIds.value.length)
+   /** set validation later */
+   for (var i = 0; i < addRegisterIds.value.length; i++) {
+            store
+            .dispatch(`events/${REGISTER_STUDENT}`, {
+                event_id:id.value,
+                user_id:addRegisterIds.value[i]
+            })
+            .then((data) => {
+            loading.value = false;
+             $('#student_register').modal('hide')
+                
+            })
+            .catch((err) => {
+            console.log("error", err);
+            loading.value = false;
+            
+            });
+    }
+
+    }
+    
+}
+
+
 
 const getEvent=()=>{
   console.log("helo",id.value)
@@ -594,19 +669,23 @@ const getEvent=()=>{
 
 
 const getUnregisteredStudents=()=>{
- 
+    addRegisterIds.value=[]
+    loading2.value=true
   store
     .dispatch(`events/${GET_UNREGISTERED_STUDENT}`, {
       id:id.value
     })
-    .then(() => {
+    .then((data) => {
+    loading2.value=false
+    console.log("here data",data.students)
+    unregistered_student.value=data.students
       // loading.value = false;
       //   console.log("data here ", data.data);
     })
     .catch((err) => {
       console.log("error", err);
-      // loading.value = false;
-      //   errorMsg.value = err.response.data.error;
+      loading2.value=false
+
     });
    
    
@@ -631,6 +710,7 @@ const getEventRegistrations=()=>{
    
    
 }
+
 
 
 
@@ -830,5 +910,8 @@ watchEffect(() => getUnregisteredStudents())
   .img-container{
     width: 80px;
     height: 80px;
+  }
+  .search{
+    max-width: 500px;
   }
 </style>

@@ -45,6 +45,8 @@ Route::middleware('auth:sanctum')->group(function () {
    
     Route::get('/event/register/{id}', [EventRegistrationController::class, 'getEventRegistrations']);
     Route::post('/event/register', [EventRegistrationController::class, 'store']);
+    Route::post('/event/register-student', [EventRegistrationController::class, 'registerStudents']);
+
     Route::patch('/event/register/status/{id}', [EventRegistrationController::class, 'updateStatus']);
 
     Route::delete('/event/register/delete/{id}', [EventRegistrationController::class, 'destroy']);
@@ -53,6 +55,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 });
+
+Route::post('/email', [EventRegistrationController::class, 'sendEmail']);
 
 
 //pasok sa loob to later
