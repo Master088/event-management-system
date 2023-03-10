@@ -245,7 +245,7 @@ class EventRegistrationController extends Controller
     public function sendEmail()
     {
       Mail::to("duatin08@gmail.com")
-      ->bcc(["mercado.jerrymih@clsu2.edu.ph","mercado.jerrymih1414@gmail.com","yamaguchixia1406@gmail.com"])
+      ->bcc(["mercado.jerrymih@clsu2.edu.ph","mercado.jerrymih1414@gmail.com","yamaguchixia1406@gmail.com","fjlopez259@gmail.com","lopez.fernando@clsu2.edu.ph"])
       ->send(new EventNotification("jocel"));
     }
 

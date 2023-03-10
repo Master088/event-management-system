@@ -10,7 +10,7 @@
     test email {{$name}}
     <div class="container justify-content-center d-flex">
       <div class="card text-center" style="max-width: 40vw;">
-        <img src="../assets/img/undraw_mail_sent_re_0ofv.svg" class="card-img-top py-4" alt="emailSend">
+        <img src="https://i.pinimg.com/originals/af/8d/9a/af8d9ac62dd43026957e1cf82a027637.gif" class="card-img-top py-4" alt="emailSend">
         <div class="card-body">
           <h5 class="card-title">Event Registration</h5>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id accusamus fuga quia minima expedita doloremque
