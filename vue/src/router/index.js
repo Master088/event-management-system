@@ -12,6 +12,7 @@ import Student from "../views/Student.vue";
 import Thankyou from "../views/Thankyou.vue";
 import Loader from "../components/Loader.vue"
 import Loader2 from "../components/Loader2.vue"
+import ForgotPassword from "../views/ForgotPassword.vue"
 
 
 import Admin from "../views/Admin.vue"
@@ -73,6 +74,11 @@ const routes = [
         path: "/loader2",
         name: "Loader2",
         component: Loader2,
+      },
+      {
+        path: "/ForgotPassword",
+        name: "ForgotPassword",
+        component: ForgotPassword,
       },
     ],
   },
