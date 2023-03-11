@@ -13,7 +13,7 @@
                         <div class="reset-btn">
                             <a href="#"> <h3 >Reset Password</h3></a> 
                         </div>
-                        <br>
+                       
                         <p>if you did not initiate this request, please ignore this email. No changes have been made to your account yet.</p>
                         <br>
                         <p>Thanks,<br><b>Tagumpay Nagaño Admin</b></p>
