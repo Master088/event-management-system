@@ -13,6 +13,8 @@ import Thankyou from "../views/Thankyou.vue";
 import Loader from "../components/Loader.vue"
 import Loader2 from "../components/Loader2.vue"
 import ForgotPassword from "../views/ForgotPassword.vue"
+import Resetpassword from "../views/Resetpassword.vue"
+
 
 
 import Admin from "../views/Admin.vue"
@@ -80,6 +82,12 @@ const routes = [
         name: "ForgotPassword",
         component: ForgotPassword,
       },
+      {
+        path: "/Resetpassword",
+        name: "Resetpassword",
+        component: Resetpassword,
+      },
+     
     ],
   },
 
