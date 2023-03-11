@@ -6,6 +6,7 @@
                     <div class="p-2 mt-5">
                         <h4 class="card-title fw-semibold">Forgot Password</h4>
                         <p class="mb-4">Please enter your associated with your account.</p>
+                        <p>{{ msg }}</p>
                         <form>
                             <div class="mb-3 input-box ">
                                 <label for="email" class="form-label">Email</label>
@@ -33,7 +34,7 @@
                         <h4 class="card-title fw-semibold">Reset Password Password</h4>
                         <p class="mb-4">Your new password must be different from previous used passwords</p>
                         <form>
-                            <p>{{ msg }}</p>
+                            
                             <div class="mb-3 input-box ">
                                 <label for="token" class="form-label">Token</label>
                                 <input type="text" class="form-control mb-2" id="password" v-model="token">
@@ -185,6 +186,11 @@ function resetPassword() {
         console.log(data)
         loading.value = false;
         msg.value = "Your password has been reset. Please re login your account"
+        token.value=""
+        password.value=""
+        password_confirmation.value=""
+        email.value=""
+        showForgot.value = true
     })
     .catch((err) => {
 

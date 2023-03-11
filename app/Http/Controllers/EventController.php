@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreEventRequest;
 use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CancelEvent;
 
 class EventController extends Controller
 {
@@ -363,7 +365,27 @@ class EventController extends Controller
             ->join('users as u', 'u.id', '=', 'e.posted_by')
             ->where('e.id', '=',$idHolder)
             ->get();
-            
+
+            if($event[0]->is_canceled==1){
+                $event_registrations = DB::table('event_registrations as er')
+                ->select(
+                    'er.id', 
+                    'u.email as email',
+                )
+                ->join('users as u', 'u.id', '=', 'er.user_id')
+                ->orderBy('er.created_at', 'desc')
+                ->where('er.event_id', '=', $idHolder)
+                ->get();
+    
+                $emails = array();
+                foreach($event_registrations as $key=>$value) {
+                    array_push($emails ,  $value->email);
+                }
+    
+                Mail::to("tnhs.no.reply1@gmail.com")
+                ->bcc($emails)
+                ->send(new CancelEvent($event[0]->title));
+            }
             
             return $this->success(["event" =>  $event[0]], "", 200);
         }

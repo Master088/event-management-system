@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\EventRegistration;
+use App\Mail\ApprovedRegistration;
+use App\Mail\DeniedRegistration;
+
 
 class EventRegistrationController extends Controller
 {
@@ -171,7 +175,10 @@ class EventRegistrationController extends Controller
             ->orderBy('er.created_at', 'desc')
             ->where('er.id', '=', $insert_id)
             ->get();
-        
+
+            Mail::to($user->email)
+            ->send(new EventRegistration($user->fullname,$event[0]->title));
+
               return $this->success(["event_registration" =>  $event_registration_data[0]], "", 200);
           }
   
@@ -229,8 +236,16 @@ class EventRegistrationController extends Controller
             ->orderBy('er.created_at', 'desc')
             ->where('er.id', '=', $insert_id)
             ->get();
-        
-              return $this->success(["event_registration" =>  $event_registration_data[0]], "", 200);
+
+            $user  = DB::table('users')
+            ->where('id', '=', $request->user_id)
+            ->get();
+              
+
+            Mail::to($user[0]->email)
+            ->send(new EventRegistration($user[0]->fullname,$event[0]->title));
+              
+            return $this->success(["event_registration" =>  $event_registration_data[0]], "", 200);
           }
   
           return $this->error('', 'Record not found', 404);
@@ -299,6 +314,30 @@ class EventRegistrationController extends Controller
             ]);
 
             $event_registration = DB::table('event_registrations')->where('id', '=',$idHolder)->get();
+
+            $registration = DB::table('event_registrations as er')
+            ->select(
+              'u.id as user_id',
+              'u.fullname as fullname',
+              'u.email as email',
+              'er.status as status',
+              'e.title as event_title',
+              )
+            ->join('users as u', 'u.id', '=', 'er.user_id')
+            ->join('events as e', 'er.event_id', '=', 'e.id')
+            ->where('er.id', '=', $idHolder)
+            ->get();
+
+            // return $this->success(["event_registration" =>  $registration], "", 200);
+
+
+            if($registration[0]->status=="approve"){
+              Mail::to($registration[0]->email)
+              ->send(new ApprovedRegistration($registration[0]->fullname,$registration[0]->event_title));
+            }else if($registration[0]->status=="denied"){
+              Mail::to($registration[0]->email)
+              ->send(new DeniedRegistration($registration[0]->fullname,$registration[0]->event_title));
+            }
             
             return $this->success(["event_registration" =>  $event_registration[0]], "", 200);
         }
