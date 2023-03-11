@@ -107,7 +107,7 @@ function login(ev) {
 <style scoped>
  
 .logo-main{
-        height: 130px;
+        /* height: 130px; */
         width: 200px;
 }
     .input {
