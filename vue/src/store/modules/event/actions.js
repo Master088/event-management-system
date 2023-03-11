@@ -72,7 +72,7 @@ export default {
 
       async [GET_EVENT](context, payload) {
         /*Call axios get request */
-      axiosClient 
+      return axiosClient 
       .get(`event/${payload.id}` )
       .then(res => {
         console.log(res.data.data)

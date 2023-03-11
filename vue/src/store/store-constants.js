@@ -107,3 +107,6 @@ export const SET_REGISTER_STUDENT = "[mutations] set register student";
 export const SEND_FORGOT_PASSWORD = "[actions] forgot password";
 
 export const SEND_RESET_PASSWORD = "[actions] reset password";
+
+export const CHANGE_PASSWORD = "[actions] change password";
+

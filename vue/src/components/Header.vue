@@ -13,28 +13,30 @@
           <a class="dropdown-item text-center" href="#" @click="logout"> Logout</a>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="changepass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="changepass" tabindex="-1" aria-labelledby="changepass" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Change Password</h1>
+                <h1 class="modal-title fs-5" id="changepassLabel">Change Password</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <form action="">
                 <div class="modal-body">
                   
                     <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                    <input type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock">
-                    <!-- <div id="passwordHelpBlock" class="form-text">
-                      Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-                    </div> -->
+                    <input type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock" v-model="password">
+                  
                     <label for="confirm_password" class="form-label">Confirm Password <span class="text-danger">*</span></label>
-                    <input type="password" id="confirm_password" class="form-control" aria-describedby="passwordHelpBlock">
+                    <input type="password" id="confirm_password" class="form-control" aria-describedby="passwordHelpBlock" v-model="password_confirmation">
                   
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Change Password</button>
+                  <button type="button" class="btn btn-primary "  v-show="loading" >Change Password  
+                                <span class="spinner-border spinner-border-sm"></span>
+                  </button>
+                  <button type="button" class="btn btn-primary  "  v-show="!loading"  @click="changePassword">Change Password</button>
+                           
                 </div>
               </form>
               
@@ -50,12 +52,47 @@
 import store from "../store";
 import { useRouter } from "vue-router";
 import { computed, ref } from "vue";
-import { LOGOUT_ACTION } from "../store/store-constants";
+import { CHANGE_PASSWORD, LOGOUT_ACTION } from "../store/store-constants";
 
 const router = useRouter();
 const user = ref(computed(() => store.state.auth.user))|| {
   fullname:"user"
 };
+
+const loading=ref(false)
+
+const password=ref("")
+const password_confirmation=ref("")
+
+const changePassword=()=>{
+loading.value=true
+  store
+    .dispatch(`auth/${CHANGE_PASSWORD}`,{
+      password: password.value,
+        password_confirmation: password_confirmation.value
+    })
+    .then(() => {
+      loading.value=false
+      store
+        .dispatch(`auth/${LOGOUT_ACTION}`)
+        .then(() => {
+          router.push({
+            name: "Login",
+          });
+        })
+        .catch((err) => {
+          console.log("error", err);
+        });
+      $('#changepass').modal('hide')
+    })
+    .catch((err) => {
+      loading.value=false
+
+      console.log("error", err);
+    });
+}
+
+
 
 function logout(ev) {
   ev.preventDefault();

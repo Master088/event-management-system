@@ -3,9 +3,15 @@
     <div class="fluid-container">
         <div class="row">
             <div class="col">
-                <h1 class="display-2">{{ event.title }}</h1>
+                <div class=""> 
+                    <h1 class="display-2">{{ event.title }}   </h1> 
+                    <small v-show="status=='canceled'" class="canceled">Canceled</small>
+                    <small v-show="status=='upcoming'" class="upcoming">Upcoming</small>
+                    <small v-show="status=='done'" class="done">Done</small>
+                    <small v-show="status=='today'" class="today">Today</small>
+                </div>
                 <small>Date posted: {{ event.created_at }}</small>
-                <div class="card mt-2 border-0">
+                <div class="card mt-5 border-0">
                     <div class="row g-0">
                         <div class="col-sm-3 img-container d-flex justify-content-center">
                             <img :src="event.profile_picture" class="img-fluid profile-img mt-1" alt="...">
@@ -568,6 +574,9 @@ const event_registration_info = ref("");
 
 const search =  ref("");
 
+const status =  ref("");
+
+
 
 const filterItems = (needle, heystack) => {
   let query = needle.toLowerCase();
@@ -654,9 +663,13 @@ const getEvent=()=>{
     .dispatch(`events/${GET_EVENT}`, {
       id:id.value
     })
-    .then(() => {
+    .then((data) => {
+
       // loading.value = false;
-      //   console.log("data here ", data.data);
+        console.log("data here11 ", data);
+       
+
+
     })
     .catch((err) => {
       console.log("error", err);
@@ -712,8 +725,6 @@ const getEventRegistrations=()=>{
 }
 
 
-
-
 const handleRegister= ()=>{
      
      loading.value=true
@@ -734,7 +745,6 @@ const handleRegister= ()=>{
      
      });
 }
-
 
 const handleCancelEvent= ()=>{
      
@@ -878,7 +888,23 @@ watchEffect(() => getEventRegistrations())
 
 watchEffect(() => getUnregisteredStudents())
 
+watch(event,()=>{
+    if(event.value.is_canceled){
+        status.value="canceled"
+    }else{
+        var event_date= new Date(event.value.date);
+        var todaysDate = new Date();
+        
+        if(event_date.setHours(0,0,0,0) == todaysDate.setHours(0,0,0,0)) {
+            status.value="today"
+        }else if(event_date.setHours(0,0,0,0) > todaysDate.setHours(0,0,0,0)) {
+            status.value="upcoming"
+        }else {
+            status.value="done"
+        }
 
+    }
+})
 
 </script>
 
@@ -913,5 +939,29 @@ watchEffect(() => getUnregisteredStudents())
   }
   .search{
     max-width: 500px;
+  }
+  .canceled{
+    background:#f74b4b ;
+    padding:3px 6px;
+    border-radius: 5px;
+    color:#fff;
+  }
+  .upcoming{
+    background:#29c4d8 ;
+    padding:3px 6px;
+    border-radius: 5px;
+    color:#fff;
+  }
+  .today{
+    background:#0dfd69;
+    padding:3px 6px;
+    border-radius: 5px;
+    color:#fff;
+  }
+  .done{
+    background:#0d6efd;
+    padding:3px 6px;
+    border-radius: 5px;
+    color:#fff;
   }
 </style>

@@ -53,6 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::get('/event/unregistered/{id}', [EventRegistrationController::class, 'getUngisteredStudents']);
 
+    Route::post('/change-password', [AuthController::class, 'changePassword']);
 
 });
 

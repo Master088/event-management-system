@@ -256,6 +256,21 @@ class AuthController extends Controller
        
     }
 
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+
+        $auth_user = auth()->user();
+        
+        $user = User::where('id',  $auth_user->id)
+                    ->update(['password' =>  bcrypt($request->password)]);
+
+        return $this->success( [], "Your password has been changed!", 200);
+    }
+
     public function resetPassword(Request $request)
     {
         $request->validate([

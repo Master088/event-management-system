@@ -1,4 +1,5 @@
 import {
+  CHANGE_PASSWORD,
   LOGIN_ACTION,
   LOGOUT_ACTION,
   SEND_FORGOT_PASSWORD,
@@ -73,6 +74,18 @@ export default {
     console.log("hello",payload)
     return axiosClient
       .post("reset-password",payload)
+      .then((response) => {
+        return Promise.resolve(response);
+      })
+      .catch((err) => {
+        console.log(err);
+        return Promise.reject(err);
+      });
+  },
+  async [CHANGE_PASSWORD](context,payload) {
+    console.log("hello",payload)
+    return axiosClient
+      .post("change-password",payload)
       .then((response) => {
         return Promise.resolve(response);
       })
