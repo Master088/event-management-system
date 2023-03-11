@@ -12,6 +12,12 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Traits\HttpResponses;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendForgotPassword;
+use App\Mail\EventNotification;
+use Carbon\Carbon; 
+use Hash;
+// use Illuminate\Support\Str;
 /**
  * Class AuthController
  *
@@ -214,4 +220,73 @@ class AuthController extends Controller
 
         return $this->error('', 'Record not found', 404);
     }
+
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users',
+        ]);
+
+        $user = DB::table('users')
+        ->where('email',$request->email)
+        ->get();
+
+       
+        if(empty($user)){
+            return $this->error('', 'Record not found', 404);
+        }
+        
+        $token = Str::random(64);
+        
+        DB::table('password_resets')->insert([
+            'email' => $request->email, 
+            'token' => $token, 
+            'created_at' => Carbon::now()
+          ]);
+         
+
+          Mail::to("duatin08@gmail.com")
+          ->send(new SendForgotPassword($user[0]->fullname,$user[0]->email, $token));
+
+        //   Mail::to("duatin08@gmail.com")
+        //   ->bcc(["mercado.jerrymih@clsu2.edu.ph","mercado.jerrymih1414@gmail.com","yamaguchixia1406@gmail.com","fjlopez259@gmail.com","lopez.fernando@clsu2.edu.ph"])
+        //   ->send(new EventNotification("jocel"));
+        return $this->success( [], "We have e-mailed your password reset link!", 200);
+
+       
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+
+        $updatePassword = DB::table('password_resets')
+                            ->where([
+                              'email' => $request->email, 
+                              'token' => $request->token,
+                              
+                            ])
+                            ->where('created_at', '>=', Carbon::now()->subHours(1)->toDateTimeString())
+                            ->orderBy('id', 'desc')
+                            ->first();
+
+        if(!$updatePassword){
+            return $this->error('', 'Invalid token', 404);
+
+        }
+
+        $user = User::where('email', $request->email)
+                    ->update(['password' =>  bcrypt($request->password)]);
+
+        DB::table('password_resets')->where(['email'=> $request->email])->delete();
+
+        return $this->success( [], "Your password has been changed!", 200);
+    }
+
+
+
 }

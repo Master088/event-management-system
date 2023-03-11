@@ -1,6 +1,8 @@
 import {
   LOGIN_ACTION,
   LOGOUT_ACTION,
+  SEND_FORGOT_PASSWORD,
+  SEND_RESET_PASSWORD,
   SET_USER_DATA,
   SET_USER_TOKEN,
 } from "../../store-constants";
@@ -48,6 +50,30 @@ export default {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
 
+        return Promise.resolve(response);
+      })
+      .catch((err) => {
+        console.log(err);
+        return Promise.reject(err);
+      });
+  },
+  async [SEND_FORGOT_PASSWORD](context,payload) {
+    console.log("hello")
+    return axiosClient
+      .post("forgot-password",payload)
+      .then((response) => {
+        return Promise.resolve(response);
+      })
+      .catch((err) => {
+        console.log(err);
+        return Promise.reject(err);
+      });
+  },
+  async [SEND_RESET_PASSWORD](context,payload) {
+    console.log("hello",payload)
+    return axiosClient
+      .post("reset-password",payload)
+      .then((response) => {
         return Promise.resolve(response);
       })
       .catch((err) => {

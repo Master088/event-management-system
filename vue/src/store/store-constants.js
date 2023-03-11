@@ -102,3 +102,8 @@ export const SET_UNREGISTERED_STUDENT = "[mutations] set unregistered user";
 export const REGISTER_STUDENT = "[actions] register student";
 
 export const SET_REGISTER_STUDENT = "[mutations] set register student";
+
+
+export const SEND_FORGOT_PASSWORD = "[actions] forgot password";
+
+export const SEND_RESET_PASSWORD = "[actions] reset password";

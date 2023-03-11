@@ -57,7 +57,8 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::post('/email', [EventRegistrationController::class, 'sendEmail']);
-
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
 //pasok sa loob to later
 Route::post('/account/register/', [AuthController::class, 'register']);

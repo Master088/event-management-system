@@ -35,10 +35,16 @@
                             /><i class="bi bi-lock-fill  text-center"></i>
                             </div>
                             
-              <div class="submit-container pb-4 pt-4 text-center">
+              <div class="submit-container  py-2 text-center">
                
-                       <span class="text-center text-danger">{{errorMsg}}</span>
+              <span class="text-center text-danger">{{errorMsg}}</span>
             
+
+                <div class=" d-flex justify-content-end pb-4">
+                  <router-link to="/forgot-password" >Fotgot Password</router-link>
+                </div>
+
+
                 <button type="submit" class="btn  btn-primary login-btn">
                   Login
 

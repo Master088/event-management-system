@@ -77,16 +77,7 @@ const routes = [
         name: "Loader2",
         component: Loader2,
       },
-      {
-        path: "/ForgotPassword",
-        name: "ForgotPassword",
-        component: ForgotPassword,
-      },
-      {
-        path: "/Resetpassword",
-        name: "Resetpassword",
-        component: Resetpassword,
-      },
+    
      
     ],
   },
@@ -103,7 +94,15 @@ const routes = [
         name: "Login",
         component: Login,
       },
+      
     ],
+  },
+
+  {
+    path: "/forgot-password",
+    name: "ForgotPassword",
+    component: ForgotPassword,
+    meta: { isGuest: true },
   },
 
   {
