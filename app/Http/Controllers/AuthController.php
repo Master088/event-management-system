@@ -245,7 +245,7 @@ class AuthController extends Controller
           ]);
          
 
-          Mail::to("duatin08@gmail.com")
+          Mail::to($request->email)
           ->send(new SendForgotPassword($user[0]->fullname,$user[0]->email, $token));
 
         //   Mail::to("duatin08@gmail.com")
