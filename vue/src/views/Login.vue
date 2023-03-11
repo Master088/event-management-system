@@ -41,7 +41,7 @@
             
 
                 <div class=" d-flex justify-content-end pb-4">
-                  <router-link to="/forgot-password" >Fotgot Password</router-link>
+                  <router-link to="/forgot-password" >Forgot Password</router-link>
                 </div>
 
 
