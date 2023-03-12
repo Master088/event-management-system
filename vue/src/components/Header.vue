@@ -22,24 +22,25 @@
               </div>
               <form action="">
                 <div class="modal-body">
-                  
                     <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
                     <input type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock" v-model="password">
-                  
+                    <div class="text-danger">
+                        {{ errors.password }}
+                    </div>
                     <label for="confirm_password" class="form-label">Confirm Password <span class="text-danger">*</span></label>
                     <input type="password" id="confirm_password" class="form-control" aria-describedby="passwordHelpBlock" v-model="password_confirmation">
-                  
+                    <div class="text-danger">
+                        {{ errors.confirm_password }}
+                    </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
                   <button type="button" class="btn btn-primary "  v-show="loading" >Change Password  
-                                <span class="spinner-border spinner-border-sm"></span>
+                    <span class="spinner-border spinner-border-sm"></span>
                   </button>
-                  <button type="button" class="btn btn-primary  "  v-show="!loading"  @click="changePassword">Change Password</button>
-                           
+                  <button type="button" class="btn btn-primary"  v-show="!loading"  @click="changePassword">Change Password</button>
                 </div>
               </form>
-              
             </div>
           </div>
         </div>
@@ -64,36 +65,57 @@ const loading=ref(false)
 const password=ref("")
 const password_confirmation=ref("")
 
+const errors = ref({
+  password: "",
+  confirm_password: "",
+})
 const changePassword=()=>{
-loading.value=true
-  store
-    .dispatch(`auth/${CHANGE_PASSWORD}`,{
-      password: password.value,
+
+  let is_valid = true
+  is_valid = true
+
+  var regexPassword = /^.*(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&?@."]).*$/;
+
+  if (regexPassword.test(password.value)) {
+    errors.value.password = ""
+  } else {
+    errors.value.password = "Password must be including one uppercase letter, one special character and alphanumeric characters"
+    is_valid = false
+  }
+  if (password_confirmation.value === password.value) {
+    errors.value.confirm_password = ""
+  } else {
+    errors.value.confirm_password = "Invalid Password"
+    is_valid = false
+  }
+  if(is_valid){
+    loading.value = true
+    store
+      .dispatch(`auth/${CHANGE_PASSWORD}`, {
+        password: password.value,
         password_confirmation: password_confirmation.value
-    })
-    .then(() => {
-      loading.value=false
-      store
-        .dispatch(`auth/${LOGOUT_ACTION}`)
-        .then(() => {
-          router.push({
-            name: "Login",
+      })
+      .then(() => {
+        loading.value = false
+        store
+          .dispatch(`auth/${LOGOUT_ACTION}`)
+          .then(() => {
+            router.push({
+              name: "Login",
+            });
+          })
+          .catch((err) => {
+            console.log("error", err);
           });
-        })
-        .catch((err) => {
-          console.log("error", err);
-        });
-      $('#changepass').modal('hide')
-    })
-    .catch((err) => {
-      loading.value=false
+        $('#changepass').modal('hide')
+      })
+      .catch((err) => {
+        loading.value = false
 
-      console.log("error", err);
-    });
+        console.log("error", err);
+      });
+  }
 }
-
-
-
 function logout(ev) {
   ev.preventDefault();
 
@@ -122,7 +144,6 @@ function logout(ev) {
 }
 .logout {
   float: right;
-  /* border: solid 1px red; */
   transition: .4s ease;
   margin-right: 30px;
 }
