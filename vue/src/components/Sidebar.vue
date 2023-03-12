@@ -18,6 +18,7 @@
             <router-link to="/admin" v-show="user?.role=='admin'"><li   :class="currentRouteName==='Admin'? 'nav-bar active' : 'nav-bar '"><a href="#"><i class="bi bi-person"></i> <span class="px-4">Admin</span></a></li></router-link>
             <router-link to="/teacher"  v-show="user?.role=='admin'"><li   :class="currentRouteName==='Teacher'? 'nav-bar active' : 'nav-bar '"><a href="#"><i class="bi bi-building"></i> <span class="px-4">Teacher</span></a></li></router-link>
             <router-link to="/student" v-show="user?.role=='admin'"> <li   :class="currentRouteName==='Student'? 'nav-bar active' : 'nav-bar '"><a href="#"><i class="bi bi-people"></i> <span class="px-4">Student</span></a></li></router-link>
+            <router-link to="/history" v-show="user?.role == 'admin'"><li   :class="currentRouteName === 'History' ? 'nav-bar active' : 'nav-bar '"><a href="#"><i class="bi bi-clock-history"></i> <span class="px-4">History</span></a></li></router-link>
           </ul>
       </div>
   </div>

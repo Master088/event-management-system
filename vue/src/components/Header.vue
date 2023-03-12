@@ -2,6 +2,9 @@
   <header class="bg-white shadow">
     <div class="fluid-container p-1">
       <div class="btn-group logout py-3 justify-content-end" role="group">
+        <div class="col">
+          <img :src="user.profile_picture" class="profile-img mt-1 shadow" alt="...">
+        </div>
         <button id="btnGroupDrop1" type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           {{user?.fullname}}
@@ -153,4 +156,11 @@ function logout(ev) {
 header{
   height: 70px;
 }
+.profile-img{
+    height: 30px !important;
+    /* width: 100%; */
+    /* object-fit: cover; */
+    border-radius: 50%;
+    
+  }
 </style>
