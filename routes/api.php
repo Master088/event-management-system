@@ -55,6 +55,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/change-password', [AuthController::class, 'changePassword']);
 
+    Route::get('/user_registrations', [EventRegistrationController::class, 'getUserEventRegistrations']);
+
 });
 
 Route::post('/email', [EventRegistrationController::class, 'sendEmail']);

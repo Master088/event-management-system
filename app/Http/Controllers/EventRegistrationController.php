@@ -346,6 +346,38 @@ class EventRegistrationController extends Controller
         return $this->error('', 'Record not found', 404);
     }
 
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getUserEventRegistrations()
+    {
+     
+         /** Get user*/    
+         $user = auth()->user();
+
+        /**Get user joined event */
+        $user_events = DB::table('events as e')
+            ->select(
+             'e.id as event_id', 
+             'er.id as registration_id', 
+             'e.title',
+             'er.created_at as registration_date',
+             'er.status as registration_status',
+             )
+         ->join('users as u', 'u.id', '=', 'e.posted_by')
+         ->join('event_registrations as er', 'er.event_id', '=', 'e.id')
+         ->where('er.user_id',$user->id)
+         ->orderBy('e.created_at', 'desc')
+         ->get();
+        
+        
+        return $this->success(["user_events" =>  $user_events], "", 200);
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *

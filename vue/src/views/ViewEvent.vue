@@ -42,11 +42,11 @@
             </div>
             <div class="d-flex justify-content-end mt-3">
                 <div class="col-auto">   
-                       
-                    <button v-if="event.is_canceled" type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#openEvent">
+                      
+                    <button v-if="event.is_canceled && user?.role=='admin'" type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#openEvent">
                         Open Event
                     </button>
-                    <button v-if="!event.is_canceled"   v-show="user?.role=='admin'" type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#cancelEvent">
+                    <button v-if="!event.is_canceled && user?.role=='admin'"   v-show="user?.role=='admin'" type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#cancelEvent">
                         Cancel Event
                     </button>
 
@@ -156,7 +156,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
                                         
-                                        <button type="button" class="btn btn-primary px-4"  v-show="loading">
+                                        <button type="button" class="btn btn-primary px-4"  v-show="loading"  >
                                             Register
                                             <span
                                                     v-show="loading"

@@ -4,7 +4,7 @@ import {
     UPDATE_EVENT_STATUS,
     DELETE_EVENT,
     EDIT_EVENT,
-    FETCH_DASHBOARD_EVENTS,FETCH_EVENTS,GET_EVENT,GET_EVENT_REGISTRATIONS,REGISTER,SET_DASHBOARD_EVENTS, SET_DELETE_EVENT, SET_EDIT_EVENT, SET_EVENT, SET_EVENTS, SET_EVENT_REGISTRATIONS, SET_REGISTER, UPDATE_EVENT_REGISTRATION_STATUS, SET_EVENT_REGISTRATION_STATUS, DELETE_REGISTRATION, SET_DELETE_REGISTRATION, GET_UNREGISTERED_STUDENT, SET_UNREGISTERED_STUDENT, REGISTER_STUDENT
+    FETCH_DASHBOARD_EVENTS,FETCH_EVENTS,GET_EVENT,GET_EVENT_REGISTRATIONS,REGISTER,SET_DASHBOARD_EVENTS, SET_DELETE_EVENT, SET_EDIT_EVENT, SET_EVENT, SET_EVENTS, SET_EVENT_REGISTRATIONS, SET_REGISTER, UPDATE_EVENT_REGISTRATION_STATUS, SET_EVENT_REGISTRATION_STATUS, DELETE_REGISTRATION, SET_DELETE_REGISTRATION, GET_UNREGISTERED_STUDENT, SET_UNREGISTERED_STUDENT, REGISTER_STUDENT, GET_USER_EVENT_HISTORY, SET_USER_EVENT_HISTORY
 } from "../../store-constants";
 import axiosClient from "../../../axios";
 
@@ -217,6 +217,21 @@ export default {
         .then(res => {
           console.log(res.data.data.event_registration)
           context.commit(SET_REGISTER, res.data.data.event_registration);
+          
+          return Promise.resolve(res)
+        })
+        .catch(err => {
+          console.log(err)
+          return Promise.reject(err)
+        })
+      },
+      async [GET_USER_EVENT_HISTORY](context, payload) {
+        /*Call axios get request */ 
+      return axiosClient 
+        .get(`user_registrations`)
+        .then(res => {
+          console.log(res.data.data.event_registration)
+          context.commit(SET_USER_EVENT_HISTORY, res.data.data.user_events);
           
           return Promise.resolve(res)
         })

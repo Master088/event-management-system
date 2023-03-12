@@ -20,7 +20,8 @@ export default {
       upcoming_events:[],
       events_today:[],
       joined:[],
-      event:{}
+      event:{},
+      event_history:[]
     };
   },
   mutations,

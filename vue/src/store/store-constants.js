@@ -110,3 +110,7 @@ export const SEND_RESET_PASSWORD = "[actions] reset password";
 
 export const CHANGE_PASSWORD = "[actions] change password";
 
+export const GET_USER_EVENT_HISTORY = "[actions] user event history";
+
+export const SET_USER_EVENT_HISTORY = "[mutations] set user event history";
+

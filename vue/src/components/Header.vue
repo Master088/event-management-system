@@ -158,6 +158,7 @@ header{
 }
 .profile-img{
     height: 30px !important;
+    /* width: 30px !important; */
     /* width: 100%; */
     /* object-fit: cover; */
     border-radius: 50%;
