@@ -31,7 +31,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group mb-2">
-                                            <label for="location">Location</label>
+                                            <label for="location">Venue</label>
                                             <input v-model="event.location" type="text" class="form-control" id="location" >
                                             <div class="text-danger">
                                                 {{ errors.location }}
@@ -159,7 +159,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group mb-2">
-                                            <label for="title">Location</label>
+                                            <label for="title">Venue</label>
                                             <input v-model="editEventData.location" type="text" class="form-control" id="location">
                                             <div class="text-danger">
                                                 {{ errors.location }}

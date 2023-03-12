@@ -33,6 +33,33 @@
                 <p>Time: <b>{{ event.time }}</b></p>
             </div>
 
+            <hr>
+        <div class="fluid-container">
+           
+            <div>
+                <small class="my-4"><i class="bi bi-geo-alt-fill text-danger"></i> <b>Venue:</b> {{ event.location }}</small>
+                <p align="justify" >{{ event.description }}</p>
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+                <div class="col-auto">   
+                       
+                    <button v-if="event.is_canceled" type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#openEvent">
+                        Open Event
+                    </button>
+                    <button v-if="!event.is_canceled"   v-show="user?.role=='admin'" type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#cancelEvent">
+                        Cancel Event
+                    </button>
+
+                    <button v-if="!event.is_canceled" type="button" class="btn btn-primary mx-2 px-5" data-bs-toggle="modal" data-bs-target="#registrationConfirmation"  :disabled="is_user_registered">
+                        Register
+                    </button>  
+                    <button v-if="event.is_canceled" type="button" class="btn btn-warning mx-2 px-5">
+                        Register(Event Canceled)
+                    </button>  
+                </div>
+            </div>
+        </div>
+
             <div class="col-md-12">
                     <div class="modal fade" id="cancelEvent" tabindex="-1" role="dialog" aria-labelledby="cancelEvent" aria-hidden="true">
                         <div class="modal-dialog">
@@ -302,31 +329,7 @@
 
           </div>  
         </div>
-        <hr>
-        <div class="fluid-container">
-           
-            <div>
-                <p align="justify" >{{ event.description }}</p>
-            </div>
-            <div class="d-flex justify-content-end mt-3">
-                <div class="col-auto">   
-                       
-                    <button v-if="event.is_canceled" type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#openEvent">
-                        Open Event
-                    </button>
-                    <button v-if="!event.is_canceled"   v-show="user?.role=='admin'" type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#cancelEvent">
-                        Cancel Event
-                    </button>
-
-                    <button v-if="!event.is_canceled" type="button" class="btn btn-primary mx-2 px-5" data-bs-toggle="modal" data-bs-target="#registrationConfirmation"  :disabled="is_user_registered">
-                        Register
-                    </button>  
-                    <button v-if="event.is_canceled" type="button" class="btn btn-warning mx-2 px-5">
-                        Register(Event Canceled)
-                    </button>  
-                </div>
-            </div>
-        </div>
+     
         <div class="fluid-container mt-4"  v-if="user?.role=='admin' || user?.role=='teacher' ">
             <hr>
             <h3>Registered Students</h3>
