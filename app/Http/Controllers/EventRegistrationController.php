@@ -54,7 +54,8 @@ class EventRegistrationController extends Controller
           'er.status',
           'u.fullname',
           'u.role',
-          'u.section'
+          'u.section',
+          'u.id as user_id'
           )
         ->join('users as u', 'u.id', '=', 'er.user_id')
         ->orderBy('er.created_at', 'desc')

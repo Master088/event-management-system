@@ -318,7 +318,7 @@
                         Cancel Event
                     </button>
 
-                    <button v-if="!event.is_canceled" type="button" class="btn btn-primary mx-2 px-5" data-bs-toggle="modal" data-bs-target="#registrationConfirmation">
+                    <button v-if="!event.is_canceled" type="button" class="btn btn-primary mx-2 px-5" data-bs-toggle="modal" data-bs-target="#registrationConfirmation"  :disabled="is_user_registered">
                         Register
                     </button>  
                     <button v-if="event.is_canceled" type="button" class="btn btn-warning mx-2 px-5">
@@ -366,9 +366,7 @@
                                 <thead>
                                     <tr>
                                     <th scope="col">
-                                        <label>
-                                            <input  type="checkbox" class="form-check-input" @click="selectAll" v-model="allSelected"> Check All
-                                        </label>
+                                        Check
                                     </th>
                                     <th scope="col">ID Number</th>
                                     <th scope="col">Name</th>
@@ -576,6 +574,7 @@ const search =  ref("");
 
 const status =  ref("");
 
+const is_user_registered =  ref(true);
 
 
 const filterItems = (needle, heystack) => {
@@ -600,6 +599,9 @@ const user = ref(computed(() => store.state.auth.user))|| {
 };
 
 const addRegisterIds=ref([])
+
+
+
 
 
 const addRemoveId=(event,id)=>{
@@ -654,8 +656,6 @@ const handleRegisterStudents= ()=>{
     }
     
 }
-
-
 
 const getEvent=()=>{
   console.log("helo",id.value)
@@ -737,7 +737,7 @@ const handleRegister= ()=>{
      .then((data) => {
        loading.value = false;
        $('#registrationConfirmation').modal('hide')
-         
+       
      })
      .catch((err) => {
        console.log("error", err);
@@ -904,7 +904,22 @@ watch(event,()=>{
         }
 
     }
+    
 })
+
+watch(event_registrations,()=>{
+   
+    is_user_registered.value=false
+
+    for (var i = 0; i < event_registrations.value.length; i++) {
+        
+        if (event_registrations.value[i].user_id == user.value.id) {
+            is_user_registered.value = true;
+            break;
+        }
+    }
+})
+
 
 </script>
 

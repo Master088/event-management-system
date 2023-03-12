@@ -206,9 +206,30 @@ class EventController extends Controller
         /**Get last inserted data */
 
         if($id!=0){
-            $event = DB::table('events')->where('id', '=',$id)->get();
+
+            $event = DB::table('events as e')
+            ->select(
+                'e.id', 
+                'e.title',
+                'e.description',
+                'e.location',
+                'e.posted_by',
+                'e.is_canceled',
+                'e.date',
+                'e.time',
+                'e.created_at',
+                'u.fullname',
+                'u.role',
+                'u.profile_picture'
+                )
+            ->join('users as u', 'u.id', '=', 'e.posted_by')
+            ->where('e.id', '=',$id)
+            ->get();
             
             return $this->success(["event" =>  $event[0]], "", 200);
+            // $event = DB::table('events')->where('id', '=',$id)->get();
+            
+            // return $this->success(["event" =>  $event[0]], "", 200);
         }
 
         return $this->error('', 'Record not found', 404);
